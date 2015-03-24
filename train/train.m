@@ -22,7 +22,7 @@ function varargout = train(varargin)
 
 % Edit the above text to modify the response to help train
 
-% Last Modified by GUIDE v2.5 23-Mar-2015 23:00:56
+% Last Modified by GUIDE v2.5 23-Mar-2015 23:06:00
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -166,18 +166,18 @@ end
 
 
 
-function edit5_Callback(hObject, eventdata, handles)
-% hObject    handle to edit5 (see GCBO)
+function startTime_et_Callback(hObject, eventdata, handles)
+% hObject    handle to startTime_et (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of edit5 as text
-%        str2double(get(hObject,'String')) returns contents of edit5 as a double
+% Hints: get(hObject,'String') returns contents of startTime_et as text
+%        str2double(get(hObject,'String')) returns contents of startTime_et as a double
 
 
 % --- Executes during object creation, after setting all properties.
-function edit5_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to edit5 (see GCBO)
+function startTime_et_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to startTime_et (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -189,18 +189,18 @@ end
 
 
 
-function edit6_Callback(hObject, eventdata, handles)
-% hObject    handle to edit6 (see GCBO)
+function timeInc_et_Callback(hObject, eventdata, handles)
+% hObject    handle to timeInc_et (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of edit6 as text
-%        str2double(get(hObject,'String')) returns contents of edit6 as a double
+% Hints: get(hObject,'String') returns contents of timeInc_et as text
+%        str2double(get(hObject,'String')) returns contents of timeInc_et as a double
 
 
 % --- Executes during object creation, after setting all properties.
-function edit6_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to edit6 (see GCBO)
+function timeInc_et_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to timeInc_et (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -212,18 +212,18 @@ end
 
 
 
-function edit7_Callback(hObject, eventdata, handles)
-% hObject    handle to edit7 (see GCBO)
+function totalTime_et_Callback(hObject, eventdata, handles)
+% hObject    handle to totalTime_et (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of edit7 as text
-%        str2double(get(hObject,'String')) returns contents of edit7 as a double
+% Hints: get(hObject,'String') returns contents of totalTime_et as text
+%        str2double(get(hObject,'String')) returns contents of totalTime_et as a double
 
 
 % --- Executes during object creation, after setting all properties.
-function edit7_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to edit7 (see GCBO)
+function totalTime_et_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to totalTime_et (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
