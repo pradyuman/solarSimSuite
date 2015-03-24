@@ -22,7 +22,7 @@ function varargout = splash(varargin)
 
 % Edit the above text to modify the response to help splash
 
-% Last Modified by GUIDE v2.5 23-Mar-2015 21:09:53
+% Last Modified by GUIDE v2.5 23-Mar-2015 21:44:36
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -87,9 +87,9 @@ function road_pb_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 
-% --- Executes on button press in light_txt.
-function light_txt_Callback(hObject, eventdata, handles)
-% hObject    handle to light_txt (see GCBO)
+% --- Executes on button press in light_pb.
+function light_pb_Callback(hObject, eventdata, handles)
+% hObject    handle to light_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
