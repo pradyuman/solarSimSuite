@@ -22,7 +22,7 @@ function varargout = train(varargin)
 
 % Edit the above text to modify the response to help train
 
-% Last Modified by GUIDE v2.5 23-Mar-2015 22:51:55
+% Last Modified by GUIDE v2.5 23-Mar-2015 22:57:00
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -120,18 +120,18 @@ end
 
 
 
-function edit3_Callback(hObject, eventdata, handles)
-% hObject    handle to edit3 (see GCBO)
+function endLat_et_Callback(hObject, eventdata, handles)
+% hObject    handle to endLat_et (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of edit3 as text
-%        str2double(get(hObject,'String')) returns contents of edit3 as a double
+% Hints: get(hObject,'String') returns contents of endLat_et as text
+%        str2double(get(hObject,'String')) returns contents of endLat_et as a double
 
 
 % --- Executes during object creation, after setting all properties.
-function edit3_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to edit3 (see GCBO)
+function endLat_et_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to endLat_et (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -143,18 +143,18 @@ end
 
 
 
-function edit4_Callback(hObject, eventdata, handles)
-% hObject    handle to edit4 (see GCBO)
+function endLong_et_Callback(hObject, eventdata, handles)
+% hObject    handle to endLong_et (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of edit4 as text
-%        str2double(get(hObject,'String')) returns contents of edit4 as a double
+% Hints: get(hObject,'String') returns contents of endLong_et as text
+%        str2double(get(hObject,'String')) returns contents of endLong_et as a double
 
 
 % --- Executes during object creation, after setting all properties.
-function edit4_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to edit4 (see GCBO)
+function endLong_et_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to endLong_et (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
