@@ -22,7 +22,7 @@ function varargout = splash(varargin)
 
 % Edit the above text to modify the response to help splash
 
-% Last Modified by GUIDE v2.5 23-Mar-2015 20:55:43
+% Last Modified by GUIDE v2.5 23-Mar-2015 21:09:53
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -71,3 +71,31 @@ function varargout = splash_OutputFcn(hObject, eventdata, handles)
 
 % Get default command line output from handles structure
 varargout{1} = handles.output;
+
+
+% --- Executes on button press in train_pb.
+function train_pb_Callback(hObject, eventdata, handles)
+% hObject    handle to train_pb (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --- Executes on button press in road_pb.
+function road_pb_Callback(hObject, eventdata, handles)
+% hObject    handle to road_pb (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --- Executes on button press in light_txt.
+function light_txt_Callback(hObject, eventdata, handles)
+% hObject    handle to light_txt (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --- Executes on button press in rotate_txt.
+function rotate_txt_Callback(hObject, eventdata, handles)
+% hObject    handle to rotate_txt (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
