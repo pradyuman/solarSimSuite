@@ -22,7 +22,7 @@ function varargout = train(varargin)
 
 % Edit the above text to modify the response to help train
 
-% Last Modified by GUIDE v2.5 23-Mar-2015 23:06:00
+% Last Modified by GUIDE v2.5 07-Apr-2015 00:50:23
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -232,3 +232,10 @@ function totalTime_et_CreateFcn(hObject, eventdata, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
+
+
+% --- Executes on button press in calculate_pb.
+function calculate_pb_Callback(hObject, eventdata, handles)
+% hObject    handle to calculate_pb (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
