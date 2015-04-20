@@ -2,7 +2,7 @@ function varargout = rotateGUI_chopra5(varargin)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 %  ENGR 13200 Spring 2015
 %  Programmer(s) and Purdue Email Address(es): Michael Keller Pradyuman Vig
-%  Devashish and Ben
+%  Devashish and Ben Staniewicz
 %  1. chopra5@purdue.edu
 %
 %  Other Contributor(s) and Purdue Email Address(es):
