@@ -1,4 +1,23 @@
 function varargout = helpGUI_sec13_team18(varargin)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%  ENGR 13200 Spring 2015
+%  Programmer(s) and Purdue Email Address(es): Michael Keller Pradyuman Vig
+%  Devashish and Ben
+%  1. , keller77@purdue.edu
+%
+%  Other Contributor(s) and Purdue Email Address(es):
+%  1. Name login@purdue.edu
+%
+%  Section #: 13     Team #:18
+%  Assignment: nanoHUB Simulation Suite
+%
+%  Academic Integrity Statement:
+%       I/We have not used source code obtained from
+%       any other unauthorized source, either modified
+%       or unmodified.  Neither have I/we provided access
+%       to my/our code to another. The project I/we am/are 
+%       submitting is my/our own original work.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %HELPGUI_SEC13_TEAM18 M-file for helpGUI_sec13_team18.fig
 %      HELPGUI_SEC13_TEAM18, by itself, creates a new HELPGUI_SEC13_TEAM18 or raises the existing
 %      singleton*.

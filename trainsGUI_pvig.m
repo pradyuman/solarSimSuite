@@ -206,8 +206,7 @@ month = get(handles.month_pm, 'Value') - 1;
 
 
 
-%{
-if isempty(zip)
+if isempty(start_zip) | isempty(end_zip)
     errorGUI_sec13_team18('Error! All fields must have entries!');
 elseif isempty(width) | isempty(length) | isempty(margin) | isempty(traffic) | ~day | ~month
     errorGUI_sec13_team18('Error! All fields must have entries!');
