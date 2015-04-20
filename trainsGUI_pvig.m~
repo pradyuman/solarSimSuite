@@ -143,6 +143,9 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 
 
+
+
+
 function enterStartZip_et_Callback(hObject, eventdata, handles)
 % hObject    handle to enterStartZip_et (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -178,6 +181,20 @@ function startZipHelp_pb_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 helpGUI_sec13_team18('Enter the 5 digit zip code that your train statred at. E.g(47906)')
+
+% --- Executes on button press in poleDiameterHelp_pb.
+function poleDiameterHelp_pb_Callback(hObject, eventdata, handles)
+% hObject    handle to poleDiameterHelp_pb (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --- Executes on button press in poleHieghtHelp_pb.
+function poleHieghtHelp_pb_Callback(hObject, eventdata, handles)
+% hObject    handle to poleHieghtHelp_pb (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+helpGUI_sec13_team18
 
 % --- Executes on button press in compute_pb.
 function compute_pb_Callback(hObject, eventdata, handles)
@@ -262,6 +279,48 @@ axis([1 12 0 1.1 * (max(avrgEnergy))]) ;
 set(handles.yearEnergy_ax,'xtick',1:12);
 xlabel(handles.yearEnergy_ax,'Month of the year');
 ylabel(handles.yearEnergy_ax,'Total Monthly Energy Generation(kWh)');
+
+
+%{
+day = dayYear(month, day);
+
+for k = 0:23
+    energy(k + 1) = area * solarInsolation(latitude, 0, k, day) * efficiency - str2num(get(handles.trafficInput_et, 'String')) * 9;
+    if energy(k + 1) < 0
+        energy(k + 1) = 0;
+    end
+end
+plot(handles.dayGraph_ax, time, energy);
+axis([0 24 0 1.1 * max(energy)]) 
+set(handles.dayGraph_ax,'xtick',0:2:24);
+xlabel(handles.dayGraph_ax,'Time (days)')
+ylabel(handles.dayGraph_ax,'Energy Generation (kWh)')
+
+for k = 0:11
+    energy = [];
+    for j = 0:23
+        energy(j + 1) = efficiency * (area * solarInsolation(latitude, 0, j, 30 * k + 15) - traffic * 9);
+        if energy(j + 1) < 0
+            energy(j + 1) = 0;
+        end
+    end
+    avrgEnergy(k + 1) = mean(energy);
+end
+
+time = 1:12;
+daysInMonth = [31 28 31 30 31 30 31 31 30 31 30 31];
+avrgEnergy = avrgEnergy .* daysInMonth;
+plot(handles.yearGraph_ax, time, avrgEnergy);
+axis([1 12 0 1.1 * (max(avrgEnergy))]) ;
+set(handles.yearGraph_ax,'xtick',1:12);
+xlabel(handles.yearGraph_ax,'Month of the year');
+ylabel(handles.yearGraph_ax,'Total Monthly Energy Generation(kW)');
+
+end
+
+
+%}
+
 
 
 %{
