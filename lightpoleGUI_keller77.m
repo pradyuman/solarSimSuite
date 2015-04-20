@@ -171,7 +171,6 @@ function poleDiameter_et_Callback(hObject, eventdata, handles)
 % Hints: get(hObject,'String') returns contents of poleDiameter_et as text
 %        str2double(get(hObject,'String')) returns contents of poleDiameter_et as a double
 
-
 % --- Executes during object creation, after setting all properties.
 function poleDiameter_et_CreateFcn(hObject, eventdata, handles)
 % hObject    handle to poleDiameter_et (see GCBO)
@@ -268,12 +267,28 @@ zip = str2num(get(handles.zipcode_et, 'String'));
 data = csvread('zipcode.csv');
 height = str2num(get(handles.poleHieght_et, 'String'));
 diameter = str2num(get(handles.poleDiameter_et, 'String'));
-
-area = height * diameter;
 day = get(handles.day_pm, 'Value') - 1;
 month = get(handles.month_pm, 'Value') - 1;
-[row, col] = find(data(:,1) == zip);
 
+
+if isempty(zip)
+    errorGUI_sec13_team18('Error! All fields must have entries!');
+    elseif isempty(diameter) | isempty(height) | ~day | ~month
+    errorGUI_sec13_team18('Error! All fields must have entries!');
+    elseif isempty(row) | isempty(col)
+    errorGUI_sec13_team18('Error! Zip code is invalid. If zip code is valid, please enter a zip code of a nearby major city.');
+elseif diameter <= 0 
+    errorGUI_sec13_team18('Error! Diameter is invalid. Please enter a valid diameter')
+elseif height <=0 
+    errprGUI_sec13_team18('Error! Height is invalid. Please enter a valid height')
+else
+    
+
+
+
+
+[row, col] = find(data(:,1) == zip);
+area = height * diameter;
 latitude = data(row, 2);
 time = 0:23;
 efficiency = .14;
@@ -312,6 +327,8 @@ axis([1 12 0 1.1 * (max(avrgEnergy))]) ;
 set(handles.yearEnergy_ax,'xtick',1:12);
 xlabel(handles.yearEnergy_ax,'Month of the year');
 ylabel(handles.yearEnergy_ax,'Total Monthly Energy Generation (kWh)');
+end
+
 
 % --- Executes on button press in updateLocation_pb.
 function updateLocation_pb_Callback(hObject, eventdata, handles)
