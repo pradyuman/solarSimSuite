@@ -170,14 +170,14 @@ function dateHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to dateHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('Enter the current date through the drop down menus. e.g (12) and (January)')
+helpGUI_sec13_team18('Enter the current date through the drop down menus. E.g(12) and (January)')
 
 % --- Executes on button press in startZipHelp_pb.
 function startZipHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to startZipHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('Enter the 5 digit zip code that your train started at. e.g (47906)')
+helpGUI_sec13_team18('Enter the 5 digit zip code that your train started at. E.g (47906)')
 
 % --- Executes on button press in compute_pb.
 function compute_pb_Callback(hObject, eventdata, handles)
