@@ -62,7 +62,6 @@ guidata(hObject, handles);
 % UIWAIT makes trainsGUI_pvig wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
 
-
 % --- Outputs from this function are returned to the command line.
 function varargout = trainsGUI_pvig_OutputFcn(hObject, eventdata, handles)
 % varargout  cell array for returning output args (see VARARGOUT);
@@ -86,7 +85,13 @@ function mainMenu_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to mainMenu_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-nanohubGUI_sec13_team18
+zipcode = str2double(get(handles.enterStartZip_et,'String'));
+if(~zipcode)
+    zipcode = -1;
+end
+day = get(handles.day_pm, 'Value');
+month = get(handles.month_pm, 'Value');
+nanohubGUI_sec13_team18([zipcode day month]);
 close trainsGUI_pvig
 
 
@@ -184,25 +189,21 @@ function compute_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to compute_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-%%%%%%%%%%%%%%%%ERRORS%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
 end_zip = str2double(get(handles.enterEndZip_et,'String'));
+start_zip = str2double(get(handles.enterStartZip_et,'String'));
+data = csvread('zipcode.csv');
 
 num1 = str2double(strsplit(get(handles.startTime_et,'String'), ':'));
 start_time =  num1(1) + num1(2)/60;
 num2 = str2double(strsplit(get(handles.endTime_et,'String'), ':'));
 end_time =  num2(1) + num2(2)/60;
 
-start_zip = str2double(get(handles.enterStartZip_et,'String'));
-data = csvread('zipcode.csv');
-
 day = get(handles.day_pm, 'Value') - 1;
 month = get(handles.month_pm, 'Value') - 1;
 [rowStart, colStart] = find(data(:,1) == start_zip);
 [rowEnd, colEnd] = find(data(:,1) == end_zip);
 
+%%%%%%%%%%%%%%%%ERRORS%%%%%%%%%%%%%%%%%%%%%%%%%%
 if isempty(start_zip) | isempty(end_zip)
     errorGUI_sec13_team18('Error! All fields must have entries!');
 elseif isempty(num1) | isempty(num2) | ~day | ~month
