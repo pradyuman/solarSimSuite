@@ -94,7 +94,7 @@ function mainMenu_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to mainMenu_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-zipcode = str2double(get(handles.enterStartZip_et,'String'));
+zipcode = str2double(get(handles.enterEndZip_et,'String'));
 if(~zipcode)
     zipcode = -1;
 end
