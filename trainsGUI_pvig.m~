@@ -212,7 +212,7 @@ elseif isempty(rowEnd) | isempty(colEnd)
 elseif isempty(rowStart) | isempty(colStart)
     errorGUI_sec13_team18('Error! Starting zip code is invalid. If zip code is valid, please enter a 5 digit zip code of a nearby major city.');
 elseif start_zip == end_zip
-    errorGUI_sec13_team18('Error! Starting and ending zip codes are the same. Enter in different zipcodes for start and end.');
+    errorGUI_sec13_team18('Error! Starting and ending zip codes are the same. Enter in the ');
 else
 
 time = 0:23;
