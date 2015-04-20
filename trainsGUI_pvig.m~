@@ -222,7 +222,7 @@ elseif isempty(rowStart) | isempty(colStart)
     errorGUI_sec13_team18('Error! Starting zip code is invalid. If zip code is valid, please enter a 5 digit zip code of a nearby major city.');
 elseif num1(1) + num1(2)/60 ==  num2(1) + num2(2)/60
     errorGUI_sec13_team18('Error! Starting and ending zip codes are the same. Enter in different zipcodes for start and end.');
-elseif num1(1) + num1(2)/60 > num2(1) + num2(2)/60
+elseif num1(1) + num1(2)/60   num2(1) + num2(2)/60
     errorGUI_sec13_team18('Error! Overnight trips are currently not supported. Please enter a start time that is smaller than the end time (in 24 hour format).');
 else
 

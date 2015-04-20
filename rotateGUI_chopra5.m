@@ -81,7 +81,14 @@ guidata(hObject, handles);
 
 % UIWAIT makes rotateGUI_chopra5 wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
-
+if(~isempty(varargin))
+    data = varargin{1};
+    if(data(1) >= 0)
+        set(handles.zipInput_et, 'String', num2str(data(1)));
+    end
+    set(handles.day_pm, 'Value', data(2));
+    set(handles.month_pm, 'Value', data(3));
+end
 
 % --- Outputs from this function are returned to the command line.
 function varargout = rotateGUI_chopra5_OutputFcn(hObject, eventdata, handles)
@@ -106,8 +113,8 @@ function openMenu_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to openMenu_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-zipcode = str2double(get(handles.zipInput_et,'String'));
-if(~zipcode)
+zipcode = str2num(get(handles.zipInput_et,'String'));
+if(isempty(zipcode))
     zipcode = -1;
 end
 day = get(handles.day_pm, 'Value');
@@ -241,8 +248,6 @@ function compute_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to compute_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
-
 zip = str2num(get(handles.zipInput_et, 'String'));
 data = csvread('zipcode.csv');
 length = str2num(get(handles.lengthInput_et, 'String'));
