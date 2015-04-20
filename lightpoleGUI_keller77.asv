@@ -40,7 +40,6 @@ function varargout = lightpoleGUI_keller77(varargin)
 %
 % See also: GUIDE, GUIDATA, GUIHANDLES
 
-
 % Edit the above text to modify the response to help lightpoleGUI_keller77
 
 % Last Modified by GUIDE v2.5 07-Apr-2015 01:46:40
@@ -99,7 +98,7 @@ function moreInfo_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to moreInfo_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('This GUI is designed to show the energy output in the spans of a day and a year of a single solar light pole. This GUI takes into account zip code, date, diameter, and hieght of the pole.');
+helpGUI_sec13_team18
 
 % --- Executes on button press in mainMenu_pb.
 function mainMenu_pb_Callback(hObject, eventdata, handles)
@@ -249,32 +248,28 @@ function poleDiameterHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to poleDiameterHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('Enter the diameter of your light pole in meters.(An average light pole diameter is .2 meters)')
-
+helpGUI_sec13_team18
 
 % --- Executes on button press in poleHieghtHelp_pb.
 function poleHieghtHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to poleHieghtHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('Enter the height of your light pole in meters.(An average light pole height is about 6 meters)')
+helpGUI_sec13_team18('Enter the diameter of your light pole.
 
 % --- Executes on button press in compute_pb.
 function compute_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to compute_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
-
 zip = str2num(get(handles.zipcode_et, 'String'));
 data = csvread('zipcode.csv');
 height = str2num(get(handles.poleHieght_et, 'String'));
 diameter = str2num(get(handles.poleDiameter_et, 'String'));
 day = get(handles.day_pm, 'Value') - 1;
 month = get(handles.month_pm, 'Value') - 1;
-if ~isempty(zip)
-    [row, col] = find(data(:,1) == zip)
-end
+
+
 if isempty(zip)
     errorGUI_sec13_team18('Error! All fields must have entries!');
     elseif isempty(diameter) | isempty(height) | ~day | ~month
