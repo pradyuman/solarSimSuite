@@ -79,7 +79,6 @@ handles.output = hObject;
 % Update handles structure
 guidata(hObject, handles);
 
-
 message = varargin{1};
 set(handles.errorMSG_st, 'String', message);
 clc;

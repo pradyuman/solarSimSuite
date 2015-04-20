@@ -311,15 +311,7 @@ plot(handles.yearEnergy_ax, time, avrgEnergy);
 axis([1 12 0 1.1 * (max(avrgEnergy))]) ;
 set(handles.yearEnergy_ax,'xtick',1:12);
 xlabel(handles.yearEnergy_ax,'Month of the year');
-ylabel(handles.yearEnergy_ax,'Total Monthly Energy Generation(kWh)');
-
-
-
-
-
-
-
-
+ylabel(handles.yearEnergy_ax,'Total Monthly Energy Generation (kWh)');
 
 % --- Executes on button press in updateLocation_pb.
 function updateLocation_pb_Callback(hObject, eventdata, handles)

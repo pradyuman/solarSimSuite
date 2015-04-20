@@ -281,7 +281,7 @@ if isempty(zip)
 elseif isempty(width) | isempty(length) | isempty(margin) | isempty(traffic) | ~day | ~month
     errorGUI_sec13_team18('Error! All fields must have entries!');
 elseif isempty(row) | isempty(col)
-    errorGUI_sec13_team18('Error! Zip code is invalid. If zip code is valid, please enter a 5 digit zip code of a nearby major city.');
+    errorGUI_sec13_team18('Error! Zip code is invalid. If zip code is valid, please enter a zip code of a nearby major city.');
 elseif width <= 0
     errorGUI_sec13_team18('Error! Width input must be positive!');
 elseif length <= 0
