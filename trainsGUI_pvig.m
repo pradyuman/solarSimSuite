@@ -198,10 +198,10 @@ end_time =  num2(1) + num2(2)/60;
 start_zip = str2double(get(handles.enterStartZip_et,'String'));
 data = csvread('zipcode.csv');
 
-day = get(handles.day_pm, 'Value') - 1
+day = get(handles.day_pm, 'Value') - 1;
 month = get(handles.month_pm, 'Value') - 1;
-[rowStart, colStart] = find(data(:,1) == start_zip)
-[rowEnd, colEnd] = find(data(:,1) == end_zip)
+[rowStart, colStart] = find(data(:,1) == start_zip);
+[rowEnd, colEnd] = find(data(:,1) == end_zip);
 
 if isempty(start_zip) | isempty(end_zip)
     errorGUI_sec13_team18('Error! All fields must have entries!');
@@ -213,6 +213,8 @@ elseif isempty(rowStart) | isempty(colStart)
     errorGUI_sec13_team18('Error! Starting zip code is invalid. If zip code is valid, please enter a 5 digit zip code of a nearby major city.');
 elseif start_zip == end_zip
     errorGUI_sec13_team18('Error! Starting and ending zip codes are the same. Enter in different zipcodes for start and end.');
+elseif start_time > end_time
+    errorGUI_sec13_team18('Error! Overnight trips are currently not supported. Please enter a start time that is smaller than the end time (in 24 hour format).');
 else
 
 time = 0:23;
@@ -221,23 +223,23 @@ tics = linspace(start_time, end_time, 10);
 a = 0;
 area = 60 * 10 * 10;
 z = 1;
-latStart = data(rowStart, 2)
-latEnd = data(rowEnd, 2)
-latitude = latStart:((latEnd-latStart)/9):latEnd
+latStart = data(rowStart, 2);
+latEnd = data(rowEnd, 2);
+latitude = latStart:((latEnd-latStart)/9):latEnd;
 
 for k = 1:10
-    energy(k) = area * solarInsolation(latitude(k), 0, tics(k), dayYear(month,day)) * efficiency
+    energy(k) = area * solarInsolation(latitude(k), 0, tics(k), dayYear(month,day)) * efficiency;
 end
 plot(handles.dayEnergy_ax, tics, energy);
 axis([start_time end_time 0 1.1 * max(energy)]) 
 set(handles.dayEnergy_ax,'xtick',0:2:24);
-xlabel(handles.dayEnergy_ax,'Time (hour of the day)')
+xlabel(handles.dayEnergy_ax,'Hour of the Day)')
 ylabel(handles.dayEnergy_ax,'Power Generation (kW)')
 
 for j = 0:11
     energy = [];
     for k = 1:10
-        energy(k) = area * solarInsolation(latitude(k), 0, k, 30 * j + 15) * efficiency
+        energy(k) = area * solarInsolation(latitude(k), 0, k, 30 * j + 15) * efficiency;
     end
     avrgEnergy(j + 1) = mean(energy);
 end
@@ -248,8 +250,8 @@ avrgEnergy = avrgEnergy .* daysInMonth;
 plot(handles.yearEnergy_ax, time, avrgEnergy);
 axis([1 12 0 1.1 * (max(avrgEnergy))]) ;
 set(handles.yearEnergy_ax,'xtick',1:12);
-xlabel(handles.yearEnergy_ax,'Month of the year');
-ylabel(handles.yearEnergy_ax,'Total Monthly Energy Generation(kWh)');
+xlabel(handles.yearEnergy_ax,'Month of the Year');
+ylabel(handles.yearEnergy_ax,'Total Monthly Energy Generation (kWh)');
 
 % --- Executes on button press in reset_pb.
 function reset_pb_Callback(hObject, eventdata, handles)
