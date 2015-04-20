@@ -106,7 +106,13 @@ function openMenu_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to openMenu_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-nanohubGUI_sec13_team18
+zipcode = str2double(get(handles.zipInput_et,'String'));
+if(~zipcode)
+    zipcode = -1;
+end
+day = get(handles.day_pm, 'Value');
+month = get(handles.month_pm, 'Value');
+nanohubGUI_sec13_team18([zipcode day month]);
 close rotateGUI_chopra5
 
 % --- Executes on button press in closeGUI_pb.
