@@ -76,6 +76,15 @@ function nanohubGUI_sec13_team18_OpeningFcn(hObject, eventdata, handles, varargi
 % Choose default command line output for nanohubGUI_sec13_team18
 handles.output = hObject;
 
+if(~isempty(varargin))
+    data = varargin{1};
+    if(length(data) == 3)
+        handles.inputData = varargin{1};
+    end
+else
+    handles.inputData = [];
+end
+
 % Update handles structure
 guidata(hObject, handles);
 
@@ -98,10 +107,11 @@ function train_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to train_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-if(varargin & length(varargin{1}) == 3)
-    trainsGUI_pvig(varargin{1});
+if(handles.inputData)
+    trainsGUI_pvig(handles.inputData);
 else
     trainsGUI_pvig;
+end
 close nanohubGUI_sec13_team18;
 
 % --- Executes on button press in road_pb.
@@ -109,10 +119,11 @@ function road_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to road_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-if(varargin & length(varargin{1}) == 3)
-    roadsGUI_bstaniew(varargin{1});
+if(handles.inputData)
+    roadsGUI_bstaniew(handles.inputData);
 else
     roadsGUI_bstaniew;
+end
 close nanohubGUI_sec13_team18;
 
 % --- Executes on button press in light_pb.
@@ -120,10 +131,11 @@ function light_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to light_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-if(varargin & length(varargin{1}) == 3)
-    lightpoleGUI_keller77(varargin{1});
+if(handles.inputData)
+    lightpoleGUI_keller77(handles.inputData);
 else
     lightpoleGUI_keller77;
+end
 close nanohubGUI_sec13_team18;
 
 % --- Executes on button press in rotate_pb.
@@ -131,10 +143,11 @@ function rotate_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to rotate_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-if(varargin & length(varargin{1}) == 3)
-    rotateGUI_chopra5(varargin{1});
+if(handles.inputData)
+    rotateGUI_chopra5(handles.inputData);
 else
     rotateGUI_chopra5;
+end
 close nanohubGUI_sec13_team18;
 
 % --- Executes on button press in moreAbout_pb.

@@ -62,13 +62,10 @@ guidata(hObject, handles);
 % UIWAIT makes trainsGUI_pvig wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
 
-if(~isempty(varargin))
-    data = varargin{1};
-    if(data(1) >= 0)
-        set(handles.enterStartZip_et, 'String', num2str(data(1)));
-    end
-    set(handles.day_pm, 'Value', data(2));
-    set(handles.month_pm, 'Value', data(3));
+if(varargin)
+    set()
+    set()
+    set()
 end
 
 % --- Outputs from this function are returned to the command line.
@@ -262,7 +259,6 @@ axis([1 12 0 1.1 * (max(avrgEnergy))]) ;
 set(handles.yearEnergy_ax,'xtick',1:12);
 xlabel(handles.yearEnergy_ax,'Month of the Year');
 ylabel(handles.yearEnergy_ax,'Total Monthly Energy Generation (kWh)');
-end
 
 % --- Executes on button press in reset_pb.
 function reset_pb_Callback(hObject, eventdata, handles)
