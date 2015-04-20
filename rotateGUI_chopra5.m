@@ -3,7 +3,7 @@ function varargout = rotateGUI_chopra5(varargin)
 %  ENGR 13200 Spring 2015
 %  Programmer(s) and Purdue Email Address(es): Michael Keller Pradyuman Vig
 %  Devashish and Ben
-%  1. , keller77@purdue.edu
+%  1. chopra5@purdue.edu
 %
 %  Other Contributor(s) and Purdue Email Address(es):
 %  1. Name login@purdue.edu
@@ -209,31 +209,34 @@ end
 
 
 % --- Executes on button press in dayMonthHelp_pb.
-function dayMonthHelp_pb_Callback(hObject, eventdata, handles)
+function dayMonthHelp_pb_Callback(hObject, eventdata, ~)
 % hObject    handle to dayMonthHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18
+helpGUI_sec13_team18 ('Enter the date and month in the provided area')
 
 % --- Executes on button press in zipHelp_pb.
 function zipHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to zipHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18
+helpGUI_sec13_team18('Type in your 5 digit postal code (ex: 47906)');
+
 
 % --- Executes on button press in widthHelp_pb.
 function widthHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to widthHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18
+helpGUI_sec13_team18 ('Enter your solar panel width (in meters)');
 
 % --- Executes on button press in compute_pb.
 function compute_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to compute_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+
+
 zip = str2num(get(handles.zipInput_et, 'String'));
 data = csvread('zipcode.csv');
 length = str2num(get(handles.lengthInput_et, 'String'));
@@ -242,12 +245,40 @@ width = str2num(get(handles.widthInput_et, 'String'));
 area = length * width;
 day = get(handles.day_pm, 'Value') - 1;
 month = get(handles.month_pm, 'Value') - 1;
-[row, col] = find(data(:,1) == zip);
+if ~isempty(zip)
+    [row, col] = find(data(:,1) == zip)
+    latitude = data(row, 2);
+    time = 0:23;
+    efficiency = .14;
+    day = dayYear(month, day);
+    tilt = str2num(get(handles.angleUpDownInput_et ,'String'));
+    AngleUpDown = str2double(get(handles.angleUpDownInput_et,'String'));
+    AngleNSEW = str2double(get(handles.angleNSEWInput_et,'String'));
+else
+    errorGUI_sec13_team18('Error! All fields must have entries!');
+end
+
+
+
+if isempty(width) | isempty(length) | isempty(AngleUpDown) | isempty(AngleNSEW) | ~day | ~month
+    errorGUI_sec13_team18('Error! All fields must have entries!');
+elseif isempty(row) | isempty(col)
+    errorGUI_sec13_team18('Error! Zip code is invalid. If zip code is valid, please enter a 5 digit zip code of a nearby major city.');
+elseif width <= 0
+    errorGUI_sec13_team18('Error! Width input must be positive!');
+elseif length <= 0
+    errorGUI_sec13_team18('Error! Length input must be positive!');    
+
+elseif AngleUpDown < 0 | AngleUpDown > 90 
+    errorGUI_sec13_team18('Error! Please enter an angle between 0 to 90 degress');
+
+elseif AngleNSEW < 0 | AngleNSEW > 360
+    errorGUI_sec13_team18('Error! Please enter an angle between 0 to 90 degress');
+else
 latitude = data(row, 2);
 time = 0:23;
 efficiency = .14;
 day = dayYear(month, day);
-tilt = str2num(get(handles.angleUpDownInput_et ,'String'));
 
 for k = 0:23
     energyStat(k + 1) = area * solarInsolation(latitude, tilt, k, day) * efficiency;
@@ -290,55 +321,34 @@ axis([1 12 0 1.1 * (max(avrgEnergy))]) ;
 set(handles.yearGraph_ax,'xtick',1:12);
 xlabel(handles.yearGraph_ax,'Month of the year');
 ylabel(handles.yearGraph_ax,'Total Monthly Energy Generation(kWh)');
-
-
-
-%{
-if ~isempty(zip)
-    [row, col] = find(data(:,1) == zip)
 end
 
-latitude = data(row, 2);
-time = 0:23;
-efficiency = .14;
-day = dayYear(month, day);
-
-for k = 0:23
-    energy(k + 1) = area * solarInsolation(latitude, 0, k, day) * efficiency - str2num(get(handles.trafficInput_et, 'String')) * 9;
-    if energy(k + 1) < 0
-        energy(k + 1) = 0;
-    end
-end
-plot(handles.dayGraph_ax, time, energy);
-axis([0 24 0 1.1 * max(energy)]) 
-set(handles.dayGraph_ax,'xtick',0:2:24);
-xlabel(handles.dayGraph_ax,'Time (days)')
-ylabel(handles.dayGraph_ax,'Power Generation (kW)')
-
-for k = 0:11
-    energy = [];
-    for j = 0:23
-        energy(j + 1) = efficiency * (area * solarInsolation(latitude, 0, j, 30 * k + 15) - traffic * 9);
-        if energy(j + 1) < 0
-            energy(j + 1) = 0;
-        end
-    end
-    avrgEnergy(k + 1) = mean(energy);
-end
-
-time = 1:12;
-daysInMonth = [31 28 31 30 31 30 31 31 30 31 30 31];
-avrgEnergy = avrgEnergy .* daysInMonth;
-plot(handles.yearGraph_ax, time, avrgEnergy);
-axis([1 12 0 1.1 * (max(avrgEnergy))]) ;
-set(handles.yearGraph_ax,'xtick',1:12);
-xlabel(handles.yearGraph_ax,'Month of the year');
-ylabel(handles.yearGraph_ax,'Total Monthly Energy Generation(kWh)');
-
-
-
-%}
-
+% 
+% 
+% % Error Checking 
+% 
+% if width < 1 
+%     errorGUI_sec13_team18('Error! Please enter a value that is greater than 0');
+% end
+% 
+% if length < 1 
+%     errorGUI_sec13_team18('Error! Please enter a value that is greater than 0');
+% end
+% 
+% AngleUpDown = str2double(get(handles.angleUpDownInput_et,'String'));
+% if AngleUpDown < 0 | AngleUpDown > 90 
+%     errorGUI_sec13_team18('Error! Please enter an angle between 0 to 90 degress');
+% end
+% 
+% AngleNSEW = str2double(get(handles.angleNSEWInput_et,'String'));
+% if AngleNSEW < 0 | AngleNSEW > 360
+%     errorGUI_sec13_team18('Error! Please enter an angle between 0 to 90 degress');
+% end
+% 
+% if isempty(width) | isempty(length) | isempty(AngleUpDown) | isempty(AngleNSEW)
+%     errorGUI_sec13_team18('Please enter all required fields');
+% end
+% 
 
 
 
@@ -391,7 +401,7 @@ function lengthHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to lengthHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18
+helpGUI_sec13_team18 ('Enter your solar panel length (in meters)')
 
 
 function angleUpDownInput_et_Callback(hObject, eventdata, handles)
@@ -421,7 +431,7 @@ function angleUpDownHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to angleUpDownHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18
+helpGUI_sec13_team18 ('Enter the angle of the stationary solar panel range from 0 to 90 where 0 is parallel and 90 is perpendicular');
 
 
 function angleNSEWInput_et_Callback(hObject, eventdata, handles)
@@ -451,4 +461,5 @@ function angleNSEWHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to angleNSEWHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18
+helpGUI_sec13_team18 ('Enter the angle of rotation, this angle corresponds to the direction the top edge of the panel points towards (0 points towards North, 90 Points towards East etc.)');
+
