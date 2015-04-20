@@ -203,28 +203,15 @@ month = get(handles.month_pm, 'Value') - 1;
 [rowStart, colStart] = find(data(:,1) == start_zip)
 [rowEnd, colEnd] = find(data(:,1) == end_zip)
 
-
-
-
 if isempty(start_zip) | isempty(end_zip)
     errorGUI_sec13_team18('Error! All fields must have entries!');
-elseif isempty(width) | isempty(length) | isempty(margin) | isempty(traffic) | ~day | ~month
+elseif isempty(num1) | isempty(num2) | ~day | ~month
     errorGUI_sec13_team18('Error! All fields must have entries!');
-elseif isempty(row) | isempty(col)
-    errorGUI_sec13_team18('Error! Zip code is invalid. If zip code is valid, please enter a 5 digit zip code of a nearby major city.');
-elseif width <= 0
-    errorGUI_sec13_team18('Error! Width input must be positive!');
-elseif length <= 0
-    errorGUI_sec13_team18('Error! Length input must be positive!');
-elseif width - 2*margin <= 0
-    errorGUI_sec13_team18('Error! Margins must be less than 1/2 of the road width!');
-elseif traffic < 0
-    errorGUI_sec13_team18('Error! Traffic must be nonnegaive!');
-elseif area - 9 * traffic < 0
-    errorGUI_sec13_team18('Error! Traffic cannot be so large that the roads are completely covered!');
+elseif isempty(rowEnd) | isempty(colEnd)
+    errorGUI_sec13_team18('Error! Ending zip code is invalid. If zip code is valid, please enter a 5 digit zip code of a nearby major city.');
+elseif isempty(rowStart) | isempty(colStart)
+    errorGUI_sec13_team18('Error! Starting zip code is invalid. If zip code is valid, please enter a 5 digit zip code of a nearby major city.');
 else
-
-%}    
 
 time = 0:23;
 efficiency = .14;
@@ -261,32 +248,6 @@ axis([1 12 0 1.1 * (max(avrgEnergy))]) ;
 set(handles.yearEnergy_ax,'xtick',1:12);
 xlabel(handles.yearEnergy_ax,'Month of the year');
 ylabel(handles.yearEnergy_ax,'Total Monthly Energy Generation(kWh)');
-
-
-%{
-elseif isempty(get(handles.enterStartZip_et,'String'));
-    errorGUI_sec13_team18('Please fill in all inputs');
-elseif isempty(get(handles.enterEndZip_et,'String'));
-    errorGUI_sec13_team18('Please fill in all inputs');
-elseif isempty(get(handles.enterEndZip_et,'String'));
-    
-elseif isempty(find(data(:,1) == start_zip))
-    errorGUI_sec13_team18('Zipcode not found. Please enter a valid start zipcode');
-elseif isempty(find(data(:,1) == end_zip))
-    errorGUI_sec13_team18('Zipcode not found. Please enter a valid end zipcode');
-elseif(end_time<start_time)
-    errorGUI_sec13_team18('Error! Please enter a start time that is less than your end time.');
-elseif start_time<0
-    errorGUI_sec13_team18('Error! Please enter a valid start time');
-elseif end_time<0
-    errorGUI_sec13_team18('Error! Please enter a valid end time');
-end
-%}   
-
-
-
-
-
 
 % --- Executes on button press in reset_pb.
 function reset_pb_Callback(hObject, eventdata, handles)
