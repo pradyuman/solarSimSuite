@@ -388,8 +388,18 @@ function reset_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to reset_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
-
+%Resetting edit text values to blank
+set(handles.zipInput_et,'String','')
+set(handles.widthInput_et,'String','')
+set(handles.lengthInput_et,'String','')
+set(handles.angleUpDownInput_et,'String','')
+set(handles.angleNSEWInput_et,'String','')
+%Resetting month/day values to 1 ("Enter Day" | "Enter Month")
+set(handles.day_pm,'Value',1)
+set(handles.month_pm,'Value',1)
+%Resetting axes to blank
+cla(handles.yearEnergy_ax,'reset')
+cla(handles.dayEnergy_ax,'reset')
 
 function lengthInput_et_Callback(hObject, eventdata, handles)
 % hObject    handle to lengthInput_et (see GCBO)

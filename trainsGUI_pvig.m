@@ -352,8 +352,10 @@ set(handles.enterStartZip_et,'String','')
 set(handles.enterEndZip_et,'String','')
 set(handles.startTime_et,'String','')
 set(handles.endTime_et,'String','')
+%Resetting month/day values to 1 ("Enter Day" | "Enter Month")
 set(handles.day_pm,'Value',1)
 set(handles.month_pm,'Value',1)
+%Resetting axes to blank
 cla(handles.yearEnergy_ax,'reset')
 cla(handles.dayEnergy_ax,'reset')
 
