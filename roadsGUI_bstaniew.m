@@ -1,4 +1,33 @@
 function varargout = roadsGUI_bstaniew(varargin)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%  ENGR 13200 Spring 2015
+%  Programmer(s) and Purdue Email Address(es): 
+%  1. Ben Staniewicz bstaniew@purdue.edu
+%  2. Pradyuman Vig pvig@purdue.edu
+%
+%  Other Contributor(s) and Purdue Email Address(es):
+%  1. Michael Keller keller77@purdue.edu
+%  2. Devashish Chopra chopra5@purdue.edu
+%
+%  Section #: 13     Team #: 18
+%
+%  Assignment: nanoHUB Simulation Suite
+%
+%  Academic Integrity Statement:
+%       I/We have not used source code obtained from
+%       any other unauthorized source, either modified
+%       or unmodified.  Neither have I/we provided access
+%       to my/our code to another. The project I/we am/are 
+%       submitting is my/our own original work.
+%
+%  Program Description: This set of GUIs can be accessed by typing in the 
+%  file name. This will open up a main menu (this GUI). This GUI has links
+%  to access the 4 sub GUIs, a help page, and a references page. Each of
+%  the sub GUIs is a different application of solar panels. The 4
+%  applications are as follows: use on the roof of a train, solar panels in
+%  roadways, around lightpoles, and ones that rotate and face towards the
+%  sun.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %ROADSGUI_BSTANIEW M-file for roadsGUI_bstaniew.fig
 %      ROADSGUI_BSTANIEW, by itself, creates a new ROADSGUI_BSTANIEW or raises the existing
 %      singleton*.

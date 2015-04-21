@@ -1,14 +1,16 @@
 function varargout = lightpoleGUI_keller77(varargin)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 %  ENGR 13200 Spring 2015
-%  Programmer(s) and Purdue Email Address(es): Michael Keller Pradyuman Vig
-%  Devashish and Ben
-%  1. , keller77@purdue.edu
+%  Programmer(s) and Purdue Email Address(es): 
+%  1. Ben Staniewicz bstaniew@purdue.edu
+%  2. Pradyuman Vig pvig@purdue.edu
 %
 %  Other Contributor(s) and Purdue Email Address(es):
-%  1. Name login@purdue.edu
+%  1. Michael Keller keller77@purdue.edu
+%  2. Devashish Chopra chopra5@purdue.edu
 %
-%  Section #: 13     Team #:18
+%  Section #: 13     Team #: 18
+%
 %  Assignment: nanoHUB Simulation Suite
 %
 %  Academic Integrity Statement:
@@ -17,8 +19,15 @@ function varargout = lightpoleGUI_keller77(varargin)
 %       or unmodified.  Neither have I/we provided access
 %       to my/our code to another. The project I/we am/are 
 %       submitting is my/our own original work.
+%
+%  Program Description: This set of GUIs can be accessed by typing in the 
+%  file name. This will open up a main menu (this GUI). This GUI has links
+%  to access the 4 sub GUIs, a help page, and a references page. Each of
+%  the sub GUIs is a different application of solar panels. The 4
+%  applications are as follows: use on the roof of a train, solar panels in
+%  roadways, around lightpoles, and ones that rotate and face towards the
+%  sun.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 %LIGHTPOLEGUI_KELLER77 M-file for lightpoleGUI_keller77.fig
 %      LIGHTPOLEGUI_KELLER77, by itself, creates a new LIGHTPOLEGUI_KELLER77 or raises the existing
 %      singleton*.
