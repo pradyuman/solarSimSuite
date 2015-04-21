@@ -48,7 +48,7 @@ function varargout = citationGUI_sec13_team18(varargin)
 
 % Edit the above text to modify the response to help citationGUI_sec13_team18
 
-% Last Modified by GUIDE v2.5 07-Apr-2015 02:19:32
+% Last Modified by GUIDE v2.5 21-Apr-2015 00:41:15
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -88,8 +88,7 @@ guidata(hObject, handles);
 % uiwait(handles.figure1);
 
 axes(handles.refImg_ax); %Sets to current axes
-imagesc(imread('citations.jpg')); %Displays image on GUI
-set(gca,'visible','off'); %Removes tick marks
+imshow('citations.jpg');
 
 
 % --- Outputs from this function are returned to the command line.
