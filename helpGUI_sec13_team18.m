@@ -20,13 +20,10 @@ function varargout = helpGUI_sec13_team18(varargin)
 %       to my/our code to another. The project I/we am/are 
 %       submitting is my/our own original work.
 %
-%  Program Description: This set of GUIs can be accessed by typing in the 
-%  file name. This will open up a main menu (this GUI). This GUI has links
-%  to access the 4 sub GUIs, a help page, and a references page. Each of
-%  the sub GUIs is a different application of solar panels. The 4
-%  applications are as follows: use on the roof of a train, solar panels in
-%  roadways, around lightpoles, and ones that rotate and face towards the
-%  sun.
+%  Program Description: This GUI displays particular messages to the user
+%  when the user clicks the help button for different components on the GUI. This is
+%  to guide the user and help them use our program and GUIs correctly and to full
+%  potential and functionality
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %HELPGUI_SEC13_TEAM18 M-file for helpGUI_sec13_team18.fig
 %      HELPGUI_SEC13_TEAM18, by itself, creates a new HELPGUI_SEC13_TEAM18 or raises the existing
