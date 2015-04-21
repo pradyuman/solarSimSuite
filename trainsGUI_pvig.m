@@ -222,14 +222,14 @@ function dateHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to dateHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('Enter the current date through the drop down menus. e.g (12) and (January)')
+helpGUI_sec13_team18('Enter the current date through the drop down menus (12 | January)')
 
 % --- Executes on button press in startZipHelp_pb.
 function startZipHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to startZipHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('Enter the 5 digit zip code that your train started at. e.g (47906)')
+helpGUI_sec13_team18('Enter the 5 digit zip code of the origin (XXXXX | 47906)')
 
 % --- Executes on button press in compute_pb.
 function compute_pb_Callback(hObject, eventdata, handles)
@@ -387,7 +387,7 @@ function endZipHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to endZipHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('Enter the 5 digit postal zip code that the train ends at. E.g(47906)')
+helpGUI_sec13_team18('Enter the 5 digit zip code of the destination (XXXXX | 47906)')
 
 
 function endTime_et_Callback(hObject, eventdata, handles)
@@ -417,7 +417,7 @@ function endTimeHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to endTimeHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('Enter the end time( in 24 hour format) of your trip. E.g(18:00)')
+helpGUI_sec13_team18('Enter the end time of your trip in 24 hour format (XX:XX | 18:00)')
 
 
 function startTime_et_Callback(hObject, eventdata, handles)
@@ -447,4 +447,4 @@ function startTimeHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to startTimeHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('Enter the time of day (in 24 hour format). E.g(14:00)')
+helpGUI_sec13_team18('Enter the time of day in 24 hour format (XX:XX | 14:00)')
