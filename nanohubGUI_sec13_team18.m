@@ -26,7 +26,9 @@ function varargout = nanohubGUI_sec13_team18(varargin)
 %  the sub GUIs is a different application of solar panels. The 4
 %  applications are as follows: use on the roof of a train, solar panels in
 %  roadways, around lightpoles, and ones that rotate and face towards the
-%  sun.
+%  sun. It is intended that the name alone will be used to start this GUI.
+%  However, sub GUIs may pass data to this one through an input argument
+%  which this can then pass to the individual GUIs when opened.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %NANOHUBGUI_SEC13_TEAM18 M-file for nanohubGUI_sec13_team18.fig
@@ -86,15 +88,14 @@ function nanohubGUI_sec13_team18_OpeningFcn(hObject, eventdata, handles, varargi
 % Choose default command line output for nanohubGUI_sec13_team18
 handles.output = hObject;
 
-
-if(~isempty(varargin))
-    data = varargin{1};
-    if(length(data) == 3)
-        handles.inputData = varargin{1};
-    end
-else
-    handles.inputData = [];
-end
+if(~isempty(varargin)) %Activates only if there is an input argument
+    data = varargin{1}; %Saves input argument
+    if(length(data) == 3) %Activates if input is not empty
+        handles.inputData = varargin{1}; %Assigns the input to the handles structure
+    end %Ends if statement
+else %Activates if varargin is empty
+    handles.inputData = []; %Assigns the variable in handles to be empty
+end %Ends if statement
 
 % Update handles structure
 guidata(hObject, handles);
@@ -118,62 +119,66 @@ function train_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to train_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-if(handles.inputData)
-    trainsGUI_pvig(handles.inputData);
-else
-    trainsGUI_pvig;
-end
-close nanohubGUI_sec13_team18;
+
+if(handles.inputData) %If there is previous user data stored
+    trainsGUI_pvig(handles.inputData); %Open sub GUI with user input data
+else %Activates if there is no input data
+    trainsGUI_pvig; %Open sub GUI without user input data
+end %Ends if else statements
+close nanohubGUI_sec13_team18; %Closes main menu
 
 % --- Executes on button press in road_pb.
 function road_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to road_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-if(handles.inputData)
-    roadsGUI_bstaniew(handles.inputData);
-else
-    roadsGUI_bstaniew;
-end
-close nanohubGUI_sec13_team18;
+
+if(handles.inputData) %If there is previous user data stored
+    roadsGUI_bstaniew(handles.inputData); %Open sub GUI with user input data
+else %Activates if there is no input data
+    roadsGUI_bstaniew; %Open sub GUI without user input data
+end %Ends if else statements
+close nanohubGUI_sec13_team18; %Closes main menu
 
 % --- Executes on button press in light_pb.
 function light_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to light_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-if(handles.inputData)
-    lightpoleGUI_keller77(handles.inputData);
-else
-    lightpoleGUI_keller77;
-end
-close nanohubGUI_sec13_team18;
+
+if(handles.inputData) %If there is previous user data stored
+    lightpoleGUI_keller77(handles.inputData); %Opens sub GUI with user input data
+else %Activates if there is no input data
+    lightpoleGUI_keller77; %Opens sub GUI without user input data
+end %Ends if else statement
+close nanohubGUI_sec13_team18; %Closes main menu
 
 % --- Executes on button press in rotate_pb.
 function rotate_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to rotate_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-if(handles.inputData)
-    rotateGUI_chopra5(handles.inputData);
-else
-    rotateGUI_chopra5;
-end
-close nanohubGUI_sec13_team18;
+
+if(handles.inputData) %If there is previous user data stored
+    rotateGUI_chopra5(handles.inputData); %Opens sub GUI with user input data
+else %activates if there is no input data
+    rotateGUI_chopra5; %Opens sub GUI without user input data
+end %Ends if else statement
+close nanohubGUI_sec13_team18; %Closes main menu
 
 % --- Executes on button press in moreAbout_pb.
 function moreAbout_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to moreAbout_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18;
+helpGUI_sec13_team18; %Opens a menu that explains more about the simulation suite
 
 % --- Executes on button press in references_pb.
 function references_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to references_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-citationGUI_sec13_team18;
+citationGUI_sec13_team18; %Opens a window with the references used
 
 
 % --- Executes on button press in close_pb.
@@ -181,4 +186,4 @@ function close_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to close_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-close all;
+close all; %Closes any open GUIs
