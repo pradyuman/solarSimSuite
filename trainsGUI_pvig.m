@@ -308,8 +308,17 @@ tics = linspace(start_time, end_time, 10); %evenly spaced time increments
 area = 60 * 10 * 10; %Area of an average train
 latStart = data(rowStart, 2); %starting latitude
 latEnd = data(rowEnd, 2); %ending latitude
-latitude = latStart:((latEnd-latStart)/9):latEnd; %average latitude
 
+%If the start and end zipcodes are the same, then make a 10 element vector
+%with the same latitude
+if(latStart == latEnd)
+    latitude = zeros(10);
+    latitude = latitude + latStart;
+%Otherwise, create an evenly spaces 10 element vector in between the start
+%and end latitude
+else
+    latitude = latStart:((latEnd-latStart)/9):latEnd; %average latitude
+end
 %Calculate energy for the trip
 for k = 1:10
     energy(k) = area * solarInsolation(latitude(k), 0, tics(k), dayYear(month,day)) * efficiency;
