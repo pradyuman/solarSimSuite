@@ -222,9 +222,11 @@ if isempty(start_zip) | isempty(end_zip)
     errorGUI_sec13_team18('Error! All fields must have entries!');
 elseif isempty(num1) | isempty(num2) | ~day | ~month
     errorGUI_sec13_team18('Error! All fields must have entries!');
+elseif ~isscalar(start_zip) | ~isscalar(end_zip)
+    errorGUI_sec13_team18('Error! Zipcodes must be scalar!');
 elseif isempty(rowStart) | isempty(colStart)
-    errorGUI_sec13_team18('Error! Starting zip code is invalid. If zip code is valid, please enter a 5 digit zip code of a nearby major city.');    
-elseif isempty(rowEnd) | isempty(colEnd)
+    errorGUI_sec13_team18('Error! Starting zip code is invalid. If zip code is valid, please enter a 5 digit zip code of a nearby major city.');
+elseif isempty(rowEnd) | isempty(colEnd) | ~isscalar(rowEnd) | ~isscalar(colEnd)
     errorGUI_sec13_team18('Error! Ending zip code is invalid. If zip code is valid, please enter a 5 digit zip code of a nearby major city.');
 elseif length(strfind(get(handles.startTime_et,'String'), ':')) ~= 1
     errorGUI_sec13_team18('Error! Make sure your start time is in the correct format (XX:XX)');

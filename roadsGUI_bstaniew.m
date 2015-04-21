@@ -272,10 +272,12 @@ daysOfMonth = [31 28 31 30 31 30 31 31 30 31 30 31];
 if ~isempty(zip)
     [row, col] = find(data(:,1) == zip);
 end
-if isempty(zip)
+if isempty(zip) | ~isscalar(zip)
     errorGUI_sec13_team18('Error! Please enter a valid zipcode');
 elseif isempty(width) | isempty(length) | isempty(margin) | isempty(traffic) | ~day | ~month | isempty(speed)
     errorGUI_sec13_team18('Error! All fields must have entries!');
+elseif ~isscalar(width) | ~isscalar(length) | ~isscalar(margin) | ~isscalar(traffic) | ~isscalar(speed)
+    errorGUI_sec13_team18('Error! All edit text fields must have scalar inputs!');
 elseif isempty(row) | isempty(col)
     errorGUI_sec13_team18('Error! Zip code is invalid. If zip code is valid, please enter a 5 digit zip code of a nearby major city.');
 elseif width < 3
