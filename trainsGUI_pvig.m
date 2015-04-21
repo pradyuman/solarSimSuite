@@ -236,37 +236,52 @@ function compute_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to compute_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-end_zip = str2double(get(handles.enterEndZip_et,'String'));
+
+%Getting starting zipcode from handles
 start_zip = str2double(get(handles.enterStartZip_et,'String'));
+%Getting ending zipcode from handles
+end_zip = str2double(get(handles.enterEndZip_et,'String'));
+%Loading zipcode data from file
 data = csvread('zipcode.csv');
 
-
+%If the start time was given with a colon, parse the input and obtain start time
+%in minutes since 0:00
 if length(strfind(get(handles.startTime_et,'String'), ':')) == 1
     num1 = str2double(strsplit(get(handles.startTime_et,'String'), ':'));
     start_time =  num1(1) + num1(2)/60;
+%Otherwise, just take in the input and directly make it a number
 else
     start_time = str2num(get(handles.startTime_et,'String'));
 end
+
+%If the ending time was given with a colon, parse the input and obtain start time
+%in minutes since 0:00
 if length(strfind(get(handles.endTime_et,'String'), ':')) == 1
     num2 = str2double(strsplit(get(handles.endTime_et,'String'), ':'));
     end_time =  num2(1) + num2(2)/60;
+%Otherwise, just take in the input and directly make it a number
 else
     end_time = str2num(get(handles.endTime_et,'String'));
 end
 
+%Get day of the month
 day = get(handles.day_pm, 'Value') - 1;
+%Get month of the year
 month = get(handles.month_pm, 'Value') - 1;
+%Find the latitude and longitude indexes of starting zipcode
 [rowStart, colStart] = find(data(:,1) == start_zip);
+%Find the latitude and longitude indexes of ending zipcode
 [rowEnd, colEnd] = find(data(:,1) == end_zip);
 
+%Array of number of days in a month (index corresponds to the number of the
+%month in the year
 daysOfMonth = [31 28 31 30 31 30 31 31 30 31 30 31];
-
 
 %%%%%%%%%%%%%%%%INPUT VALIDATION%%%%%%%%%%%%%%%%%%%%%%%%%%
 if isempty(start_zip) | isempty(end_zip)
-    errorGUI_sec13_team18('Error! All fields must have entries!');
+    errorGUI_sec13_team18('Error! All fields must have valid entries!');
 elseif isempty(start_time) | isempty(end_time) | ~day | ~month
-    errorGUI_sec13_team18('Error! All fields must have entries!');
+    errorGUI_sec13_team18('Error! All fields must have valid entries!');
 elseif ~isscalar(start_zip) | ~isscalar(end_zip)
     errorGUI_sec13_team18('Error! Zipcodes must be scalar!');
 elseif isempty(rowStart) | isempty(colStart)
@@ -287,28 +302,26 @@ elseif daysOfMonth(month) < day
     errorGUI_sec13_team18('Error! The day is not a day of the chosen month!');
 else
 
+time = 0:23; %Time vector for hours
+efficiency = .14; %Efficiency of the solar panel
+tics = linspace(start_time, end_time, 10); %evenly spaced time increments
+area = 60 * 10 * 10; %Area of an average train
+latStart = data(rowStart, 2); %starting latitude
+latEnd = data(rowEnd, 2); %ending latitude
+latitude = latStart:((latEnd-latStart)/9):latEnd; %average latitude
 
-
-
-time = 0:23;
-efficiency = .14;
-tics = linspace(start_time, end_time, 10);
-a = 0;
-area = 60 * 10 * 10;
-z = 1;
-latStart = data(rowStart, 2);
-latEnd = data(rowEnd, 2);
-latitude = latStart:((latEnd-latStart)/9):latEnd;
-
+%Calculate energy for the trip
 for k = 1:10
     energy(k) = area * solarInsolation(latitude(k), 0, tics(k), dayYear(month,day)) * efficiency;
 end
+%Plot energy for the trip
 plot(handles.dayEnergy_ax, tics, energy);
 axis([start_time end_time 0 1.1 * max(energy)]) 
 set(handles.dayEnergy_ax,'xtick',0:2:24);
 xlabel(handles.dayEnergy_ax,'Hour of the Day')
 ylabel(handles.dayEnergy_ax,'Power Generation (kW)')
 
+%Calculate energy for the trip for every month of the year
 for j = 0:11
     energy = [];
     for k = 1:10
@@ -317,6 +330,7 @@ for j = 0:11
     avrgEnergy(j + 1) = mean(energy);
 end
 
+%Plot energy for the year
 time = 1:12;
 daysInMonth = [31 28 31 30 31 30 31 31 30 31 30 31];
 avrgEnergy = avrgEnergy .* daysInMonth;
