@@ -85,7 +85,7 @@ guidata(hObject, handles);
 if(~isempty(varargin))
     data = varargin{1};
     if(data(1) >= 0)
-        set(handles.zipcode_et, 'String', num2str(data(1)));
+        set(handles.zipcode_et, 'String', sprintf('%05d', data(1)));
     end
     set(handles.day_pm, 'Value', data(2));
     set(handles.month_pm, 'Value', data(3));
