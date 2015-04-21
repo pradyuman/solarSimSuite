@@ -280,14 +280,14 @@ function widthHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to widthHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('Enter the width of the road width solar panels, in meters.'); %Sends string of help message
+helpGUI_sec13_team18('Enter the width of the road width solar panels, in meters. 1 lane is approximately 3.7meters wide.'); %Sends string of help message
 
 % --- Executes on button press in lengthHelp_pb.
 function lengthHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to lengthHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('Enter the length of the road width solar panels in meters'); %Sends string of help message
+helpGUI_sec13_team18('Enter the length of the road width solar panels in kilometers'); %Sends string of help message
 
 % --- Executes on button press in compute_pb.
 function compute_pb_Callback(hObject, eventdata, handles)
@@ -459,7 +459,7 @@ function trafficHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to trafficHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('Enter the average number of cars that pass over this road in one hour.');
+helpGUI_sec13_team18('Enter the average number of cars that pass over this road in one hour. A medium sized 1 lane road would have about 50 cars pass in an hour.');
 
 
 
