@@ -297,6 +297,10 @@ day = get(handles.day_pm, 'Value') - 1;
 %Getting month from GUI
 month = get(handles.month_pm, 'Value') - 1;
 
+%Getting latitude and longitude indexes from zipcode database
+if(~isempty(zip))
+    [row, col] = find(data(:,1) == zip);
+end
 %Input validation
 if isempty(zip)
     errorGUI_sec13_team18('Error! All fields must have entries!');
@@ -312,8 +316,6 @@ elseif height <=0
     errorGUI_sec13_team18('Error! Height is invalid. Please enter a valid height')
 else
 
-%Getting latitude and longitude indexes from zipcode database
-[row, col] = find(data(:,1) == zip);
 %Calculating area of sun x pole cross-section
 area = height * diameter;
 %Getting latitude
