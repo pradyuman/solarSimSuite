@@ -49,7 +49,7 @@ function varargout = lightpoleGUI_keller77(varargin)
 
 % Edit the above text to modify the response to help lightpoleGUI_keller77
 
-% Last Modified by GUIDE v2.5 07-Apr-2015 01:46:40
+% Last Modified by GUIDE v2.5 21-Apr-2015 00:00:41
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -112,7 +112,7 @@ function moreInfo_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to moreInfo_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('This GUI is designed to show the energy output in the spans of a day and a year of a single solar light pole. This GUI takes into account zip code, date, diameter, and hieght of the pole.');
+helpGUI_sec13_team18('This GUI is designed to show the energy output in the spans of a day and a year of a single solar light pole. This GUI takes into account zip code, date, diameter, and height of the pole.');
 
 % --- Executes on button press in mainMenu_pb.
 function mainMenu_pb_Callback(hObject, eventdata, handles)
@@ -204,18 +204,18 @@ end
 
 
 
-function poleHieght_et_Callback(hObject, eventdata, handles)
-% hObject    handle to poleHieght_et (see GCBO)
+function poleHeight_et_Callback(hObject, eventdata, handles)
+% hObject    handle to poleHeight_et (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of poleHieght_et as text
-%        str2double(get(hObject,'String')) returns contents of poleHieght_et as a double
+% Hints: get(hObject,'String') returns contents of poleHeight_et as text
+%        str2double(get(hObject,'String')) returns contents of poleHeight_et as a double
 
 
 % --- Executes during object creation, after setting all properties.
-function poleHieght_et_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to poleHieght_et (see GCBO)
+function poleHeight_et_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to poleHeight_et (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -271,9 +271,9 @@ function poleDiameterHelp_pb_Callback(hObject, eventdata, handles)
 helpGUI_sec13_team18('Enter the diameter of your light pole in meters.(An average light pole diameter is .2 meters)')
 
 
-% --- Executes on button press in poleHieghtHelp_pb.
-function poleHieghtHelp_pb_Callback(hObject, eventdata, handles)
-% hObject    handle to poleHieghtHelp_pb (see GCBO)
+% --- Executes on button press in poleHeightHelp_pb.
+function poleHeightHelp_pb_Callback(hObject, eventdata, handles)
+% hObject    handle to poleHeightHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 helpGUI_sec13_team18('Enter the height of your light pole in meters.(An average light pole height is about 6 meters)')
@@ -287,7 +287,7 @@ function compute_pb_Callback(hObject, eventdata, handles)
 
 zip = str2num(get(handles.zipcode_et, 'String'));
 data = csvread('zipcode.csv');
-height = str2num(get(handles.poleHieght_et, 'String'));
+height = str2num(get(handles.poleHeight_et, 'String'));
 diameter = str2num(get(handles.poleDiameter_et, 'String'));
 day = get(handles.day_pm, 'Value') - 1;
 month = get(handles.month_pm, 'Value') - 1;
@@ -365,10 +365,9 @@ function reset_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to reset_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-set(handles.enterStartZip_et,'String','')
-set(handles.enterEndZip_et,'String','')
-set(handles.startTime_et,'String','')
-set(handles.endTime_et,'String','')
+set(handles.zipcode_et,'String','')
+set(handles.poleDiameter_et,'String','')
+set(handles.poleHeight_et,'String','')
 set(handles.day_pm,'Value',1)
 set(handles.month_pm,'Value',1)
 cla(handles.yearEnergy_ax,'reset')
