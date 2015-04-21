@@ -1,23 +1,4 @@
 function varargout = helpGUI_sec13_team18(varargin)
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-%  ENGR 13200 Spring 2015
-%  Programmer(s) and Purdue Email Address(es): Michael Keller Pradyuman Vig
-%  Devashish and Ben
-%  1. , keller77@purdue.edu
-%
-%  Other Contributor(s) and Purdue Email Address(es):
-%  1. Name login@purdue.edu
-%
-%  Section #: 13     Team #:18
-%  Assignment: nanoHUB Simulation Suite
-%
-%  Academic Integrity Statement:
-%       I/We have not used source code obtained from
-%       any other unauthorized source, either modified
-%       or unmodified.  Neither have I/we provided access
-%       to my/our code to another. The project I/we am/are 
-%       submitting is my/our own original work.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %HELPGUI_SEC13_TEAM18 M-file for helpGUI_sec13_team18.fig
 %      HELPGUI_SEC13_TEAM18, by itself, creates a new HELPGUI_SEC13_TEAM18 or raises the existing
 %      singleton*.
@@ -52,7 +33,9 @@ gui_State = struct('gui_Name',       mfilename, ...
                    'gui_LayoutFcn',  [], ...
                    'gui_Callback',   []);
 if nargin && ischar(varargin{1})
+   warning('off','MATLAB:str2func:invalidFunctionName');
    gui_State.gui_Callback = str2func(varargin{1});
+   warning('on','MATLAB:str2func:invalidFunctionName');
 end
 
 if nargout
@@ -79,9 +62,10 @@ handles.output = hObject;
 guidata(hObject, handles);
 
 % Set static text
-message = varargin{1};
-set(handles.help_st, 'String', message);
-clc;
+if ~isempty(varargin)
+    message = varargin{1};
+    set(handles.help_st, 'String', message);
+end
 
 % UIWAIT makes helpGUI_sec13_team18 wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
@@ -96,6 +80,7 @@ function varargout = helpGUI_sec13_team18_OutputFcn(hObject, eventdata, handles)
 
 % Get default command line output from handles structure
 varargout{1} = handles.output;
+
 
 
 % --- Executes on button press in close_pb.

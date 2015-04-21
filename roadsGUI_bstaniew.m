@@ -1,24 +1,4 @@
 function varargout = roadsGUI_bstaniew(varargin)
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-%  ENGR 13200 Spring 2015
-%  Programmer(s) and Purdue Email Address(es): Michael Keller Pradyuman Vig
-%  Devashish and Ben
-%  1. , keller77@purdue.edu
-%
-%  Other Contributor(s) and Purdue Email Address(es):
-%  1. Name login@purdue.edu
-%
-%  Section #: 13     Team #:18
-%  Assignment: nanoHUB Simulation Suite
-%
-%  Academic Integrity Statement:
-%       I/We have not used source code obtained from
-%       any other unauthorized source, either modified
-%       or unmodified.  Neither have I/we provided access
-%       to my/our code to another. The project I/we am/are 
-%       submitting is my/our own original work.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 %ROADSGUI_BSTANIEW M-file for roadsGUI_bstaniew.fig
 %      ROADSGUI_BSTANIEW, by itself, creates a new ROADSGUI_BSTANIEW or raises the existing
 %      singleton*.
@@ -42,7 +22,7 @@ function varargout = roadsGUI_bstaniew(varargin)
 
 % Edit the above text to modify the response to help roadsGUI_bstaniew
 
-% Last Modified by GUIDE v2.5 14-Apr-2015 00:01:22
+% Last Modified by GUIDE v2.5 19-Apr-2015 22:53:48
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -81,7 +61,14 @@ guidata(hObject, handles);
 
 % UIWAIT makes roadsGUI_bstaniew wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
-
+if(~isempty(varargin))
+    data = varargin{1};
+    if(data(1) >= 0)
+        set(handles.zipInput_et, 'String', num2str(data(1)));
+    end
+    set(handles.day_pm, 'Value', data(2));
+    set(handles.month_pm, 'Value', data(3));
+end
 
 % --- Outputs from this function are returned to the command line.
 function varargout = roadsGUI_bstaniew_OutputFcn(hObject, eventdata, handles)
@@ -106,7 +93,13 @@ function openMenu_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to openMenu_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-nanohubGUI_sec13_team18;
+zipcode = str2num(get(handles.zipInput_et,'String'));
+if(isempty(zipcode))
+    zipcode = -1;
+end
+day = get(handles.day_pm, 'Value');
+month = get(handles.month_pm, 'Value');
+nanohubGUI_sec13_team18([zipcode day month]);
 close roadsGUI_bstaniew;
 
 % --- Executes on button press in closeGUI_pb.
@@ -269,37 +262,50 @@ data = csvread('zipcode.csv');
 length = str2num(get(handles.lengthInput_et, 'String'));
 width = str2num(get(handles.widthInput_et, 'String'));
 margin = str2num(get(handles.marginInput_et, 'String'));
-area = length * (width - 2 * margin);
+area = length * 1000 * (width - 2 * margin);
 day = get(handles.day_pm, 'Value') - 1;
 month = get(handles.month_pm, 'Value') - 1;
 traffic = str2num(get(handles.trafficInput_et, 'String'));
+speed = abs(str2num(get(handles.carSpeed_et, 'String')));
+daysOfMonth = [31 28 31 30 31 30 31 31 30 31 30 31];
+
 if ~isempty(zip)
-    [row, col] = find(data(:,1) == zip)
+    [row, col] = find(data(:,1) == zip);
 end
 if isempty(zip)
-    errorGUI_sec13_team18('Error! All fields must have entries!');
-elseif isempty(width) | isempty(length) | isempty(margin) | isempty(traffic) | ~day | ~month
+    errorGUI_sec13_team18('Error! Please enter a valid zipcode');
+elseif isempty(width) | isempty(length) | isempty(margin) | isempty(traffic) | ~day | ~month | isempty(speed)
     errorGUI_sec13_team18('Error! All fields must have entries!');
 elseif isempty(row) | isempty(col)
-    errorGUI_sec13_team18('Error! Zip code is invalid. If zip code is valid, please enter a zip code of a nearby major city.');
-elseif width <= 0
-    errorGUI_sec13_team18('Error! Width input must be positive!');
+    errorGUI_sec13_team18('Error! Zip code is invalid. If zip code is valid, please enter a 5 digit zip code of a nearby major city.');
+elseif width < 3
+    errorGUI_sec13_team18('Error! Road must be at least the width of one lane');
 elseif length <= 0
     errorGUI_sec13_team18('Error! Length input must be positive!');
-elseif width - 2*margin <= 0
+elseif width - 2 * margin <= 0
     errorGUI_sec13_team18('Error! Margins must be less than 1/2 of the road width!');
 elseif traffic < 0
-    errorGUI_sec13_team18('Error! Traffic must be nonnegaive!');
-elseif area - 9 * traffic < 0
+    errorGUI_sec13_team18('Error! Traffic must be nonnegative!');
+elseif (speed == 0 & traffic ~= 0)
+    errorGUI_sec13_team18('Speed must be greater than 0 if traffic is nonzero');
+elseif length * 200 * speed < traffic
     errorGUI_sec13_team18('Error! Traffic cannot be so large that the roads are completely covered!');
+elseif daysOfMonth(month) < day
+    errorGUI_sec13_team18('Error! The day is not a day of the chosen month!');
 else
+    
 latitude = data(row, 2);
 time = 0:23;
 efficiency = .14;
 day = dayYear(month, day);
+timeCovered = length * 1000 / speed;
+if timeCovered > 3600
+    timeCovered = 3600
+end
+area = length * 1000 * (width - 2 * margin) - (traffic * 9 * timeCovered) / (3600);
 
 for k = 0:23
-    energy(k + 1) = area * solarInsolation(latitude, 0, k, day) * efficiency - str2num(get(handles.trafficInput_et, 'String')) * 9;
+    energy(k + 1) = area * solarInsolation(latitude, 0, k, day) * efficiency;
     if energy(k + 1) < 0
         energy(k + 1) = 0;
     end
@@ -307,13 +313,13 @@ end
 plot(handles.dayGraph_ax, time, energy);
 axis([0 24 0 1.1 * max(energy)]) 
 set(handles.dayGraph_ax,'xtick',0:2:24);
-xlabel(handles.dayGraph_ax,'Time (days)')
+xlabel(handles.dayGraph_ax,'Hour of the Day')
 ylabel(handles.dayGraph_ax,'Power Generation (kW)')
 
 for k = 0:11
     energy = [];
     for j = 0:23
-        energy(j + 1) = efficiency * (area * solarInsolation(latitude, 0, j, 30 * k + 15) - traffic * 9);
+        energy(j + 1) = efficiency * area * solarInsolation(latitude, 0, j, 30 * k + 15);
         if energy(j + 1) < 0
             energy(j + 1) = 0;
         end
@@ -345,6 +351,7 @@ set(handles.day_pm,'Value',1)
 set(handles.month_pm,'Value',1)
 cla(handles.yearGraph_ax,'reset')
 cla(handles.dayGraph_ax,'reset')
+set(handles.carSpeed_et,'String','')
 
 function marginInput_et_Callback(hObject, eventdata, handles)
 % hObject    handle to marginInput_et (see GCBO)
@@ -404,3 +411,35 @@ function trafficHelp_pb_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 helpGUI_sec13_team18('Enter the average number of cars that pass over this road in one hour.');
+
+
+
+function carSpeed_et_Callback(hObject, eventdata, handles)
+% hObject    handle to carSpeed_et (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of carSpeed_et as text
+%        str2double(get(hObject,'String')) returns contents of carSpeed_et as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function carSpeed_et_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to carSpeed_et (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on button press in speedHelp_pb.
+function speedHelp_pb_Callback(hObject, eventdata, handles)
+% hObject    handle to speedHelp_pb (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+helpGUI_sec13_team18('Enter the average expected speed of cars on this road in meters per second. 1 m/s = 3.6 kph ~ 2.2369 mph');
