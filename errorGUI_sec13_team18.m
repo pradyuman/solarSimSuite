@@ -23,7 +23,9 @@ function varargout = errorGUI_sec13_team18(varargin)
 %  Program Description:  This GUI displays particular error messages to the user
 %  when the enters invalid inputs or leaves certain imporant fields blank.
 %  These error message prompts are necessary to ensure the proper
-%  functionality of our program and rest of the GUIs
+%  functionality of our program and rest of the GUIs. This GUI works for
+%  all possible error messages. It does this by displaying the string of
+%  text that is the input argument sent from an individual GUI.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %ERRORGUI_SEC13_TEAM18 M-file for errorGUI_sec13_team18.fig
@@ -88,6 +90,7 @@ handles.output = hObject;
 % Update handles structure
 guidata(hObject, handles);
 
+%Sets static text to input error message
 if ~isempty(varargin)
     message = varargin{1};
     set(handles.errorMSG_st, 'String', message);
@@ -113,4 +116,4 @@ function close_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to close_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-close errorGUI_sec13_team18
+close errorGUI_sec13_team18 %Close error GUI
