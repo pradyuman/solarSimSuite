@@ -122,7 +122,7 @@ function appHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to appHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('This GUI receives input of Zip code, road width, road width margin, road length, traffic levels, and an example day. It then calculates the energy output for the example day and each month of the year and outputs these on to two graphs.');
+helpGUI_sec13_team18('This GUI receives input of zip code, road width, road width margin, road length, traffic levels, and an example day. It then calculates the energy output for the example day and each month of the year and outputs these on to two graphs.');
 
 % --- Executes on button press in openMenu_pb.
 function openMenu_pb_Callback(hObject, eventdata, handles)
@@ -273,21 +273,21 @@ function zipHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to zipHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('Please enter your 5 digit zipcode. ie.: West Lafayette, IN = 47906'); %Sends string of help message
+helpGUI_sec13_team18('Please enter your 5 digit zipcode. ie.: West Lafayette, IN = 47906.'); %Sends string of help message
 
 % --- Executes on button press in widthHelp_pb.
 function widthHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to widthHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('Enter the width of the road width solar panels, in meters. 1 lane is approximately 3.7meters wide.'); %Sends string of help message
+helpGUI_sec13_team18('Enter the width of the road width solar panels in meters. 1 lane is approximately 3.7 meters wide.'); %Sends string of help message
 
 % --- Executes on button press in lengthHelp_pb.
 function lengthHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to lengthHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('Enter the length of the road width solar panels in kilometers'); %Sends string of help message
+helpGUI_sec13_team18('Enter the length of the road with solar panels in kilometers.'); %Sends string of help message
 
 % --- Executes on button press in compute_pb.
 function compute_pb_Callback(hObject, eventdata, handles)
@@ -459,7 +459,7 @@ function trafficHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to trafficHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('Enter the average number of cars that pass over this road in one hour. A medium sized 1 lane road would have about 50 cars pass in an hour.');
+helpGUI_sec13_team18('Enter the average number of cars that pass over this road in one hour. About 50 cars pass over a medium sized two lane road in an hour.');
 
 
 
@@ -491,4 +491,4 @@ function speedHelp_pb_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-helpGUI_sec13_team18('Enter the average expected speed of cars on this road in meters per second. 1 m/s = 3.6 kph ~ 2.2369 mph');
+helpGUI_sec13_team18('Enter the expected average speed of cars on this road in meters per second. 1 m/s = 3.6 kph ~ 2.2369 mph.');
