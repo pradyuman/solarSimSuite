@@ -398,8 +398,8 @@ set(handles.angleNSEWInput_et,'String','')
 set(handles.day_pm,'Value',1)
 set(handles.month_pm,'Value',1)
 %Resetting axes to blank
-cla(handles.yearEnergy_ax,'reset')
-cla(handles.dayEnergy_ax,'reset')
+cla(handles.yearGraph_ax,'reset')
+cla(handles.dayGraph_ax,'reset')
 
 function lengthInput_et_Callback(hObject, eventdata, handles)
 % hObject    handle to lengthInput_et (see GCBO)
