@@ -327,6 +327,7 @@ for j = 0:11
     for k = 1:10
         energy(k) = area * solarInsolation(latitude(k), 0, k, 30 * j + 15) * efficiency;
     end
+    %Calculate average energy
     avrgEnergy(j + 1) = mean(energy);
 end
 
