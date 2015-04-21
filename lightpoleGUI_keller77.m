@@ -2,12 +2,12 @@ function varargout = lightpoleGUI_keller77(varargin)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 %  ENGR 13200 Spring 2015
 %  Programmer(s) and Purdue Email Address(es): 
-%  1. Ben Staniewicz bstaniew@purdue.edu
-%  2. Pradyuman Vig pvig@purdue.edu
+%  1. Michael Keller keller77@purdue.edu
 %
 %  Other Contributor(s) and Purdue Email Address(es):
-%  1. Michael Keller keller77@purdue.edu
-%  2. Devashish Chopra chopra5@purdue.edu
+%  1. Pradyuman Vig pvig@purdue.edu
+%  2. Ben Staniewicz bstaniew@purdue.edu
+%  3. Devashish Chopra chopra5@purdue.edu
 %
 %  Section #: 13     Team #: 18
 %
@@ -284,17 +284,20 @@ function compute_pb_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
+%Getting zipcode from GUI
 zip = str2num(get(handles.zipcode_et, 'String'));
+%Opening zipcode database
 data = csvread('zipcode.csv');
+%Getting height from GUI
 height = str2num(get(handles.poleHeight_et, 'String'));
+%Getting diameter from GUI
 diameter = str2num(get(handles.poleDiameter_et, 'String'));
+%Getting day from GUI
 day = get(handles.day_pm, 'Value') - 1;
+%Getting month from GUI
 month = get(handles.month_pm, 'Value') - 1;
 
-if ~isempty(zip)
-    [row, col] = find(data(:,1) == zip);
-end
-
+%Input validation
 if isempty(zip)
     errorGUI_sec13_team18('Error! All fields must have entries!');
 elseif isempty(diameter) | isempty(height) | ~day | ~month
@@ -308,14 +311,18 @@ elseif diameter <= 0
 elseif height <=0 
     errorGUI_sec13_team18('Error! Height is invalid. Please enter a valid height')
 else
-    
+
+%Getting latitude and longitude indexes from zipcode database
 [row, col] = find(data(:,1) == zip);
+%Calculating area of sun x pole cross-section
 area = height * diameter;
+%Getting latitude
 latitude = data(row, 2);
 time = 0:23;
 efficiency = .14;
 day = dayYear(month, day);
 
+%Calculating solar insolation energy for a day
 for k = 0:23
     energy(k + 1) = area * solarInsolation(latitude, 90, k, day) * efficiency;
     if energy(k + 1) < 0
@@ -323,13 +330,14 @@ for k = 0:23
     end
 end
 
-
+%Plotting solar insolation energy for a day
 plot(handles.dayEnergy_ax, time, energy,'g');
 axis([0 24 0 1.1 * max(energy)]) 
 set(handles.dayEnergy_ax,'xtick',0:2:24);
 xlabel(handles.dayEnergy_ax,'Time (hours)')
 ylabel(handles.dayEnergy_ax,'Power Generation (kW)')
 
+%Calculating solar insolation energy for an year
 for k = 0:11
     energy = [];
     for j = 0:23
@@ -338,9 +346,11 @@ for k = 0:11
             energy(j + 1) = 0;
         end
     end
+    %Average energy for each month
     avrgEnergy(k + 1) = mean(energy);
 end
 
+%Plotting solar insolation energy for a month
 time = 1:12;
 daysInMonth = [31 28 31 30 31 30 31 31 30 31 30 31];
 avrgEnergy = avrgEnergy .* daysInMonth;
