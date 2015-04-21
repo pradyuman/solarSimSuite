@@ -119,17 +119,25 @@ function mainMenu_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to mainMenu_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+%This code block sets the zipcode, day, and month as passthrough variables
+%to other GUIs
+%If the end zipcode was entered, set the passthrough zipcode to the end
+%zipcode, otherwise set it to the start zipcode
 if str2num(get(handles.enterEndZip_et,'String'))
     zipcode = str2num(get(handles.enterEndZip_et,'String'));
 else
     zipcode = str2num(get(handles.enterStartZip_et,'String'));
 end
 
+%If zipcode is empty, set zipcode to -1
 if(isempty(zipcode))
     zipcode = -1;
 end
+%Set day passthrough variable
 day = get(handles.day_pm, 'Value');
+%Set month passthrough variable
 month = get(handles.month_pm, 'Value');
+%Call the main GUI with the appropriate passthrough variables
 nanohubGUI_sec13_team18([zipcode day month]);
 close trainsGUI_pvig
 
