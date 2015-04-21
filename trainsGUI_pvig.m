@@ -347,7 +347,15 @@ function reset_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to reset_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
+%Resetting edit text values to blank
+set(handles.enterStartZip_et,'String','')
+set(handles.enterEndZip_et,'String','')
+set(handles.startTime_et,'String','')
+set(handles.endTime_et,'String','')
+set(handles.day_pm,'Value',1)
+set(handles.month_pm,'Value',1)
+cla(handles.yearEnergy_ax,'reset')
+cla(handles.dayEnergy_ax,'reset')
 
 
 function enterEndZip_et_Callback(hObject, eventdata, handles)
