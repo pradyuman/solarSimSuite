@@ -3,11 +3,11 @@ function varargout = citationGUI_sec13_team18(varargin)
 %  ENGR 13200 Spring 2015
 %  Programmer(s) and Purdue Email Address(es): 
 %  1. Ben Staniewicz bstaniew@purdue.edu
-%  2. Pradyuman Vig pvig@purdue.edu
 %
 %  Other Contributor(s) and Purdue Email Address(es):
 %  1. Michael Keller keller77@purdue.edu
 %  2. Devashish Chopra chopra5@purdue.edu
+%  3. Pradyuman Vig pvig@purdue.edu
 %
 %  Section #: 13     Team #: 18
 %
@@ -20,13 +20,9 @@ function varargout = citationGUI_sec13_team18(varargin)
 %       to my/our code to another. The project I/we am/are 
 %       submitting is my/our own original work.
 %
-%  Program Description: This set of GUIs can be accessed by typing in the 
-%  file name. This will open up a main menu (this GUI). This GUI has links
-%  to access the 4 sub GUIs, a help page, and a references page. Each of
-%  the sub GUIs is a different application of solar panels. The 4
-%  applications are as follows: use on the roof of a train, solar panels in
-%  roadways, around lightpoles, and ones that rotate and face towards the
-%  sun.
+%  Program Description: This GUI displays the references used for all of
+%  each GUI in the simulation suite. To ensure proper formatting, the
+%  refernces are in the form of an image.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % CITATIONGUI_SEC13_TEAM18 MATLAB code for citationGUI_sec13_team18.fig
@@ -91,6 +87,10 @@ guidata(hObject, handles);
 % UIWAIT makes citationGUI_sec13_team18 wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
 
+axes(handles.refImg_ax); %Sets to current axes
+imagesc(imread('citations.jpg')); %Displays image on GUI
+set(gca,'visible','off'); %Removes tick marks
+
 
 % --- Outputs from this function are returned to the command line.
 function varargout = citationGUI_sec13_team18_OutputFcn(hObject, eventdata, handles) 
@@ -108,4 +108,5 @@ function exit_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to exit_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-close citationGUI_sec13_team18
+
+close citationGUI_sec13_team18 %Close current window
