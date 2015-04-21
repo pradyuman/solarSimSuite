@@ -284,32 +284,31 @@ function compute_pb_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-
 zip = str2num(get(handles.zipcode_et, 'String'));
 data = csvread('zipcode.csv');
 height = str2num(get(handles.poleHeight_et, 'String'));
 diameter = str2num(get(handles.poleDiameter_et, 'String'));
 day = get(handles.day_pm, 'Value') - 1;
 month = get(handles.month_pm, 'Value') - 1;
+
 if ~isempty(zip)
-    [row, col] = find(data(:,1) == zip)
+    [row, col] = find(data(:,1) == zip);
 end
+
 if isempty(zip)
     errorGUI_sec13_team18('Error! All fields must have entries!');
-    elseif isempty(diameter) | isempty(height) | ~day | ~month
+elseif isempty(diameter) | isempty(height) | ~day | ~month
     errorGUI_sec13_team18('Error! All fields must have entries!');
-    elseif isempty(row) | isempty(col)
+elseif isempty(row) | isempty(col)
     errorGUI_sec13_team18('Error! Zip code is invalid. If zip code is valid, please enter a zip code of a nearby major city.');
+elseif ~isscalar(zip) | ~isscalar(height) | ~isscalar(diameter)
+    errorGUI_sec13_team18('Error! All inputs must be scalar.');
 elseif diameter <= 0 
     errorGUI_sec13_team18('Error! Diameter is invalid. Please enter a valid diameter')
 elseif height <=0 
-    errprGUI_sec13_team18('Error! Height is invalid. Please enter a valid height')
+    errorGUI_sec13_team18('Error! Height is invalid. Please enter a valid height')
 else
     
-
-
-
-
 [row, col] = find(data(:,1) == zip);
 area = height * diameter;
 latitude = data(row, 2);
