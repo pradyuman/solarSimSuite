@@ -112,7 +112,7 @@ function moreInfo_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to moreInfo_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('This GUI takes a number of inputs regarding a trains journey and outputs a graph of energy generation throught the trip and year.')
+helpGUI_sec13_team18('This GUI takes a number of inputs regarding a trains journey and outputs a graph of energy generation throughout the trip and year.')
 
 % --- Executes on button press in mainMenu_pb.
 function mainMenu_pb_Callback(hObject, eventdata, handles)

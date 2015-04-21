@@ -112,7 +112,7 @@ function appHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to appHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18
+helpGUI_sec13_team18('This GUI takes a number of inputs regarding a rotating solar panel and outputs a graph of energy generation throughout the trip and year.')
 
 % --- Executes on button press in openMenu_pb.
 function openMenu_pb_Callback(hObject, eventdata, handles)
