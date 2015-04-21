@@ -3,11 +3,11 @@ function varargout = helpGUI_sec13_team18(varargin)
 %  ENGR 13200 Spring 2015
 %  Programmer(s) and Purdue Email Address(es): 
 %  1. Ben Staniewicz bstaniew@purdue.edu
-%  2. Pradyuman Vig pvig@purdue.edu
 %
 %  Other Contributor(s) and Purdue Email Address(es):
 %  1. Michael Keller keller77@purdue.edu
 %  2. Devashish Chopra chopra5@purdue.edu
+%  3. Pradyuman Vig pvig@purdue.edu
 %
 %  Section #: 13     Team #: 18
 %
@@ -23,7 +23,9 @@ function varargout = helpGUI_sec13_team18(varargin)
 %  Program Description: This GUI displays particular messages to the user
 %  when the user clicks the help button for different components on the GUI. This is
 %  to guide the user and help them use our program and GUIs correctly and to full
-%  potential and functionality
+%  potential and functionality. From this they can better understand how
+%  each GUI and input functions. The message displayed changed based on the
+%  string that is the input argument. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %HELPGUI_SEC13_TEAM18 M-file for helpGUI_sec13_team18.fig
 %      HELPGUI_SEC13_TEAM18, by itself, creates a new HELPGUI_SEC13_TEAM18 or raises the existing
@@ -114,4 +116,4 @@ function close_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to close_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-close helpGUI_sec13_team18
+close helpGUI_sec13_team18 %Close GUI
