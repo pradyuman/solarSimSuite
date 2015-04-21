@@ -42,7 +42,7 @@ else
     gui_mainfcn(gui_State, varargin{:});
 end
 % End initialization code - DO NOT EDIT
-
+ 
 
 % --- Executes just before trainsGUI_pvig is made visible.
 function trainsGUI_pvig_OpeningFcn(hObject, eventdata, handles, varargin)
@@ -207,9 +207,19 @@ end_zip = str2double(get(handles.enterEndZip_et,'String'));
 start_zip = str2double(get(handles.enterStartZip_et,'String'));
 data = csvread('zipcode.csv');
 
-num1 = str2double(strsplit(get(handles.startTime_et,'String'), ':'));
 
-num2 = str2double(strsplit(get(handles.endTime_et,'String'), ':'));
+if length(strfind(get(handles.startTime_et,'String'), ':')) == 1
+    num1 = str2double(strsplit(get(handles.startTime_et,'String'), ':'));
+    start_time =  num1(1) + num1(2)/60;
+else
+    start_time = str2num(get(handles.startTime_et,'String'));
+end
+if length(strfind(get(handles.endTime_et,'String'), ':')) == 1
+    num2 = str2double(strsplit(get(handles.endTime_et,'String'), ':'));
+    end_time =  num2(1) + num2(2)/60;
+else
+    end_time = str2num(get(handles.endTime_et,'String'));
+end
 
 day = get(handles.day_pm, 'Value') - 1;
 month = get(handles.month_pm, 'Value') - 1;
@@ -217,10 +227,12 @@ month = get(handles.month_pm, 'Value') - 1;
 [rowEnd, colEnd] = find(data(:,1) == end_zip);
 
 daysOfMonth = [31 28 31 30 31 30 31 31 30 31 30 31];
-%%%%%%%%%%%%%%%%ERRORS%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%INPUT VALIDATION%%%%%%%%%%%%%%%%%%%%%%%%%%
 if isempty(start_zip) | isempty(end_zip)
     errorGUI_sec13_team18('Error! All fields must have entries!');
-elseif isempty(num1) | isempty(num2) | ~day | ~month
+elseif isempty(start_time) | isempty(end_time) | ~day | ~month
     errorGUI_sec13_team18('Error! All fields must have entries!');
 elseif ~isscalar(start_zip) | ~isscalar(end_zip)
     errorGUI_sec13_team18('Error! Zipcodes must be scalar!');
@@ -228,20 +240,23 @@ elseif isempty(rowStart) | isempty(colStart)
     errorGUI_sec13_team18('Error! Starting zip code is invalid. If zip code is valid, please enter a 5 digit zip code of a nearby major city.');
 elseif isempty(rowEnd) | isempty(colEnd) | ~isscalar(rowEnd) | ~isscalar(colEnd)
     errorGUI_sec13_team18('Error! Ending zip code is invalid. If zip code is valid, please enter a 5 digit zip code of a nearby major city.');
-elseif length(strfind(get(handles.startTime_et,'String'), ':')) ~= 1
+elseif length(strfind(get(handles.startTime_et,'String'), ':')) > 1
     errorGUI_sec13_team18('Error! Make sure your start time is in the correct format (XX:XX)');
-elseif length(strfind(get(handles.endTime_et,'String'), ':')) ~= 1
+elseif length(strfind(get(handles.endTime_et,'String'), ':')) > 1
     errorGUI_sec13_team18('Error! Make sure your end time is in the correct format (XX:XX)');
-elseif num1(1) + num1(2)/60 ==  num2(1) + num2(2)/60
+elseif start_time > 24 | end_time > 24 | end_time < 0 | start_time < 0
+    errorGUI_sec13_team18('Error! Please enter times in 24 hour format (XX:XX)');
+elseif start_time == end_time
     errorGUI_sec13_team18('Error! Starting and ending zip codes are the same. Enter in different zipcodes for start and end.');
-elseif num1(1) + num1(2)/60 > num2(1) + num2(2)/60
-    errorGUI_sec13_team18('Error! Overnight trips are currently not supported. Please enter a start time that is smaller than the end time (in 24 hour format).');
+elseif start_time > end_time
+    errorGUI_sec13_team18('Error! Please enter a start time that is smaller than the end time (in 24 hour format).');
 elseif daysOfMonth(month) < day
     errorGUI_sec13_team18('Error! The day is not a day of the chosen month!');
 else
 
-start_time =  num1(1) + num1(2)/60;
-end_time =  num2(1) + num2(2)/60;
+
+
+
 time = 0:23;
 efficiency = .14;
 tics = linspace(start_time, end_time, 10);
@@ -258,7 +273,7 @@ end
 plot(handles.dayEnergy_ax, tics, energy);
 axis([start_time end_time 0 1.1 * max(energy)]) 
 set(handles.dayEnergy_ax,'xtick',0:2:24);
-xlabel(handles.dayEnergy_ax,'Hour of the Day)')
+xlabel(handles.dayEnergy_ax,'Hour of the Day')
 ylabel(handles.dayEnergy_ax,'Power Generation (kW)')
 
 for j = 0:11
