@@ -171,7 +171,7 @@ function moreAbout_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to moreAbout_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18; %Opens a menu that explains more about the simulation suite
+helpGUI_sec13_team18('This GUI has links to access the 4 sub GUIs, a help page, and a references page. Each of the sub GUIs is a different application of solar panels. The 4 applications are as follows: use on the roof of a train, solar panels in roadways, around lightpoles, and ones that rotate and face towards the sun. It is intended that the name alone will be used to start this GUI.'); %Opens a menu that explains more about the simulation suite
 
 % --- Executes on button press in references_pb.
 function references_pb_Callback(hObject, eventdata, handles)
