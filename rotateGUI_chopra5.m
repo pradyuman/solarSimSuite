@@ -297,7 +297,7 @@ efficiency = .14; %Estimated panel efficiency
 day = dayYear(month, day); %Finds day of the year (Dec 31 = 365)
 
 for k = 0:23 %For ea. hour of the day
-    energyRot(k + 1) = area * 10.4 * efficiency; %Calculate energy of rotating pane;
+    energyRot(k + 1) = area * solarInsolation(latitude, 0, k, day, 'rotate') * efficiency; %Calculate energy of rotating pane;
     if energyRot(k + 1) == 0 
         energyRot(k + 1) = 0; %If negative (because of sun on opp. side of world) energy is 0
     end
@@ -315,11 +315,12 @@ axis([0 24 0 1.1 * max(energyStat)]) %Sets axes
 set(handles.dayGraph_ax,'xtick',0:2:24); %Sets x tick marks
 xlabel(handles.dayGraph_ax,'Hour of the day') %Adds x axis title
 ylabel(handles.dayGraph_ax,'Power Generation (kW)') %Adds y axis title
+legend(handles.dayGraph_ax,'Stationary', 'Rotating', 'location', 'NE'); %Adds legend
 
 for k = 0:11 %For ea. month of the year
     energy = []; %Resets energy each iteration
     for j = 0:23 %For each hour of the day
-        energy(j + 1) = efficiency * area * solarInsolation(latitude, tilt, j, 30 * k + 15); %Calculates energy
+        energy(j + 1) = efficiency * area * solarInsolation(latitude, 0, j, 30 * k + 15, 'rotate'); %Calculates energy
         if energy(j + 1) < 0
             energy(j + 1) = 0; %If negative, sets to 0
         end
@@ -336,10 +337,6 @@ set(handles.yearGraph_ax,'xtick',1:12); %Sets x tick marks
 xlabel(handles.yearGraph_ax,'Month of the year'); %Adds x axis title
 ylabel(handles.yearGraph_ax,'Total Monthly Energy Generation(kWh)'); %Sets y axis title
 end %Ends input validation
-
-
-
-
 
 % --- Executes on button press in updateLoc_pb.
 function updateLoc_pb_Callback(hObject, eventdata, handles)
