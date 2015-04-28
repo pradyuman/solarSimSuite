@@ -100,6 +100,11 @@ if(~isempty(varargin)) %Activate if there is an input argument
     set(handles.month_pm, 'Value', data(3)); %Set edit text box
 end %End if statement
 
+%Presetting values for presentation purposes
+set(handles.widthInput_et, 'String', '2');
+set(handles.lengthInput_et, 'String', '3');
+set(handles.angleUpDownInput_et, 'String', '30');
+
 % --- Outputs from this function are returned to the command line.
 function varargout = rotateGUI_chopra5_OutputFcn(hObject, eventdata, handles)
 % varargout  cell array for returning output args (see VARARGOUT);

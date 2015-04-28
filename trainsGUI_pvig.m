@@ -96,6 +96,10 @@ if(~isempty(varargin))
     set(handles.month_pm, 'Value', data(3));
 end
 
+%Presetting for presentation purposes
+set(handles.startTime_et, 'String', '8:00');
+set(handles.endTime_et, 'String', '14:00');
+
 % --- Outputs from this function are returned to the command line.
 function varargout = trainsGUI_pvig_OutputFcn(hObject, eventdata, handles)
 % varargout  cell array for returning output args (see VARARGOUT);

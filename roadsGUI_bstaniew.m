@@ -104,7 +104,15 @@ if(~isempty(varargin)) %If input argument exists
     end %Ends if statement
     set(handles.day_pm, 'Value', data(2)); %Updates day
     set(handles.month_pm, 'Value', data(3)); %Updates month
+    
 end %Ends if statement
+%Presetting for presentation purposes
+ set(handles.widthInput_et, 'String', '7.4');
+ set(handles.marginInput_et, 'String', '0.5');
+ set(handles.lengthInput_et, 'String', '2');
+ 
+ set(handles.trafficInput_et, 'String', '50');
+ set(handles.carSpeed_et, 'String', '15');
 
 % --- Outputs from this function are returned to the command line.
 function varargout = roadsGUI_bstaniew_OutputFcn(hObject, eventdata, handles)

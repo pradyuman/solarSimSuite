@@ -97,6 +97,9 @@ if(~isempty(varargin))
     set(handles.month_pm, 'Value', data(3));
 end
 
+%Presets for presentation purposes
+set(handles.poleDiameter_et, 'String', '0.2');
+set(handles.poleHeight_et, 'String', '8.07');
 % --- Outputs from this function are returned to the command line.
 function varargout = lightpoleGUI_keller77_OutputFcn(hObject, eventdata, handles)
 % varargout  cell array for returning output args (see VARARGOUT);
@@ -276,7 +279,7 @@ function poleHeightHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to poleHeightHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('Enter the height of your light pole in meters.(An average light pole height is about 6 meters)')
+helpGUI_sec13_team18('Enter the height of your light pole in meters.(An average light pole height is about 8.07 meters)')
 
 % --- Executes on button press in compute_pb.
 function compute_pb_Callback(hObject, eventdata, handles)
