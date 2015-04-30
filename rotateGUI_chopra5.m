@@ -359,6 +359,8 @@ time = 1:12; %Creates vector of months of the year
 daysInMonth = [31 28 31 30 31 30 31 31 30 31 30 31]; %Creates days in month vector
 avrgEnergyRot = avrgEnergyRot .* daysInMonth; %Calculates total energy in a month
 avrgEnergyStat = avrgEnergyStat .* daysInMonth; %Calculates total energy in a month
+totalStat = sum(avrgEnergyStat);
+totalRot = sum(avrgEnergyRot);
 plot(handles.yearGraph_ax, time, avrgEnergyStat, 'g'); %Plot monthly energy for stat
 hold on
 plot(handles.yearGraph_ax, time, avrgEnergyRot, 'r'); %Plots total monthly energy
@@ -368,6 +370,8 @@ xlabel(handles.yearGraph_ax,'Month of the year', 'FontSize', 9); %Adds x axis ti
 ylabel(handles.yearGraph_ax,'Total Monthly Energy Generation(kWh)'); %Sets y axis title
 legend(handles.yearGraph_ax,'Stationary', 'Rotating', 'location', 'NE'); %Adds legend
 set(handles.yearGraph_ax,'xticklabel',['Jan'; 'Feb'; 'Mar';'Apr';'May';'Jun';'Jul';'Aug';'Sep';'Oct';'Nov';'Dec'])
+set(handles.rotate_et, 'String',['Total Annual Energy Generated: ', num2str(totalRot/10^6), ' GWh']);
+set(handles.static_et, 'String',['Total Annual Energy Generated: ', num2str(totalStat/10^6), ' GWh']);
 end %Ends input validation
 
 % --- Executes on button press in updateLoc_pb.

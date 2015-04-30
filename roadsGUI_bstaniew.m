@@ -406,12 +406,14 @@ end %End outer for loop
 time = 1:12; %Create time vector for hrs of the day
 daysInMonth = [31 28 31 30 31 30 31 31 30 31 30 31]; %Create vector for days in each month
 avrgEnergy = avrgEnergy .* daysInMonth; %Calculate energy in ea. month
+totalEnergy = sum(avrgEnergy);
 plot(handles.yearGraph_ax, time, avrgEnergy); %Plot energy througohut the year
 axis([1 12 0 1.1 * (max(avrgEnergy))]); %Change axes
 set(handles.yearGraph_ax,'xtick',1:12); %Set xticks
 xlabel(handles.yearGraph_ax,'Month of the year', 'FontSize', 9); %Add x axis title
 ylabel(handles.yearGraph_ax,'Total Monthly Energy Generation(kWh)'); %Add y axis title
 set(handles.yearGraph_ax,'xticklabel',['Jan'; 'Feb'; 'Mar';'Apr';'May';'Jun';'Jul';'Aug';'Sep';'Oct';'Nov';'Dec'])
+set(handles.annualEnergy, 'String',['Total Annual Energy Generated: ', num2str(totalEnergy/10^6), ' GWh']);
 end %End of input validation
 
 % --- Executes on button press in reset_pb.
@@ -428,6 +430,7 @@ set(handles.marginInput_et,'String','')
 set(handles.trafficInput_et,'String','')
 set(handles.carSpeed_et,'String','')
 set(handles.panelEff_et,'String','')
+set(handles.annualEnergy, 'String','');
 %Set drop down menus to defualt
 set(handles.day_pm,'Value',1)
 set(handles.month_pm,'Value',1)

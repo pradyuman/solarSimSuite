@@ -47,7 +47,7 @@ function varargout = trainsGUI_pvig(varargin)
 
 % Edit the above text to modify the response to help trainsGUI_pvig
 
-% Last Modified by GUIDE v2.5 14-Apr-2015 03:41:17
+% Last Modified by GUIDE v2.5 30-Apr-2015 03:05:03
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -99,6 +99,8 @@ end
 %Presetting for presentation purposes
 set(handles.startTime_et, 'String', '8:00');
 set(handles.endTime_et, 'String', '14:00');
+set(handles.cars_et, 'String', '10');
+set(handles.panelEff_et, 'String', '14');
 
 % --- Outputs from this function are returned to the command line.
 function varargout = trainsGUI_pvig_OutputFcn(hObject, eventdata, handles)
@@ -268,6 +270,9 @@ else
     end_time = str2num(get(handles.endTime_et,'String'));
 end
 
+efficiency = str2num(get(handles.panelEff_et,'String')) / 100;
+%Get number of train cars
+numCars = str2num(get(handles.cars_et,'String'));
 %Get day of the month
 day = get(handles.day_pm, 'Value') - 1;
 %Get month of the year
@@ -284,10 +289,10 @@ daysOfMonth = [31 28 31 30 31 30 31 31 30 31 30 31];
 %%%%%%%%%%%%%%%%INPUT VALIDATION%%%%%%%%%%%%%%%%%%%%%%%%%%
 if isempty(start_zip) | isempty(end_zip)
     errorGUI_sec13_team18('Error! All fields must have valid entries!');
-elseif isempty(start_time) | isempty(end_time) | ~day | ~month
+elseif isempty(start_time) | isempty(end_time) | ~day | ~month | isempty(numCars) | isempty(efficiency)
     errorGUI_sec13_team18('Error! All fields must have valid entries!');
-elseif ~isscalar(start_zip) | ~isscalar(end_zip)
-    errorGUI_sec13_team18('Error! Zipcodes must be scalar!');
+elseif ~isscalar(start_zip) | ~isscalar(end_zip) | ~isscalar(numCars) | ~isscalar(efficiency)
+    errorGUI_sec13_team18('Error! All inputs must be scalar!');
 elseif isempty(rowStart) | isempty(colStart)
     errorGUI_sec13_team18('Error! Starting zip code is invalid. If zip code is valid, please enter a 5 digit zip code of a nearby major city.');
 elseif isempty(rowEnd) | isempty(colEnd) | ~isscalar(rowEnd) | ~isscalar(colEnd)
@@ -296,20 +301,23 @@ elseif length(strfind(get(handles.startTime_et,'String'), ':')) > 1
     errorGUI_sec13_team18('Error! Make sure your start time is in the correct format (XX:XX)');
 elseif length(strfind(get(handles.endTime_et,'String'), ':')) > 1
     errorGUI_sec13_team18('Error! Make sure your end time is in the correct format (XX:XX)');
+elseif efficiency <= 0 | efficiency > 1
+    errorGUI_sec13_team18('Error! Efficiency must be between 0 and 100%');
 elseif start_time > 24 | end_time > 24 | end_time < 0 | start_time < 0
     errorGUI_sec13_team18('Error! Please enter times in 24 hour format (XX:XX)');
 elseif start_time == end_time
     errorGUI_sec13_team18('Error! Starting and ending zip codes are the same. Enter in different zipcodes for start and end.');
 elseif start_time > end_time
     errorGUI_sec13_team18('Error! Please enter a start time that is smaller than the end time (in 24 hour format).');
+elseif numCars <= 0
+    errorGUI_sec13_team18('Error! There must be at least one train car!');
 elseif daysOfMonth(month) < day
     errorGUI_sec13_team18('Error! The day is not a day of the chosen month!');
 else
 
 time = 0:23; %Time vector for hours
-efficiency = .14; %Efficiency of the solar panel
 tics = linspace(start_time, end_time, 10); %evenly spaced time increments
-area = 60 * 10 * 10; %Area of an average train
+area = 60 * 10 * numCars; %Area of an average train
 latStart = data(rowStart, 2); %starting latitude
 latEnd = data(rowEnd, 2); %ending latitude
 
@@ -348,11 +356,13 @@ end
 time = 1:12;
 daysInMonth = [31 28 31 30 31 30 31 31 30 31 30 31];
 avrgEnergy = avrgEnergy .* daysInMonth;
+totalEnergy = sum(avrgEnergy);
 plot(handles.yearEnergy_ax, time, avrgEnergy);
 axis([1 12 0 1.1 * (max(avrgEnergy))]) ;
 set(handles.yearEnergy_ax,'xtick',1:12);
 xlabel(handles.yearEnergy_ax,'Month of the Year');
 ylabel(handles.yearEnergy_ax,'Total Monthly Energy Generation (kWh)');
+set(handles.annualEnergy, 'String',['Total Annual Energy Generated: ', num2str(totalEnergy/10^6), ' GWh']);
 end
 
 % --- Executes on button press in reset_pb.
@@ -365,6 +375,9 @@ set(handles.enterStartZip_et,'String','')
 set(handles.enterEndZip_et,'String','')
 set(handles.startTime_et,'String','')
 set(handles.endTime_et,'String','')
+set(handles.annualEnergy, 'String','');
+set(handles.cars_et, 'String','');
+set(handles.panelEff_et, 'String','');
 %Resetting month/day values to 1 ("Enter Day" | "Enter Month")
 set(handles.day_pm,'Value',1)
 set(handles.month_pm,'Value',1)
@@ -461,3 +474,64 @@ function startTimeHelp_pb_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 helpGUI_sec13_team18('Enter the time of day in 24 hour format (XX:XX | 14:00)')
+
+
+
+function cars_et_Callback(hObject, eventdata, handles)
+% hObject    handle to cars_et (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of cars_et as text
+%        str2double(get(hObject,'String')) returns contents of cars_et as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function cars_et_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to cars_et (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on button press in carHelp_pb.
+function carHelp_pb_Callback(hObject, eventdata, handles)
+% hObject    handle to carHelp_pb (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+helpGUI_sec13_team18('Enter the number of train cars on the train being used');
+
+
+function panelEff_et_Callback(hObject, eventdata, handles)
+% hObject    handle to panelEff_et (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of panelEff_et as text
+%        str2double(get(hObject,'String')) returns contents of panelEff_et as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function panelEff_et_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to panelEff_et (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on button press in effHelp_pb.
+function effHelp_pb_Callback(hObject, eventdata, handles)
+% hObject    handle to effHelp_pb (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+helpGUI_sec13_team18('Enter the efficiency of the solar panels being used on the train. A common efficiency factor is 14% but varies based on materials used.');
