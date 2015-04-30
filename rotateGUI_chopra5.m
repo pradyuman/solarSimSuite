@@ -370,8 +370,8 @@ xlabel(handles.yearGraph_ax,'Month of the year', 'FontSize', 9); %Adds x axis ti
 ylabel(handles.yearGraph_ax,'Total Monthly Energy Generation(kWh)'); %Sets y axis title
 legend(handles.yearGraph_ax,'Stationary', 'Rotating', 'location', 'NE'); %Adds legend
 set(handles.yearGraph_ax,'xticklabel',['Jan'; 'Feb'; 'Mar';'Apr';'May';'Jun';'Jul';'Aug';'Sep';'Oct';'Nov';'Dec'])
-set(handles.rotate_et, 'String',['Total Annual Energy Generated: ', num2str(totalRot/10^6), ' GWh']);
-set(handles.static_et, 'String',['Total Annual Energy Generated: ', num2str(totalStat/10^6), ' GWh']);
+set(handles.rotate_et, 'String',['Total Annual Energy Generated (Rotating): ', num2str(totalRot/10^6), ' GWh']);
+set(handles.static_et, 'String',['Total Annual Energy Generated (Stationary): ', num2str(totalStat/10^6), ' GWh']);
 end %Ends input validation
 
 % --- Executes on button press in updateLoc_pb.

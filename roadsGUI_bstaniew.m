@@ -111,8 +111,7 @@ set(handles.widthInput_et, 'String', '14.8');
 set(handles.marginInput_et, 'String', '0.5');
 set(handles.lengthInput_et, 'String', '2');
 set(handles.trafficInput_et, 'String', '100');
-set(handles.carSpeed_et, 'String', '15');
-set(handles.carSpeed_et, 'String', '15');
+set(handles.carSpeed_et, 'String', '45');
 set(handles.panelEff_et, 'String', '14');
 
 % --- Outputs from this function are returned to the command line.
