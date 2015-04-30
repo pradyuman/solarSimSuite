@@ -50,7 +50,7 @@ function varargout = rotateGUI_chopra5(varargin)
 
 % Edit the above text to modify the response to help rotateGUI_chopra5
 
-% Last Modified by GUIDE v2.5 21-Apr-2015 01:02:35
+% Last Modified by GUIDE v2.5 29-Apr-2015 20:36:18
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -318,29 +318,40 @@ hold(handles.dayGraph_ax, 'on') %Holds current plot
 plot(handles.dayGraph_ax, time, energyRot,'r'); %Plots rotating panel on same graph
 axis([0 24 0 1.1 * max(energyStat)]) %Sets axes
 set(handles.dayGraph_ax,'xtick',0:2:24); %Sets x tick marks
-xlabel(handles.dayGraph_ax,'Hour of the day') %Adds x axis title
+xlabel(handles.dayGraph_ax,'Hour of the day', 'FontSize', 9) %Adds x axis title
 ylabel(handles.dayGraph_ax,'Power Generation (kW)') %Adds y axis title
 legend(handles.dayGraph_ax,'Stationary', 'Rotating', 'location', 'NE'); %Adds legend
 
 for k = 0:11 %For ea. month of the year
-    energy = []; %Resets energy each iteration
+    energyRot = []; %Resets energy each iteration
     for j = 0:23 %For each hour of the day
-        energy(j + 1) = efficiency * area * solarInsolation(latitude, 0, j, 30 * k + 15, 'rotate'); %Calculates energy
-        if energy(j + 1) < 0
-            energy(j + 1) = 0; %If negative, sets to 0
+        energyRot(j + 1) = efficiency * area * solarInsolation(latitude, 0, j, 30 * k + 15, 'rotate'); %Calculates energy (stationary)
+        energyStat(j + 1) = efficiency * area * solarInsolation(latitude, tilt, j, 30 * k + 15); %Calculates energy (rotating)
+        if energyRot(j + 1) < 0
+            energyRot(j + 1) = 0; %If negative, sets to 0
+        end
+        if energyStat(j + 1) < 0
+            energyStat(j + 1) = 0; %If negative, sets to 0
         end
     end
-    avrgEnergy(k + 1) = mean(energy); %Sets avrg as the average of that day
+    avrgEnergyRot(k + 1) = mean(energyRot); %Sets avrg as the average of that day
+    avrgEnergyStat(k + 1) = mean(energyStat); %Sets avrg as the average of that day
 end
 
+cla(handles.yearGraph_ax,'reset') %Clears graph
 time = 1:12; %Creates vector of months of the year
 daysInMonth = [31 28 31 30 31 30 31 31 30 31 30 31]; %Creates days in month vector
-avrgEnergy = avrgEnergy .* daysInMonth; %Calculates total energy in a month
-plot(handles.yearGraph_ax, time, avrgEnergy); %Plots total monthly energy
-axis([1 12 0 1.1 * (max(avrgEnergy))]); %Sets axis
+avrgEnergyRot = avrgEnergyRot .* daysInMonth; %Calculates total energy in a month
+avrgEnergyStat = avrgEnergyStat .* daysInMonth; %Calculates total energy in a month
+plot(handles.yearGraph_ax, time, avrgEnergyStat, 'g'); %Plot monthly energy for stat
+hold on
+plot(handles.yearGraph_ax, time, avrgEnergyRot, 'r'); %Plots total monthly energy
+axis([1 12 0 1.5 * max((max(avrgEnergyRot)), (max(avrgEnergyStat)))]); %Sets axis
 set(handles.yearGraph_ax,'xtick',1:12); %Sets x tick marks
-xlabel(handles.yearGraph_ax,'Month of the year'); %Adds x axis title
+xlabel(handles.yearGraph_ax,'Month of the year', 'FontSize', 9); %Adds x axis title
 ylabel(handles.yearGraph_ax,'Total Monthly Energy Generation(kWh)'); %Sets y axis title
+legend(handles.yearGraph_ax,'Stationary', 'Rotating', 'location', 'NE'); %Adds legend
+set(handles.yearGraph_ax,'xticklabel',['Jan'; 'Feb'; 'Mar';'Apr';'May';'Jun';'Jul';'Aug';'Sep';'Oct';'Nov';'Dec'])
 end %Ends input validation
 
 % --- Executes on button press in updateLoc_pb.
@@ -426,3 +437,109 @@ function angleUpDownHelp_pb_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 helpGUI_sec13_team18 ('Enter the angle of the stationary solar panel range from 0 to 90 where 0 is parallel and 90 is perpendicular'); %Open help menu
+
+
+
+function edit14_Callback(hObject, eventdata, handles)
+% hObject    handle to edit14 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit14 as text
+%        str2double(get(hObject,'String')) returns contents of edit14 as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function edit14_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit14 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on button press in pushbutton15.
+function pushbutton15_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton15 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+
+function edit15_Callback(hObject, eventdata, handles)
+% hObject    handle to edit15 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit15 as text
+%        str2double(get(hObject,'String')) returns contents of edit15 as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function edit15_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit15 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on button press in pushbutton16.
+function pushbutton16_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton16 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --- Executes on selection change in popupmenu7.
+function popupmenu7_Callback(hObject, eventdata, handles)
+% hObject    handle to popupmenu7 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: contents = cellstr(get(hObject,'String')) returns popupmenu7 contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from popupmenu7
+
+
+% --- Executes during object creation, after setting all properties.
+function popupmenu7_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to popupmenu7 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: popupmenu controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on selection change in popupmenu8.
+function popupmenu8_Callback(hObject, eventdata, handles)
+% hObject    handle to popupmenu8 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: contents = cellstr(get(hObject,'String')) returns popupmenu8 contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from popupmenu8
+
+
+% --- Executes during object creation, after setting all properties.
+function popupmenu8_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to popupmenu8 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: popupmenu controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
