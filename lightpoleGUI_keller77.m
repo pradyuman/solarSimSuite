@@ -118,7 +118,11 @@ function moreInfo_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to moreInfo_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('This GUI is designed to show the energy output in the spans of a day and a year of a single solar light pole. This GUI takes into account zip code, date, diameter, and height of the pole.');
+descMessage = 'This simulation is designed to test the effectiveness of lightpoles with flexible solar panels wrapped around them. Based on pole dimensions and loations, energy generated is calculated and plotted on two graphs. This can be useful to see if self sustaining light poles are a viable option for certain locations';
+inputMessage = 'Inputs: Location (zip code), number of poles, pole height and diameter, day to be graphed/tested';
+outputMessage = 'Outputs: Graph of energy generation throughout the sample day, graph of energy generation throughout the year, and the total annual energy generation ';
+mathMessage = 'The light pole is treated similarly to a solar panel that is oriented perpendicular to the ground instead of parallel. The solar insolation is calculated with these inputs for a given day solarInsolation(latitude, 90, hour, day). See the main menu GUI for more info on this function';
+appHelpGUI_sec13_team18(descMessage, inputMessage, outputMessage, mathMessage);
 
 % --- Executes on button press in mainMenu_pb.
 function mainMenu_pb_Callback(hObject, eventdata, handles)
@@ -379,6 +383,7 @@ daysInMonth = [31 28 31 30 31 30 31 31 30 31 30 31];
 avrgEnergy = avrgEnergy .* daysInMonth;
 totalEnergy = sum(avrgEnergy);
 plot(handles.yearEnergy_ax, time, avrgEnergy);
+set(handles.yearEnergy_ax,'xticklabel',['Jan'; 'Feb'; 'Mar';'Apr';'May';'Jun';'Jul';'Aug';'Sep';'Oct';'Nov';'Dec'])
 axis([1 12 0 1.1 * (max(avrgEnergy))]);
 set(handles.yearEnergy_ax,'xtick',1:12);
 xlabel(handles.yearEnergy_ax,'Month of the year');

@@ -54,7 +54,7 @@ function varargout = nanohubGUI_sec13_team18(varargin)
 
 % Edit the above text to modify the response to help nanohubGUI_sec13_team18
 
-% Last Modified by GUIDE v2.5 20-Apr-2015 22:29:48
+% Last Modified by GUIDE v2.5 30-Apr-2015 07:26:40
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -171,7 +171,11 @@ function moreAbout_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to moreAbout_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('This GUI has links to access the 4 sub GUIs, a help page, and a references page. Each of the sub GUIs is a different application of solar panels. The 4 applications are as follows: use on the roof of a train, solar panels in roadways, around lightpoles, and ones that rotate and face towards the sun. It is intended that the name alone will be used to start this GUI.'); %Opens a menu that explains more about the simulation suite
+descMessage = 'This GUI has links to access the 4 sub GUIs, a help page, and a references page. Each of the sub GUIs is a different application of solar panels. The 4 applications are as follows: use on the roof of a train, solar panels in roadways, around lightpoles, and ones that rotate and face towards the sun. ';
+inputMessage = 'Direct user: Research and development companies such as 3M and Siemens. ';
+outputMessage = 'Goal of the simulation suite: to allow such companies to model renewable energy applications for use of their many customers.';
+mathMessage =  'By using this simulation suite, they could quickly determine if a certain application is feasible for the customer based on factors such as geographical location and current infrastructure (road size, train size, etc.)';
+appHelpGUI_sec13_team18(descMessage, inputMessage, outputMessage, mathMessage);
 
 % --- Executes on button press in references_pb.
 function references_pb_Callback(hObject, eventdata, handles)
@@ -187,3 +191,15 @@ function close_pb_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 close all; %Closes any open GUIs
+
+
+% --- Executes on button press in mathMod_pb.
+function mathMod_pb_Callback(hObject, eventdata, handles)
+% hObject    handle to mathMod_pb (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+descMessage = 'There are two main calculations that are used in all GUIs in addition to individual calculations that are unique to each GUI';
+inputMessage = 'Latitude is used for all of the calculations. This is determined by a user input zip code (limited to US)';
+outputMessage = 'This is found by using a csv file with approximately 50,000 US zip codes. Matlab then searches this file for the zip code and finds the associated latitude.';
+mathMessage =  'solarInsolation: This function first calculates the length of the day, then the declination angle, and then accounts for atmospheric effects. dayLength = 2 / 15 * acosd(-1 *(sind(lat)*sind(declination))/(cosd(lat) * cosd(declination))); declination = 23.45 * sind(360 / 365 * (284 + day)); energy = 10.436 * sind(90 - lat + declination + tilt) * sind(180 / dayLength * (hr - 12 + (dayLength / 2))); These can all be derived from geometry and are experimentally verified.';
+appHelpGUI_sec13_team18(descMessage, inputMessage, outputMessage, mathMessage);

@@ -118,7 +118,11 @@ function moreInfo_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to moreInfo_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('This GUI takes a number of inputs regarding a trains journey and outputs a graph of energy generation throughout the trip and year.')
+descMessage = 'This GUI is intended to be used to simulate solar panels on the rooves of trains. Based on the train''s start and end location, the amount of solar energy captured is graphed for each section of the trip. Graphs are shown for both daily and annual generation. This can be used to help optimize which trains receive solar panels as some routes would be better suited than others.';
+inputMessage = 'Inputs: Location (start and end zipcode), Time (start and end), day to be graphed, panel efficiency, and number of train cars.';
+outputMessage = 'Graph of energy generation if the train took the route once a day for a year, graph of energy generation for a single day of the train''s route, total annual energy generation';
+mathMessage = 'area = 60 * 10 * numCars. This is the total area of the solar panels. This is multiplied by the solar energy for 10 equally spaced points along the trip (each with different energy). Each has different energy as the time of day and location changes each new point';
+appHelpGUI_sec13_team18(descMessage, inputMessage, outputMessage, mathMessage);
 
 % --- Executes on button press in mainMenu_pb.
 function mainMenu_pb_Callback(hObject, eventdata, handles)
@@ -360,9 +364,11 @@ totalEnergy = sum(avrgEnergy);
 plot(handles.yearEnergy_ax, time, avrgEnergy);
 axis([1 12 0 1.1 * (max(avrgEnergy))]) ;
 set(handles.yearEnergy_ax,'xtick',1:12);
+set(handles.yearEnergy_ax,'xticklabel',['Jan'; 'Feb'; 'Mar';'Apr';'May';'Jun';'Jul';'Aug';'Sep';'Oct';'Nov';'Dec'])
 xlabel(handles.yearEnergy_ax,'Month of the Year');
 ylabel(handles.yearEnergy_ax,'Total Monthly Energy Generation (kWh)');
 set(handles.annualEnergy, 'String',['Total Annual Energy Generated: ', num2str(totalEnergy/10^6), ' GWh']);
+
 end
 
 % --- Executes on button press in reset_pb.

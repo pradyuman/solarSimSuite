@@ -123,7 +123,11 @@ function appHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to appHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('This GUI takes a solar panel''s dimension, location(zip code) and day. It then graphs the energy generation throughout the day for both a stationary and rotating solar panel. The rotating solar panel moves and always looks directly at the sun. It also plots the energy generation of this throughout the year.')
+descMessage = 'This simulation compares stationary solar panels and solar panels that rotate to face directly towards the sun. Two graphs are plotted and total annual energy generation is calculated based on the dimensions, location, and properties of the given solar panel. This would be useful in determining the economic viability of rotating solar farms.';
+inputMessage = 'Inputs: Location (zip code), dimensions of panel (length, width, angle with respect to ground), panel efficiency, and sample day';
+outputMessage = 'Graph of stationary and rotating panels throughout the year, graph of their energy throughout the day, and the total energy generation of them throughout the year';
+mathMessage = 'This is calculated using a simple for loop calculating the energy generation throughout the day. However, the rotating panel is calculated using an extra parameter solarInsolation(latitude, 0, k, day, ''rotate''). Instead of calculating the angle needed to look towards the sun, it skips the line that adjusts for the tilt of the panel and assumes that the panel is always looking at the sun.';
+appHelpGUI_sec13_team18(descMessage, inputMessage, outputMessage, mathMessage);
 
 % --- Executes on button press in openMenu_pb.
 function openMenu_pb_Callback(hObject, eventdata, handles)
@@ -370,8 +374,8 @@ xlabel(handles.yearGraph_ax,'Month of the year', 'FontSize', 9); %Adds x axis ti
 ylabel(handles.yearGraph_ax,'Total Monthly Energy Generation(kWh)'); %Sets y axis title
 legend(handles.yearGraph_ax,'Stationary', 'Rotating', 'location', 'NE'); %Adds legend
 set(handles.yearGraph_ax,'xticklabel',['Jan'; 'Feb'; 'Mar';'Apr';'May';'Jun';'Jul';'Aug';'Sep';'Oct';'Nov';'Dec'])
-set(handles.rotate_et, 'String',['Total Annual Energy Generated (Rotating): ', num2str(totalRot/10^6), ' GWh']);
-set(handles.static_et, 'String',['Total Annual Energy Generated (Stationary): ', num2str(totalStat/10^6), ' GWh']);
+set(handles.rotate_et, 'String',['Total Annual Energy Generated (Rotating): ', num2str(totalRot/10^3), ' MWh']);
+set(handles.static_et, 'String',['Total Annual Energy Generated (Stationary): ', num2str(totalStat/10^3), ' MWh']);
 end %Ends input validation
 
 % --- Executes on button press in updateLoc_pb.

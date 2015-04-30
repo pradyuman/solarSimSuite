@@ -130,7 +130,12 @@ function appHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to appHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('This GUI receives input of zip code, road width, road width margin, road length, traffic levels, and an example day. It then calculates the energy output for the example day and each month of the year and outputs these on to two graphs.');
+descMessage = 'This application is for use of solar panels on roadways. Panels are to be placed on roads of the input dimensions at the location given by the input zip code. The program then calculates and plots energy generation throughout a sample day and an entire year. This can be used to coordinate with cities/towns to find the optimal stretch of road to place solar roadways.';
+inputMessage = 'Inputs:  Location (zip code), Road dimensions (Length, width, margins), Panel efficiency, Traffic levels (cars/hour, car speed)';
+outputMessage = 'Outputs: Graph of energy generation throughout each month of the year, Graph of energy generation throughout given sample day, total annual energy generation';
+mathMessage = 'area = length * 1000 * (width - 2 * margin) - (traffic * 9 * timeCovered) / (3600) where timeCovered = length * 1000 / speed. This is the average area exposed to sunlight at a given moment. This is then multiplied by the solar radiation (kW/m^2) to find the total energy generation. See the main menu for description on how the solar insolation is calculated.';
+appHelpGUI_sec13_team18(descMessage, inputMessage, outputMessage, mathMessage);
+
 
 % --- Executes on button press in openMenu_pb.
 function openMenu_pb_Callback(hObject, eventdata, handles)
@@ -321,13 +326,13 @@ else %Unit selected: mi
     length = 1609.34 * str2num(get(handles.lengthInput_et, 'String')); %Convert to meters (m)
 end
 if get(handles.speedUnit_pm, 'Value') == 1 %Unit selected: kph
-    speed =  0.2777778 * abs(str2num(get(handles.carSpeed_et, 'String'))); %Find avrg speed (m/s)
+    speed = 0.2777778 * abs(str2num(get(handles.carSpeed_et, 'String'))); %Find avrg speed (m/s)
 elseif get(handles.speedUnit_pm, 'Value') == 2 %Unit selected: mph 
-    speed =  0.44704 * abs(str2num(get(handles.carSpeed_et, 'String'))); %Find avrg speed (m/s)
+    speed = 0.44704 * abs(str2num(get(handles.carSpeed_et, 'String'))); %Find avrg speed (m/s)
 elseif get(handles.speedUnit_pm, 'Value') == 3 %Unit selected: m/s
     speed = abs(str2num(get(handles.carSpeed_et, 'String'))); %Find avrg speed (m/s)
 else %Unit selected: ft/s
-    speed =  0.3048 * abs(str2num(get(handles.carSpeed_et, 'String'))); %Find avrg speed (m/s)
+    speed = 0.3048 * abs(str2num(get(handles.carSpeed_et, 'String'))); %Find avrg speed (m/s)
 end
     
 area = length * (width - 2 * margin); %Calculate road area (m^2)
