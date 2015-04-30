@@ -49,7 +49,7 @@ function varargout = lightpoleGUI_keller77(varargin)
 
 % Edit the above text to modify the response to help lightpoleGUI_keller77
 
-% Last Modified by GUIDE v2.5 30-Apr-2015 00:22:08
+% Last Modified by GUIDE v2.5 30-Apr-2015 00:41:08
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -98,8 +98,11 @@ if(~isempty(varargin))
 end
 
 %Presets for presentation purposes
-set(handles.poleDiameter_et, 'String', '0.2');
+set(handles.poleDiameter_et, 'String', '20');
 set(handles.poleHeight_et, 'String', '8.07');
+set(handles.numPoles_et, 'String', '1');
+set(handles.panelEff_et,'String','14');
+
 % --- Outputs from this function are returned to the command line.
 function varargout = lightpoleGUI_keller77_OutputFcn(hObject, eventdata, handles)
 % varargout  cell array for returning output args (see VARARGOUT);
@@ -257,29 +260,28 @@ function dateHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to dateHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('Select a valid date from the drop down menu with both a month and a day.');
+helpGUI_sec13_team18('Select a valid day and month using the drop down menu.');
 
 % --- Executes on button press in zipCodeHelp_pb.
 function zipCodeHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to zipCodeHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('Enter a valid 5 digit postal zip code. If an error still persist, try using the zipcode of your nearest big city.'); 
+helpGUI_sec13_team18('Enter a valid 5 digit postal US zip code. If the error still persists, try using the zipcode of your nearest big city.'); 
 
 % --- Executes on button press in poleDiameterHelp_pb.
 function poleDiameterHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to poleDiameterHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('Enter the diameter of your light pole in meters.(An average light pole diameter is .2 meters)')
-
+helpGUI_sec13_team18('Enter the diameter of your light pole. You may choose the units via the popup menu to the right of the input. A typical pole has a diameter of about 20cm.')
 
 % --- Executes on button press in poleHeightHelp_pb.
 function poleHeightHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to poleHeightHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('Enter the height of your light pole in meters.(An average light pole height is about 8.07 meters)')
+helpGUI_sec13_team18('Enter the height of your light pole.(An average light pole height is about 8.07 meters). You can change the units by the popup menu to the right of the input.')
 
 % --- Executes on button press in compute_pb.
 function compute_pb_Callback(hObject, eventdata, handles)
@@ -294,11 +296,24 @@ data = csvread('zipcode.csv');
 %Getting height from GUI
 height = str2num(get(handles.poleHeight_et, 'String'));
 %Getting diameter from GUI
-diameter = str2num(get(handles.poleDiameter_et, 'String'));
+if get(handles.diameterUnit_pm, 'Value') == 1
+    diameter = str2num(get(handles.poleDiameter_et, 'String')) / 100;
+else
+    diameter = 0.0254 * str2num(get(handles.poleDiameter_et, 'String'));
+end
+if get(handles.heightUnit_pm, 'Value') == 1
+    height = str2num(get(handles.poleHeight_et, 'String'));
+else
+    height = .3048 * str2num(get(handles.poleHeight_et, 'String'));
+end
+
+
 %Getting day from GUI
 day = get(handles.day_pm, 'Value') - 1;
 %Getting month from GUI
 month = get(handles.month_pm, 'Value') - 1;
+num = str2num(get(handles.numPoles_et,'String'));
+efficiency = str2num(get(handles.panelEff_et,'String')) / 100;
 
 %Getting latitude and longitude indexes from zipcode database
 if(~isempty(zip))
@@ -307,24 +322,27 @@ end
 %Input validation
 if isempty(zip)
     errorGUI_sec13_team18('Error! All fields must have entries!');
-elseif isempty(diameter) | isempty(height) | ~day | ~month
+elseif isempty(diameter) | isempty(height) | ~day | ~month | isempty(efficiency) | isempty(num)
     errorGUI_sec13_team18('Error! All fields must have entries!');
 elseif isempty(row) | isempty(col)
     errorGUI_sec13_team18('Error! Zip code is invalid. If zip code is valid, please enter a zip code of a nearby major city.');
-elseif ~isscalar(zip) | ~isscalar(height) | ~isscalar(diameter)
+elseif ~isscalar(zip) | ~isscalar(height) | ~isscalar(diameter) | ~isscalar(efficiency) | ~isscalar(num)
     errorGUI_sec13_team18('Error! All inputs must be scalar.');
 elseif diameter <= 0 
     errorGUI_sec13_team18('Error! Diameter is invalid. Please enter a valid diameter')
 elseif height <=0 
     errorGUI_sec13_team18('Error! Height is invalid. Please enter a valid height')
+elseif efficiency <= 0 | efficiency > 1
+    errorGUI_sec13_team18('Error! Efficiency must be less than or equal to 100% and greater than 0');
+elseif num <= 0
+    errorGUI_sec13_team18('Error! The number of poles must be a positive integer!');
 else
 
 %Calculating area of sun x pole cross-section
-area = height * diameter;
+area = height * diameter * num;
 %Getting latitude
 latitude = data(row, 2);
 time = 0:23;
-efficiency = .14;
 day = dayYear(month, day);
 
 %Calculating solar insolation energy for a day
@@ -336,7 +354,7 @@ for k = 0:23
 end
 
 %Plotting solar insolation energy for a day
-plot(handles.dayEnergy_ax, time, energy,'g');
+plot(handles.dayEnergy_ax, time, energy,'b');
 axis([0 24 0 1.1 * max(energy)]) 
 set(handles.dayEnergy_ax,'xtick',0:2:24);
 xlabel(handles.dayEnergy_ax,'Time (hours)')
@@ -360,7 +378,7 @@ time = 1:12;
 daysInMonth = [31 28 31 30 31 30 31 31 30 31 30 31];
 avrgEnergy = avrgEnergy .* daysInMonth;
 plot(handles.yearEnergy_ax, time, avrgEnergy);
-axis([1 12 0 1.1 * (max(avrgEnergy))]) ;
+axis([1 12 0 1.1 * (max(avrgEnergy))]);
 set(handles.yearEnergy_ax,'xtick',1:12);
 xlabel(handles.yearEnergy_ax,'Month of the year');
 ylabel(handles.yearEnergy_ax,'Total Monthly Energy Generation (kWh)');
@@ -383,6 +401,8 @@ function reset_pb_Callback(hObject, eventdata, handles)
 set(handles.zipcode_et,'String','')
 set(handles.poleDiameter_et,'String','')
 set(handles.poleHeight_et,'String','')
+set(handles.panelEff_et,'String','')
+set(handles.numPoles_et,'String','')
 %Resetting month/day values to 1 ("Enter Day" | "Enter Month")
 set(handles.day_pm,'Value',1)
 set(handles.month_pm,'Value',1)
@@ -449,21 +469,21 @@ function effHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to effHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+helpGUI_sec13_team18('Enter the efficiency of the solar panels used. An estimated efficiency of a typical panel is 14%');
 
-
-% --- Executes on selection change in popupmenu7.
-function popupmenu7_Callback(hObject, eventdata, handles)
-% hObject    handle to popupmenu7 (see GCBO)
+% --- Executes on selection change in diameterUnit_pm.
+function diameterUnit_pm_Callback(hObject, eventdata, handles)
+% hObject    handle to diameterUnit_pm (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: contents = cellstr(get(hObject,'String')) returns popupmenu7 contents as cell array
-%        contents{get(hObject,'Value')} returns selected item from popupmenu7
+% Hints: contents = cellstr(get(hObject,'String')) returns diameterUnit_pm contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from diameterUnit_pm
 
 
 % --- Executes during object creation, after setting all properties.
-function popupmenu7_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to popupmenu7 (see GCBO)
+function diameterUnit_pm_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to diameterUnit_pm (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -474,19 +494,19 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 
 
-% --- Executes on selection change in popupmenu8.
-function popupmenu8_Callback(hObject, eventdata, handles)
-% hObject    handle to popupmenu8 (see GCBO)
+% --- Executes on selection change in heightUnit_pm.
+function heightUnit_pm_Callback(hObject, eventdata, handles)
+% hObject    handle to heightUnit_pm (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: contents = cellstr(get(hObject,'String')) returns popupmenu8 contents as cell array
-%        contents{get(hObject,'Value')} returns selected item from popupmenu8
+% Hints: contents = cellstr(get(hObject,'String')) returns heightUnit_pm contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from heightUnit_pm
 
 
 % --- Executes during object creation, after setting all properties.
-function popupmenu8_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to popupmenu8 (see GCBO)
+function heightUnit_pm_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to heightUnit_pm (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
