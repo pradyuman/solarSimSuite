@@ -57,7 +57,7 @@ function varargout = roadsGUI_bstaniew(varargin)
 
 % Edit the above text to modify the response to help roadsGUI_bstaniew
 
-% Last Modified by GUIDE v2.5 29-Apr-2015 19:07:28
+% Last Modified by GUIDE v2.5 29-Apr-2015 22:38:36
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -107,12 +107,13 @@ if(~isempty(varargin)) %If input argument exists
     
 end %Ends if statement
 %Presetting for presentation purposes
- set(handles.widthInput_et, 'String', '7.4');
- set(handles.marginInput_et, 'String', '0.5');
- set(handles.lengthInput_et, 'String', '2');
- 
- set(handles.trafficInput_et, 'String', '50');
- set(handles.carSpeed_et, 'String', '15');
+set(handles.widthInput_et, 'String', '14.8'); 
+set(handles.marginInput_et, 'String', '0.5');
+set(handles.lengthInput_et, 'String', '2');
+set(handles.trafficInput_et, 'String', '100');
+set(handles.carSpeed_et, 'String', '15');
+set(handles.carSpeed_et, 'String', '15');
+set(handles.panelEff_et, 'String', '14');
 
 % --- Outputs from this function are returned to the command line.
 function varargout = roadsGUI_bstaniew_OutputFcn(hObject, eventdata, handles)
@@ -281,21 +282,21 @@ function zipHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to zipHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('Please enter your 5 digit zipcode. ie.: West Lafayette, IN = 47906.'); %Sends string of help message
+helpGUI_sec13_team18('Please enter your 5 digit US zipcode. ie.: West Lafayette, IN = 47906.'); %Sends string of help message
 
 % --- Executes on button press in widthHelp_pb.
 function widthHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to widthHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('Enter the width of the road width solar panels in meters. 1 lane is approximately 3.7 meters wide.'); %Sends string of help message
+helpGUI_sec13_team18('Enter the width of the road width solar panels in meters. 1 lane is approximately 3.7 meters wide. The unit can be selected from the popup menu to the right.'); %Sends string of help message
 
 % --- Executes on button press in lengthHelp_pb.
 function lengthHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to lengthHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('Enter the length of the road with solar panels in kilometers.'); %Sends string of help message
+helpGUI_sec13_team18('Enter the length of the road with solar panels. The unit can be selected from the popup menu to the right.'); %Sends string of help message
 
 % --- Executes on button press in compute_pb.
 function compute_pb_Callback(hObject, eventdata, handles)
@@ -305,15 +306,37 @@ function compute_pb_Callback(hObject, eventdata, handles)
 
 zip = str2num(get(handles.zipInput_et, 'String')); %Finds zip code
 data = csvread('zipcode.csv'); %Imports list of zip codes and longitudes/latitudes
-length = str2num(get(handles.lengthInput_et, 'String')); %Find road length
-width = str2num(get(handles.widthInput_et, 'String')); %Find road width
-margin = str2num(get(handles.marginInput_et, 'String')); %Find road margin
-area = length * 1000 * (width - 2 * margin); %Calculate road area
+if get(handles.widthUnit_pm, 'Value') == 1 %Unit selected: meters
+    width = str2num(get(handles.widthInput_et, 'String')); %Find road length
+else %Unit selected: feet
+    width = .3048 * str2num(get(handles.widthInput_et, 'String')); %Convert to meters
+end
+if get(handles.marginUnit_pm, 'Value') == 1 %Unit selected: meters
+    margin = str2num(get(handles.marginInput_et, 'String')); %Find road length
+else %Unit selected: feet
+    margin = .3048 * str2num(get(handles.marginInput_et, 'String'));; %Convert to meters
+end
+if get(handles.lengthUnit_pm, 'Value') == 1 %Unit selected: km
+    length = 1000 * str2num(get(handles.lengthInput_et, 'String')); %Find road length (m)
+else %Unit selected: mi
+    length = 1609.34 * str2num(get(handles.lengthInput_et, 'String')); %Convert to meters (m)
+end
+if get(handles.speedUnit_pm, 'Value') == 1 %Unit selected: kph
+    speed =  0.2777778 * abs(str2num(get(handles.carSpeed_et, 'String'))); %Find avrg speed (m/s)
+elseif get(handles.speedUnit_pm, 'Value') == 2 %Unit selected: mph 
+    speed =  0.44704 * abs(str2num(get(handles.carSpeed_et, 'String'))); %Find avrg speed (m/s)
+elseif get(handles.speedUnit_pm, 'Value') == 3 %Unit selected: m/s
+    speed = abs(str2num(get(handles.carSpeed_et, 'String'))); %Find avrg speed (m/s)
+else %Unit selected: ft/s
+    speed =  0.3048 * abs(str2num(get(handles.carSpeed_et, 'String'))); %Find avrg speed (m/s)
+end
+    
+area = length * (width - 2 * margin); %Calculate road area (m^2)
 day = get(handles.day_pm, 'Value') - 1; %Find the day of the month 
 month = get(handles.month_pm, 'Value') - 1; %Find the month
 traffic = str2num(get(handles.trafficInput_et, 'String')); %Find cars/hr
-speed = abs(str2num(get(handles.carSpeed_et, 'String'))); %Find avrg speed
 daysOfMonth = [31 28 31 30 31 30 31 31 30 31 30 31]; %Vector of the days in each month
+efficiency = str2num(get(handles.panelEff_et, 'String'));
 
 if ~isempty(zip) %If there is a user input zip code
     [row, col] = find(data(:,1) == zip); %Find the index of the zip code
@@ -322,9 +345,9 @@ end %Ends if statement
 % ------------ INPUT VALIDATION ---------------
 if isempty(zip) | ~isscalar(zip) %If zip is not a scalar
     errorGUI_sec13_team18('Error! Please enter a valid zipcode'); %Open error menu
-elseif isempty(width) | isempty(length) | isempty(margin) | isempty(traffic) | ~day | ~month | isempty(speed)
+elseif isempty(width) | isempty(length) | isempty(margin) | isempty(traffic) | ~day | ~month | isempty(speed) |isempty(efficiency)
     errorGUI_sec13_team18('Error! All fields must have entries!'); %Open error menu
-elseif ~isscalar(width) | ~isscalar(length) | ~isscalar(margin) | ~isscalar(traffic) | ~isscalar(speed)
+elseif ~isscalar(width) | ~isscalar(length) | ~isscalar(margin) | ~isscalar(traffic) | ~isscalar(speed) | ~isscalar(efficiency)
     errorGUI_sec13_team18('Error! All edit text fields must have scalar inputs!'); %Open error menu
 elseif isempty(row) | isempty(col) %If zip code is not found
     errorGUI_sec13_team18('Error! Zip code is invalid. If zip code is valid, please enter a 5 digit zip code of a nearby major city.'); %Open error menu
@@ -334,6 +357,8 @@ elseif length <= 0 %If length is negative
     errorGUI_sec13_team18('Error! Length input must be positive!'); %Open error menu
 elseif width - 2 * margin <= 0 %If margins are larger than width
     errorGUI_sec13_team18('Error! Margins must be less than 1/2 of the road width!'); %Open error menu
+elseif efficiency <= 0 | efficiency > 100
+    errorGUI_sec13_team18('Error! Efficiency must be less than or equal to 100% and greater than 0%');
 elseif traffic < 0 %If traffic is negative
     errorGUI_sec13_team18('Error! Traffic must be nonnegative!'); %Open error menu
 elseif (speed == 0 & traffic ~= 0) %If speed is 0 but traffic is moving (logical contradiction)
@@ -347,11 +372,10 @@ else %End Input validation
 % -------------- CALCULATIONS -----------    
 latitude = data(row, 2); %Find the latitude 
 time = 0:23; %Create vector of hours of the day
-efficiency = .14; %Estimated efficiency factor
 day = dayYear(month, day); %Find day in the year (dec 31 is day 365)
 timeCovered = length * 1000 / speed; %Amount of time that there are cars on the road (assuming continuous driving)
 if timeCovered > 3600 %Max time is 1 hr
-    timeCovered = 3600 %Sets to max time if over max
+    timeCovered = 3600; %Sets to max time if over max
 end %Ends if statement
 area = length * 1000 * (width - 2 * margin) - (traffic * 9 * timeCovered) / (3600); %Calculates avrg area exposed to light
 
@@ -365,7 +389,7 @@ end %End for loop
 plot(handles.dayGraph_ax, time, energy); %Plot energy generation throughout the day
 axis([0 24 0 1.1 * max(energy)]) %Set axes
 set(handles.dayGraph_ax,'xtick',0:2:24); %Set x tick marks
-xlabel(handles.dayGraph_ax,'Hour of the Day') %Add x axis title
+xlabel(handles.dayGraph_ax,'Hour of the Day', 'FontSize', 9) %Add x axis title
 ylabel(handles.dayGraph_ax,'Power Generation (kW)') %Add y axis title
 
 for k = 0:11 %For each month of the year
@@ -385,8 +409,9 @@ avrgEnergy = avrgEnergy .* daysInMonth; %Calculate energy in ea. month
 plot(handles.yearGraph_ax, time, avrgEnergy); %Plot energy througohut the year
 axis([1 12 0 1.1 * (max(avrgEnergy))]); %Change axes
 set(handles.yearGraph_ax,'xtick',1:12); %Set xticks
-xlabel(handles.yearGraph_ax,'Month of the year'); %Add x axis title
+xlabel(handles.yearGraph_ax,'Month of the year', 'FontSize', 9); %Add x axis title
 ylabel(handles.yearGraph_ax,'Total Monthly Energy Generation(kWh)'); %Add y axis title
+set(handles.yearGraph_ax,'xticklabel',['Jan'; 'Feb'; 'Mar';'Apr';'May';'Jun';'Jul';'Aug';'Sep';'Oct';'Nov';'Dec'])
 end %End of input validation
 
 % --- Executes on button press in reset_pb.
@@ -402,6 +427,7 @@ set(handles.lengthInput_et,'String','')
 set(handles.marginInput_et,'String','')
 set(handles.trafficInput_et,'String','')
 set(handles.carSpeed_et,'String','')
+set(handles.panelEff_et,'String','')
 %Set drop down menus to defualt
 set(handles.day_pm,'Value',1)
 set(handles.month_pm,'Value',1)
@@ -499,4 +525,126 @@ function speedHelp_pb_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-helpGUI_sec13_team18('Enter the expected average speed of cars on this road in meters per second. 1 m/s = 3.6 kph ~ 2.2369 mph.');
+helpGUI_sec13_team18('Enter the expected average speed of cars on this road in the desired units. Units can be selected using the pop up menu to the right.');
+
+
+
+function panelEff_et_Callback(hObject, eventdata, handles)
+% hObject    handle to panelEff_et (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of panelEff_et as text
+%        str2double(get(hObject,'String')) returns contents of panelEff_et as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function panelEff_et_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to panelEff_et (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on button press in effHelp_pb.
+function effHelp_pb_Callback(hObject, eventdata, handles)
+% hObject    handle to effHelp_pb (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+helpGUI_sec13_team18('Please enter the efficiency of the panels being used. A typical efficiency is 14%');
+
+% --- Executes on selection change in widthUnit_pm.
+function widthUnit_pm_Callback(hObject, eventdata, handles)
+% hObject    handle to widthUnit_pm (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: contents = cellstr(get(hObject,'String')) returns widthUnit_pm contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from widthUnit_pm
+
+
+% --- Executes during object creation, after setting all properties.
+function widthUnit_pm_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to widthUnit_pm (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: popupmenu controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on selection change in marginUnit_pm.
+function marginUnit_pm_Callback(hObject, eventdata, handles)
+% hObject    handle to marginUnit_pm (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: contents = cellstr(get(hObject,'String')) returns marginUnit_pm contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from marginUnit_pm
+
+
+% --- Executes during object creation, after setting all properties.
+function marginUnit_pm_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to marginUnit_pm (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: popupmenu controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on selection change in speedUnit_pm.
+function speedUnit_pm_Callback(hObject, eventdata, handles)
+% hObject    handle to speedUnit_pm (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: contents = cellstr(get(hObject,'String')) returns speedUnit_pm contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from speedUnit_pm
+
+
+% --- Executes during object creation, after setting all properties.
+function speedUnit_pm_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to speedUnit_pm (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: popupmenu controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on selection change in lengthUnit_pm.
+function lengthUnit_pm_Callback(hObject, eventdata, handles)
+% hObject    handle to lengthUnit_pm (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: contents = cellstr(get(hObject,'String')) returns lengthUnit_pm contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from lengthUnit_pm
+
+
+% --- Executes during object creation, after setting all properties.
+function lengthUnit_pm_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to lengthUnit_pm (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: popupmenu controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end

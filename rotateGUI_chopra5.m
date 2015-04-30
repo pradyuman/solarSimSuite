@@ -50,7 +50,7 @@ function varargout = rotateGUI_chopra5(varargin)
 
 % Edit the above text to modify the response to help rotateGUI_chopra5
 
-% Last Modified by GUIDE v2.5 29-Apr-2015 20:36:18
+% Last Modified by GUIDE v2.5 29-Apr-2015 22:26:26
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -104,6 +104,8 @@ end %End if statement
 set(handles.widthInput_et, 'String', '2');
 set(handles.lengthInput_et, 'String', '3');
 set(handles.angleUpDownInput_et, 'String', '30');
+set(handles.panelEff_et, 'String', '14');
+set(handles.numPanels_et, 'String', '1');
 
 % --- Outputs from this function are returned to the command line.
 function varargout = rotateGUI_chopra5_OutputFcn(hObject, eventdata, handles)
@@ -250,7 +252,7 @@ function zipHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to zipHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('Type in your 5 digit postal code (ex: 47906)'); %Open help menu
+helpGUI_sec13_team18('Type in your 5 digit US postal code (ex: 47906)'); %Open help menu
 
 
 % --- Executes on button press in widthHelp_pb.
@@ -258,7 +260,7 @@ function widthHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to widthHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18 ('Enter your solar panel width (in meters)'); %Open help menu
+helpGUI_sec13_team18 ('Enter your solar panel width in either feet or meters. The units can be adjusted using the popup menu to the right'); %Open help menu
 
 % --- Executes on button press in compute_pb.
 function compute_pb_Callback(hObject, eventdata, handles)
@@ -268,13 +270,24 @@ function compute_pb_Callback(hObject, eventdata, handles)
 
 zip = str2num(get(handles.zipInput_et, 'String')); %Find zip code
 data = csvread('zipcode.csv'); %Create zip, lat, and longitude matrix
-length = str2num(get(handles.lengthInput_et, 'String')); %Find length
-width = str2num(get(handles.widthInput_et, 'String')); %Find width
+if get(handles.lengthUnit_pm, 'Value') == 1
+    length = str2num(get(handles.lengthInput_et, 'String')); %Find length (in meters)
+else
+    length = .3048 * str2num(get(handles.lengthInput_et, 'String')); %Find length (in meters)
+end
+if get(handles.widthUnit_pm, 'Value') == 1
+    width = str2num(get(handles.widthInput_et, 'String')); %Find width (in meters)
+else
+    width = .3048 * str2num(get(handles.widthInput_et, 'String')); %Find width (in meters)
+end
 tilt = str2num(get(handles.angleUpDownInput_et ,'String')); %Find angle of panel
-area = length * width; %Find area of panel
 day = get(handles.day_pm, 'Value') - 1; %Find day of the month
 month = get(handles.month_pm, 'Value') - 1; %Find month
+efficiency = str2num(get(handles.panelEff_et, 'String')) / 100;
+numPanels = str2num(get(handles.numPanels_et, 'String'));
+
 daysOfMonth = [31 28 31 30 31 30 31 31 30 31 30 31]; %Create vector of days in ea. month
+area = length * width * numPanels; %Find the area of all panels
 
 if ~isempty(zip) %If there is a zip code
     [row, col] = find(data(:,1) == zip); %Find index that zip is located
@@ -283,14 +296,18 @@ end %End if statement
 %------------------ INPUT VALIDATION ----------------------
 if isempty(zip) | ~isscalar(zip) %If zip is not a scalar
     errorGUI_sec13_team18('Error! Please enter a valid zipcode'); %Open error menu
-elseif isempty(width) | isempty(length) | isempty(tilt) | ~day | ~month
+elseif isempty(width) | isempty(length) | isempty(tilt) | ~day | ~month | isempty(numPanels) | isempty(efficiency)
     errorGUI_sec13_team18('Error! All fields must have entries!'); %Open error menu
-elseif ~isscalar(width) | ~isscalar(length) | ~isscalar(tilt)
+elseif ~isscalar(width) | ~isscalar(length) | ~isscalar(tilt) | ~isscalar(numPanels) | ~isscalar(efficiency)
     errorGUI_sec13_team18('Error! All edit text fields must have scalar inputs!'); %Open error menu
 elseif isempty(row) | isempty(col) %If zip code is not found
     errorGUI_sec13_team18('Error! Zip code is invalid. If zip code is valid, please enter a 5 digit zip code of a nearby major city.'); %Open error menu
-elseif width <= 0 | length <= 0
+elseif width <= 0 | length <= 0 | numPanels <= 0
     errorGUI_sec13_team18('Error! Length and width must be positive!');
+elseif efficiency > 1 | efficiency <= 0
+    errorGUI_sec13_team18('Error! Efficiency must be less than or equal to 100% and greater than 0%');
+elseif tilt > 90 | tilt < -90
+    errorGUI_sec13_team18('Error! Angle must be between -90 and 90 degrees. -90 degrees is when the panel faces south, 0 when it faces to the sky, and 90 when it faces directly north');
 elseif daysOfMonth(month) < day %If day doesn't exist (Ex: February 31st)
     errorGUI_sec13_team18('Error! The day is not a day of the chosen month!'); %Open error menu
 else %End Input validation
@@ -298,7 +315,6 @@ else %End Input validation
 % ------------ CALCULATIONS -------------
 latitude = data(row, 2); %Find latitude
 time = 0:23; %Create hours of day vector
-efficiency = .14; %Estimated panel efficiency
 day = dayYear(month, day); %Finds day of the year (Dec 31 = 365)
 
 for k = 0:23 %For ea. hour of the day
@@ -371,7 +387,8 @@ set(handles.zipInput_et,'String','')
 set(handles.widthInput_et,'String','')
 set(handles.lengthInput_et,'String','')
 set(handles.angleUpDownInput_et,'String','')
-
+set(handles.panelEff_et,'String','')
+set(handles.numPanels_et,'String','')
 %Resetting month/day values to 1 ("Enter Day" | "Enter Month")
 set(handles.day_pm,'Value',1)
 set(handles.month_pm,'Value',1)
@@ -406,7 +423,7 @@ function lengthHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to lengthHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18 ('Enter your solar panel length (in meters)') %Open help menu
+helpGUI_sec13_team18 ('Enter your solar panel length in either feet or meters. The units can be adjusted using the popup menu to the right') %Open help menu
 
 
 function angleUpDownInput_et_Callback(hObject, eventdata, handles)
@@ -436,22 +453,22 @@ function angleUpDownHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to angleUpDownHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18 ('Enter the angle of the stationary solar panel range from 0 to 90 where 0 is parallel and 90 is perpendicular'); %Open help menu
+helpGUI_sec13_team18 ('Enter the angle of the stationary solar panel. -90 degrees is when the panel faces south, 0 is when it faces to sky, and 90 when is it faces directly north'); %Open help menu
 
 
 
-function edit14_Callback(hObject, eventdata, handles)
-% hObject    handle to edit14 (see GCBO)
+function numPanels_et_Callback(hObject, eventdata, handles)
+% hObject    handle to numPanels_et (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of edit14 as text
-%        str2double(get(hObject,'String')) returns contents of edit14 as a double
+% Hints: get(hObject,'String') returns contents of numPanels_et as text
+%        str2double(get(hObject,'String')) returns contents of numPanels_et as a double
 
 
 % --- Executes during object creation, after setting all properties.
-function edit14_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to edit14 (see GCBO)
+function numPanels_et_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to numPanels_et (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -462,26 +479,26 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 
 
-% --- Executes on button press in pushbutton15.
-function pushbutton15_Callback(hObject, eventdata, handles)
-% hObject    handle to pushbutton15 (see GCBO)
+% --- Executes on button press in numHelp_pb.
+function numHelp_pb_Callback(hObject, eventdata, handles)
+% hObject    handle to numHelp_pb (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+helpGUI_sec13_team18 ('Please enter the number of solar panels you wish to test. All panels are assumed to be rectangles.');
+
+
+function panelEff_et_Callback(hObject, eventdata, handles)
+% hObject    handle to panelEff_et (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-
-
-function edit15_Callback(hObject, eventdata, handles)
-% hObject    handle to edit15 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of edit15 as text
-%        str2double(get(hObject,'String')) returns contents of edit15 as a double
+% Hints: get(hObject,'String') returns contents of panelEff_et as text
+%        str2double(get(hObject,'String')) returns contents of panelEff_et as a double
 
 
 % --- Executes during object creation, after setting all properties.
-function edit15_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to edit15 (see GCBO)
+function panelEff_et_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to panelEff_et (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -492,26 +509,27 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 
 
-% --- Executes on button press in pushbutton16.
-function pushbutton16_Callback(hObject, eventdata, handles)
-% hObject    handle to pushbutton16 (see GCBO)
+% --- Executes on button press in effHelp_pb.
+function effHelp_pb_Callback(hObject, eventdata, handles)
+% hObject    handle to effHelp_pb (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+helpGUI_sec13_team18 ('Please enter the solar panel''efficiency as a percentage from 0 to 100. A typical panel would have an efficiency of 14% but this may vary depending on model.');
+
+
+% --- Executes on selection change in lengthUnit_pm.
+function lengthUnit_pm_Callback(hObject, eventdata, handles)
+% hObject    handle to lengthUnit_pm (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-
-% --- Executes on selection change in popupmenu7.
-function popupmenu7_Callback(hObject, eventdata, handles)
-% hObject    handle to popupmenu7 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: contents = cellstr(get(hObject,'String')) returns popupmenu7 contents as cell array
-%        contents{get(hObject,'Value')} returns selected item from popupmenu7
+% Hints: contents = cellstr(get(hObject,'String')) returns lengthUnit_pm contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from lengthUnit_pm
 
 
 % --- Executes during object creation, after setting all properties.
-function popupmenu7_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to popupmenu7 (see GCBO)
+function lengthUnit_pm_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to lengthUnit_pm (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -522,19 +540,19 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 
 
-% --- Executes on selection change in popupmenu8.
-function popupmenu8_Callback(hObject, eventdata, handles)
-% hObject    handle to popupmenu8 (see GCBO)
+% --- Executes on selection change in widthUnit_pm.
+function widthUnit_pm_Callback(hObject, eventdata, handles)
+% hObject    handle to widthUnit_pm (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: contents = cellstr(get(hObject,'String')) returns popupmenu8 contents as cell array
-%        contents{get(hObject,'Value')} returns selected item from popupmenu8
+% Hints: contents = cellstr(get(hObject,'String')) returns widthUnit_pm contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from widthUnit_pm
 
 
 % --- Executes during object creation, after setting all properties.
-function popupmenu8_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to popupmenu8 (see GCBO)
+function widthUnit_pm_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to widthUnit_pm (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
