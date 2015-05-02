@@ -123,7 +123,7 @@ day = get(handles.day_pm, 'Value');
 %Set month passthrough variable
 month = get(handles.month_pm, 'Value');
 %Call the main GUI with the appropriate passthrough variables
-nanohub([zipcode day month]);
+main([zipcode day month]);
 close trains
 
 
@@ -267,31 +267,31 @@ daysOfMonth = [31 28 31 30 31 30 31 31 30 31 30 31];
 
 %%%%%%%%%%%%%%%%INPUT VALIDATION%%%%%%%%%%%%%%%%%%%%%%%%%%
 if isempty(start_zip) | isempty(end_zip)
-    error('Error! All fields must have valid entries!');
+    errorGUI('errorGUI! All fields must have valid entries!');
 elseif isempty(start_time) | isempty(end_time) | ~day | ~month | isempty(numCars) | isempty(efficiency)
-    error('Error! All fields must have valid entries!');
+    errorGUI('errorGUI! All fields must have valid entries!');
 elseif ~isscalar(start_zip) | ~isscalar(end_zip) | ~isscalar(numCars) | ~isscalar(efficiency)
-    error('Error! All inputs must be scalar!');
+    errorGUI('errorGUI! All inputs must be scalar!');
 elseif isempty(rowStart) | isempty(colStart)
-    error('Error! Starting zip code is invalid. If zip code is valid, please enter a 5 digit zip code of a nearby major city.');
+    errorGUI('errorGUI! Starting zip code is invalid. If zip code is valid, please enter a 5 digit zip code of a nearby major city.');
 elseif isempty(rowEnd) | isempty(colEnd) | ~isscalar(rowEnd) | ~isscalar(colEnd)
-    error('Error! Ending zip code is invalid. If zip code is valid, please enter a 5 digit zip code of a nearby major city.');
+    errorGUI('errorGUI! Ending zip code is invalid. If zip code is valid, please enter a 5 digit zip code of a nearby major city.');
 elseif length(strfind(get(handles.startTime_et,'String'), ':')) > 1
-    error('Error! Make sure your start time is in the correct format (XX:XX)');
+    errorGUI('errorGUI! Make sure your start time is in the correct format (XX:XX)');
 elseif length(strfind(get(handles.endTime_et,'String'), ':')) > 1
-    error('Error! Make sure your end time is in the correct format (XX:XX)');
+    errorGUI('errorGUI! Make sure your end time is in the correct format (XX:XX)');
 elseif efficiency <= 0 | efficiency > 1
-    error('Error! Efficiency must be between 0 and 100%');
+    errorGUI('errorGUI! Efficiency must be between 0 and 100%');
 elseif start_time > 24 | end_time > 24 | end_time < 0 | start_time < 0
-    error('Error! Please enter times in 24 hour format (XX:XX)');
+    errorGUI('errorGUI! Please enter times in 24 hour format (XX:XX)');
 elseif start_time == end_time
-    error('Error! Starting and ending zip codes are the same. Enter in different zipcodes for start and end.');
+    errorGUI('errorGUI! Starting and ending zip codes are the same. Enter in different zipcodes for start and end.');
 elseif start_time > end_time
-    error('Error! Please enter a start time that is smaller than the end time (in 24 hour format).');
+    errorGUI('errorGUI! Please enter a start time that is smaller than the end time (in 24 hour format).');
 elseif numCars <= 0
-    error('Error! There must be at least one train car!');
+    errorGUI('errorGUI! There must be at least one train car!');
 elseif daysOfMonth(month) < day
-    error('Error! The day is not a day of the chosen month!');
+    errorGUI('errorGUI! The day is not a day of the chosen month!');
 else
 
 time = 0:23; %Time vector for hours

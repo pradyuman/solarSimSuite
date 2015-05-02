@@ -245,7 +245,7 @@ function zipCodeHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to zipCodeHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-help('Enter a valid 5 digit postal US zip code. If the error still persists, try using the zipcode of your nearest big city.'); 
+help('Enter a valid 5 digit postal US zip code. If the errorGUI still persists, try using the zipcode of your nearest big city.'); 
 
 % --- Executes on button press in poleDiameterHelp_pb.
 function poleDiameterHelp_pb_Callback(hObject, eventdata, handles)
@@ -299,21 +299,21 @@ if(~isempty(zip))
 end
 %Input validation
 if isempty(zip)
-    error('Error! All fields must have entries!');
+    errorGUI('errorGUI! All fields must have entries!');
 elseif isempty(diameter) | isempty(height) | ~day | ~month | isempty(efficiency) | isempty(num)
-    error('Error! All fields must have entries!');
+    errorGUI('errorGUI! All fields must have entries!');
 elseif isempty(row) | isempty(col)
-    error('Error! Zip code is invalid. If zip code is valid, please enter a zip code of a nearby major city.');
+    errorGUI('errorGUI! Zip code is invalid. If zip code is valid, please enter a zip code of a nearby major city.');
 elseif ~isscalar(zip) | ~isscalar(height) | ~isscalar(diameter) | ~isscalar(efficiency) | ~isscalar(num)
-    error('Error! All inputs must be scalar.');
+    errorGUI('errorGUI! All inputs must be scalar.');
 elseif diameter <= 0 
-    error('Error! Diameter is invalid. Please enter a valid diameter')
+    errorGUI('errorGUI! Diameter is invalid. Please enter a valid diameter')
 elseif height <=0 
-    error('Error! Height is invalid. Please enter a valid height')
+    errorGUI('errorGUI! Height is invalid. Please enter a valid height')
 elseif efficiency <= 0 | efficiency > 1
-    error('Error! Efficiency must be less than or equal to 100% and greater than 0');
+    errorGUI('errorGUI! Efficiency must be less than or equal to 100% and greater than 0');
 elseif num <= 0
-    error('Error! The number of poles must be a positive integer!');
+    errorGUI('errorGUI! The number of poles must be a positive integer!');
 else
 
 %Calculating area of sun x pole cross-section

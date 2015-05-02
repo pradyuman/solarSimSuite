@@ -279,21 +279,21 @@ end %End if statement
 
 %------------------ INPUT VALIDATION ----------------------
 if isempty(zip) | ~isscalar(zip) %If zip is not a scalar
-    error('Error! Please enter a valid zipcode'); %Open error menu
+    errorGUI('errorGUI! Please enter a valid zipcode'); %Open errorGUI menu
 elseif isempty(width) | isempty(length) | isempty(tilt) | ~day | ~month | isempty(numPanels) | isempty(efficiency)
-    error('Error! All fields must have entries!'); %Open error menu
+    errorGUI('errorGUI! All fields must have entries!'); %Open errorGUI menu
 elseif ~isscalar(width) | ~isscalar(length) | ~isscalar(tilt) | ~isscalar(numPanels) | ~isscalar(efficiency)
-    error('Error! All edit text fields must have scalar inputs!'); %Open error menu
+    errorGUI('errorGUI! All edit text fields must have scalar inputs!'); %Open errorGUI menu
 elseif isempty(row) | isempty(col) %If zip code is not found
-    error('Error! Zip code is invalid. If zip code is valid, please enter a 5 digit zip code of a nearby major city.'); %Open error menu
+    errorGUI('errorGUI! Zip code is invalid. If zip code is valid, please enter a 5 digit zip code of a nearby major city.'); %Open errorGUI menu
 elseif width <= 0 | length <= 0 | numPanels <= 0
-    error('Error! Length and width must be positive!');
+    errorGUI('errorGUI! Length and width must be positive!');
 elseif efficiency > 1 | efficiency <= 0
-    error('Error! Efficiency must be less than or equal to 100% and greater than 0%');
+    errorGUI('errorGUI! Efficiency must be less than or equal to 100% and greater than 0%');
 elseif tilt > 90 | tilt < -90
-    error('Error! Angle must be between -90 and 90 degrees. -90 degrees is when the panel faces south, 0 when it faces to the sky, and 90 when it faces directly north');
+    errorGUI('errorGUI! Angle must be between -90 and 90 degrees. -90 degrees is when the panel faces south, 0 when it faces to the sky, and 90 when it faces directly north');
 elseif daysOfMonth(month) < day %If day doesn't exist (Ex: February 31st)
-    error('Error! The day is not a day of the chosen month!'); %Open error menu
+    errorGUI('errorGUI! The day is not a day of the chosen month!'); %Open errorGUI menu
 else %End Input validation
    
 % ------------ CALCULATIONS -------------
