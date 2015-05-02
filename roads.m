@@ -129,7 +129,7 @@ if(isempty(zipcode)) %Activates if zip code is blank
 end %Ends if statement
 day = get(handles.day_pm, 'Value'); %Finds day
 month = get(handles.month_pm, 'Value'); %Finds month
-nanohub([zipcode day month]); %Sends zip, day, and month inputs to main menu so that it can output those to GUIs opened in the future
+main([zipcode day month]); %Sends zip, day, and month inputs to main menu so that it can output those to GUIs opened in the future
 close roads; %Close current GUI
 
 % --- Executes on button press in closeGUI_pb.
