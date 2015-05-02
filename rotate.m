@@ -1,4 +1,4 @@
-function varargout = rotateGUI_chopra5(varargin)
+function varargout = rotate(varargin)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 %  Program Description: This GUI takes a solar panel's dimension, location
 %  (zip code) and day. It then graphs the energy generation throughout the 
@@ -7,20 +7,20 @@ function varargout = rotateGUI_chopra5(varargin)
 %  energy generation of this throughout the year.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%ROTATEGUI_CHOPRA5 M-file for rotateGUI_chopra5.fig
-%      ROTATEGUI_CHOPRA5, by itself, creates a new ROTATEGUI_CHOPRA5 or raises the existing
+%ROTATE M-file for rotate.fig
+%      ROTATE, by itself, creates a new ROTATE or raises the existing
 %      singleton*.
 %
-%      H = ROTATEGUI_CHOPRA5 returns the handle to a new ROTATEGUI_CHOPRA5 or the handle to
+%      H = ROTATE returns the handle to a new ROTATE or the handle to
 %      the existing singleton*.
 %
-%      ROTATEGUI_CHOPRA5('Property','Value',...) creates a new ROTATEGUI_CHOPRA5 using the
+%      ROTATE('Property','Value',...) creates a new ROTATE using the
 %      given property value pairs. Unrecognized properties are passed via
-%      varargin to rotateGUI_chopra5_OpeningFcn.  This calling syntax produces a
+%      varargin to rotate_OpeningFcn.  This calling syntax produces a
 %      warning when there is an existing singleton*.
 %
-%      ROTATEGUI_CHOPRA5('CALLBACK') and ROTATEGUI_CHOPRA5('CALLBACK',hObject,...) call the
-%      local function named CALLBACK in ROTATEGUI_CHOPRA5.M with the given input
+%      ROTATE('CALLBACK') and ROTATE('CALLBACK',hObject,...) call the
+%      local function named CALLBACK in ROTATE.M with the given input
 %      arguments.
 %
 %      *See GUI Options on GUIDE's Tools menu.  Choose "GUI allows only one
@@ -28,7 +28,7 @@ function varargout = rotateGUI_chopra5(varargin)
 %
 % See also: GUIDE, GUIDATA, GUIHANDLES
 
-% Edit the above text to modify the response to help rotateGUI_chopra5
+% Edit the above text to modify the response to help rotate
 
 % Last Modified by GUIDE v2.5 29-Apr-2015 22:26:26
 
@@ -36,8 +36,8 @@ function varargout = rotateGUI_chopra5(varargin)
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
                    'gui_Singleton',  gui_Singleton, ...
-                   'gui_OpeningFcn', @rotateGUI_chopra5_OpeningFcn, ...
-                   'gui_OutputFcn',  @rotateGUI_chopra5_OutputFcn, ...
+                   'gui_OpeningFcn', @rotate_OpeningFcn, ...
+                   'gui_OutputFcn',  @rotate_OutputFcn, ...
                    'gui_LayoutFcn',  [], ...
                    'gui_Callback',   []);
 if nargin && ischar(varargin{1})
@@ -52,8 +52,8 @@ end
 % End initialization code - DO NOT EDIT
 
 
-% --- Executes just before rotateGUI_chopra5 is made visible.
-function rotateGUI_chopra5_OpeningFcn(hObject, eventdata, handles, varargin)
+% --- Executes just before rotate is made visible.
+function rotate_OpeningFcn(hObject, eventdata, handles, varargin)
 % This function has no output args, see OutputFcn.
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -61,13 +61,13 @@ function rotateGUI_chopra5_OpeningFcn(hObject, eventdata, handles, varargin)
 % varargin   unrecognized PropertyName/PropertyValue pairs from the
 %            command line (see VARARGIN)
 
-% Choose default command line output for rotateGUI_chopra5
+% Choose default command line output for rotate
 handles.output = hObject;
 
 % Update handles structure
 guidata(hObject, handles);
 
-% UIWAIT makes rotateGUI_chopra5 wait for user response (see UIRESUME)
+% UIWAIT makes rotate wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
 
 % Set previously entered values on to the GUI
@@ -88,7 +88,7 @@ set(handles.panelEff_et, 'String', '14');
 set(handles.numPanels_et, 'String', '1');
 
 % --- Outputs from this function are returned to the command line.
-function varargout = rotateGUI_chopra5_OutputFcn(hObject, eventdata, handles)
+function varargout = rotate_OutputFcn(hObject, eventdata, handles)
 % varargout  cell array for returning output args (see VARARGOUT);
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -107,7 +107,7 @@ descMessage = 'This simulation compares stationary solar panels and solar panels
 inputMessage = 'Inputs: Location (zip code), dimensions of panel (length, width, angle with respect to ground), panel efficiency, and sample day';
 outputMessage = 'Graph of stationary and rotating panels throughout the year, graph of their energy throughout the day, and the total energy generation of them throughout the year';
 mathMessage = 'This is calculated using a simple for loop calculating the energy generation throughout the day. However, the rotating panel is calculated using an extra parameter solarInsolation(latitude, 0, k, day, ''rotate''). Instead of calculating the angle needed to look towards the sun, it skips the line that adjusts for the tilt of the panel and assumes that the panel is always looking at the sun.';
-appHelpGUI_sec13_team18(descMessage, inputMessage, outputMessage, mathMessage);
+appHelp(descMessage, inputMessage, outputMessage, mathMessage);
 
 % --- Executes on button press in openMenu_pb.
 function openMenu_pb_Callback(hObject, eventdata, handles)
@@ -122,15 +122,15 @@ if(isempty(zipcode)) %If there is no zip entered
 end %End if statement
 day = get(handles.day_pm, 'Value'); %Find day
 month = get(handles.month_pm, 'Value'); %Find month
-nanohubGUI_sec13_team18([zipcode day month]); %Open main with data
-close rotateGUI_chopra5 %Close current GUI
+nanohub([zipcode day month]); %Open main with data
+close rotate %Close current GUI
 
 % --- Executes on button press in closeGUI_pb.
 function closeGUI_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to closeGUI_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-close rotateGUI_chopra5
+close rotate
 
 % --- Executes on selection change in day_pm.
 function day_pm_Callback(hObject, eventdata, handles)
@@ -229,14 +229,14 @@ function dayMonthHelp_pb_Callback(hObject, eventdata, ~)
 % hObject    handle to dayMonthHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18 ('Enter the date and month in the provided area') %Open help menu
+help ('Enter the date and month in the provided area') %Open help menu
 
 % --- Executes on button press in zipHelp_pb.
 function zipHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to zipHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('Type in your 5 digit US postal code (ex: 47906)'); %Open help menu
+help('Type in your 5 digit US postal code (ex: 47906)'); %Open help menu
 
 
 % --- Executes on button press in widthHelp_pb.
@@ -244,7 +244,7 @@ function widthHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to widthHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18 ('Enter your solar panel width in either feet or meters. The units can be adjusted using the popup menu to the right'); %Open help menu
+help ('Enter your solar panel width in either feet or meters. The units can be adjusted using the popup menu to the right'); %Open help menu
 
 % --- Executes on button press in compute_pb.
 function compute_pb_Callback(hObject, eventdata, handles)
@@ -279,21 +279,21 @@ end %End if statement
 
 %------------------ INPUT VALIDATION ----------------------
 if isempty(zip) | ~isscalar(zip) %If zip is not a scalar
-    errorGUI_sec13_team18('Error! Please enter a valid zipcode'); %Open error menu
+    error('Error! Please enter a valid zipcode'); %Open error menu
 elseif isempty(width) | isempty(length) | isempty(tilt) | ~day | ~month | isempty(numPanels) | isempty(efficiency)
-    errorGUI_sec13_team18('Error! All fields must have entries!'); %Open error menu
+    error('Error! All fields must have entries!'); %Open error menu
 elseif ~isscalar(width) | ~isscalar(length) | ~isscalar(tilt) | ~isscalar(numPanels) | ~isscalar(efficiency)
-    errorGUI_sec13_team18('Error! All edit text fields must have scalar inputs!'); %Open error menu
+    error('Error! All edit text fields must have scalar inputs!'); %Open error menu
 elseif isempty(row) | isempty(col) %If zip code is not found
-    errorGUI_sec13_team18('Error! Zip code is invalid. If zip code is valid, please enter a 5 digit zip code of a nearby major city.'); %Open error menu
+    error('Error! Zip code is invalid. If zip code is valid, please enter a 5 digit zip code of a nearby major city.'); %Open error menu
 elseif width <= 0 | length <= 0 | numPanels <= 0
-    errorGUI_sec13_team18('Error! Length and width must be positive!');
+    error('Error! Length and width must be positive!');
 elseif efficiency > 1 | efficiency <= 0
-    errorGUI_sec13_team18('Error! Efficiency must be less than or equal to 100% and greater than 0%');
+    error('Error! Efficiency must be less than or equal to 100% and greater than 0%');
 elseif tilt > 90 | tilt < -90
-    errorGUI_sec13_team18('Error! Angle must be between -90 and 90 degrees. -90 degrees is when the panel faces south, 0 when it faces to the sky, and 90 when it faces directly north');
+    error('Error! Angle must be between -90 and 90 degrees. -90 degrees is when the panel faces south, 0 when it faces to the sky, and 90 when it faces directly north');
 elseif daysOfMonth(month) < day %If day doesn't exist (Ex: February 31st)
-    errorGUI_sec13_team18('Error! The day is not a day of the chosen month!'); %Open error menu
+    error('Error! The day is not a day of the chosen month!'); %Open error menu
 else %End Input validation
    
 % ------------ CALCULATIONS -------------
@@ -411,7 +411,7 @@ function lengthHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to lengthHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18 ('Enter your solar panel length in either feet or meters. The units can be adjusted using the popup menu to the right') %Open help menu
+help ('Enter your solar panel length in either feet or meters. The units can be adjusted using the popup menu to the right') %Open help menu
 
 
 function angleUpDownInput_et_Callback(hObject, eventdata, handles)
@@ -441,7 +441,7 @@ function angleUpDownHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to angleUpDownHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18 ('Enter the angle of the stationary solar panel. -90 degrees is when the panel faces south, 0 is when it faces to sky, and 90 when is it faces directly north'); %Open help menu
+help ('Enter the angle of the stationary solar panel. -90 degrees is when the panel faces south, 0 is when it faces to sky, and 90 when is it faces directly north'); %Open help menu
 
 
 
@@ -472,7 +472,7 @@ function numHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to numHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18 ('Please enter the number of solar panels you wish to test. All panels are assumed to be rectangles.');
+help ('Please enter the number of solar panels you wish to test. All panels are assumed to be rectangles.');
 
 
 function panelEff_et_Callback(hObject, eventdata, handles)
@@ -502,7 +502,7 @@ function effHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to effHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18 ('Please enter the solar panel''efficiency as a percentage from 0 to 100. A typical panel would have an efficiency of 14% but this may vary depending on model.');
+help ('Please enter the solar panel''efficiency as a percentage from 0 to 100. A typical panel would have an efficiency of 14% but this may vary depending on model.');
 
 
 % --- Executes on selection change in lengthUnit_pm.
