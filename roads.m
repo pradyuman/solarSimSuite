@@ -1,4 +1,4 @@
-function varargout = roadsGUI_bstaniew(varargin)
+function varargout = roads(varargin)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 %  ENGR 13200 Spring 2015
 %  Programmer(s) and Purdue Email Address(es): 
@@ -34,20 +34,20 @@ function varargout = roadsGUI_bstaniew(varargin)
 %  reaches the road)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%ROADSGUI_BSTANIEW M-file for roadsGUI_bstaniew.fig
-%      ROADSGUI_BSTANIEW, by itself, creates a new ROADSGUI_BSTANIEW or raises the existing
+%ROADS M-file for roads.fig
+%      ROADS, by itself, creates a new ROADS or raises the existing
 %      singleton*.
 %
-%      H = ROADSGUI_BSTANIEW returns the handle to a new ROADSGUI_BSTANIEW or the handle to
+%      H = ROADS returns the handle to a new ROADS or the handle to
 %      the existing singleton*.
 %
-%      ROADSGUI_BSTANIEW('Property','Value',...) creates a new ROADSGUI_BSTANIEW using the
+%      ROADS('Property','Value',...) creates a new ROADS using the
 %      given property value pairs. Unrecognized properties are passed via
-%      varargin to roadsGUI_bstaniew_OpeningFcn.  This calling syntax produces a
+%      varargin to roads_OpeningFcn.  This calling syntax produces a
 %      warning when there is an existing singleton*.
 %
-%      ROADSGUI_BSTANIEW('CALLBACK') and ROADSGUI_BSTANIEW('CALLBACK',hObject,...) call the
-%      local function named CALLBACK in ROADSGUI_BSTANIEW.M with the given input
+%      ROADS('CALLBACK') and ROADS('CALLBACK',hObject,...) call the
+%      local function named CALLBACK in ROADS.M with the given input
 %      arguments.
 %
 %      *See GUI Options on GUIDE's Tools menu.  Choose "GUI allows only one
@@ -55,7 +55,7 @@ function varargout = roadsGUI_bstaniew(varargin)
 %
 % See also: GUIDE, GUIDATA, GUIHANDLES
 
-% Edit the above text to modify the response to help roadsGUI_bstaniew
+% Edit the above text to modify the response to help roads
 
 % Last Modified by GUIDE v2.5 29-Apr-2015 22:38:36
 
@@ -63,8 +63,8 @@ function varargout = roadsGUI_bstaniew(varargin)
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
                    'gui_Singleton',  gui_Singleton, ...
-                   'gui_OpeningFcn', @roadsGUI_bstaniew_OpeningFcn, ...
-                   'gui_OutputFcn',  @roadsGUI_bstaniew_OutputFcn, ...
+                   'gui_OpeningFcn', @roads_OpeningFcn, ...
+                   'gui_OutputFcn',  @roads_OutputFcn, ...
                    'gui_LayoutFcn',  [], ...
                    'gui_Callback',   []);
 if nargin && ischar(varargin{1})
@@ -79,8 +79,8 @@ end
 % End initialization code - DO NOT EDIT
 
 
-% --- Executes just before roadsGUI_bstaniew is made visible.
-function roadsGUI_bstaniew_OpeningFcn(hObject, eventdata, handles, varargin)
+% --- Executes just before roads is made visible.
+function roads_OpeningFcn(hObject, eventdata, handles, varargin)
 % This function has no output args, see OutputFcn.
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -88,13 +88,13 @@ function roadsGUI_bstaniew_OpeningFcn(hObject, eventdata, handles, varargin)
 % varargin   unrecognized PropertyName/PropertyValue pairs from the
 %            command line (see VARARGIN)
 
-% Choose default command line output for roadsGUI_bstaniew
+% Choose default command line output for roads
 handles.output = hObject;
 
 % Update handles structure
 guidata(hObject, handles);
 
-% UIWAIT makes roadsGUI_bstaniew wait for user response (see UIRESUME)
+% UIWAIT makes roads wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
 
 if(~isempty(varargin)) %If input argument exists
@@ -115,7 +115,7 @@ set(handles.carSpeed_et, 'String', '45');
 set(handles.panelEff_et, 'String', '14');
 
 % --- Outputs from this function are returned to the command line.
-function varargout = roadsGUI_bstaniew_OutputFcn(hObject, eventdata, handles)
+function varargout = roads_OutputFcn(hObject, eventdata, handles)
 % varargout  cell array for returning output args (see VARARGOUT);
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -134,7 +134,7 @@ descMessage = 'This application is for use of solar panels on roadways. Panels a
 inputMessage = 'Inputs:  Location (zip code), Road dimensions (Length, width, margins), Panel efficiency, Traffic levels (cars/hour, car speed)';
 outputMessage = 'Outputs: Graph of energy generation throughout each month of the year, Graph of energy generation throughout given sample day, total annual energy generation';
 mathMessage = 'area = length * 1000 * (width - 2 * margin) - (traffic * 9 * timeCovered) / (3600) where timeCovered = length * 1000 / speed. This is the average area exposed to sunlight at a given moment. This is then multiplied by the solar radiation (kW/m^2) to find the total energy generation. See the main menu for description on how the solar insolation is calculated.';
-appHelpGUI_sec13_team18(descMessage, inputMessage, outputMessage, mathMessage);
+appHelp(descMessage, inputMessage, outputMessage, mathMessage);
 
 
 % --- Executes on button press in openMenu_pb.
@@ -149,8 +149,8 @@ if(isempty(zipcode)) %Activates if zip code is blank
 end %Ends if statement
 day = get(handles.day_pm, 'Value'); %Finds day
 month = get(handles.month_pm, 'Value'); %Finds month
-nanohubGUI_sec13_team18([zipcode day month]); %Sends zip, day, and month inputs to main menu so that it can output those to GUIs opened in the future
-close roadsGUI_bstaniew; %Close current GUI
+nanohub([zipcode day month]); %Sends zip, day, and month inputs to main menu so that it can output those to GUIs opened in the future
+close roads; %Close current GUI
 
 % --- Executes on button press in closeGUI_pb.
 function closeGUI_pb_Callback(hObject, eventdata, handles)
@@ -279,28 +279,28 @@ function dayMonthHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to dayMonthHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('Find the day and month of the year using the drop down menus. Make sure that the day exists for the given month. ie.: February 31st does not exist.'); %Sends string of help message
+help('Find the day and month of the year using the drop down menus. Make sure that the day exists for the given month. ie.: February 31st does not exist.'); %Sends string of help message
 
 % --- Executes on button press in zipHelp_pb.
 function zipHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to zipHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('Please enter your 5 digit US zipcode. ie.: West Lafayette, IN = 47906.'); %Sends string of help message
+help('Please enter your 5 digit US zipcode. ie.: West Lafayette, IN = 47906.'); %Sends string of help message
 
 % --- Executes on button press in widthHelp_pb.
 function widthHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to widthHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('Enter the width of the road width solar panels in meters. 1 lane is approximately 3.7 meters wide. The unit can be selected from the popup menu to the right.'); %Sends string of help message
+help('Enter the width of the road width solar panels in meters. 1 lane is approximately 3.7 meters wide. The unit can be selected from the popup menu to the right.'); %Sends string of help message
 
 % --- Executes on button press in lengthHelp_pb.
 function lengthHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to lengthHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('Enter the length of the road with solar panels. The unit can be selected from the popup menu to the right.'); %Sends string of help message
+help('Enter the length of the road with solar panels. The unit can be selected from the popup menu to the right.'); %Sends string of help message
 
 % --- Executes on button press in compute_pb.
 function compute_pb_Callback(hObject, eventdata, handles)
@@ -348,29 +348,29 @@ end %Ends if statement
 
 % ------------ INPUT VALIDATION ---------------
 if isempty(zip) | ~isscalar(zip) %If zip is not a scalar
-    errorGUI_sec13_team18('Error! Please enter a valid zipcode'); %Open error menu
+    error('Error! Please enter a valid zipcode'); %Open error menu
 elseif isempty(width) | isempty(length) | isempty(margin) | isempty(traffic) | ~day | ~month | isempty(speed) |isempty(efficiency)
-    errorGUI_sec13_team18('Error! All fields must have entries!'); %Open error menu
+    error('Error! All fields must have entries!'); %Open error menu
 elseif ~isscalar(width) | ~isscalar(length) | ~isscalar(margin) | ~isscalar(traffic) | ~isscalar(speed) | ~isscalar(efficiency)
-    errorGUI_sec13_team18('Error! All edit text fields must have scalar inputs!'); %Open error menu
+    error('Error! All edit text fields must have scalar inputs!'); %Open error menu
 elseif isempty(row) | isempty(col) %If zip code is not found
-    errorGUI_sec13_team18('Error! Zip code is invalid. If zip code is valid, please enter a 5 digit zip code of a nearby major city.'); %Open error menu
+    error('Error! Zip code is invalid. If zip code is valid, please enter a 5 digit zip code of a nearby major city.'); %Open error menu
 elseif width < 3 %If width is too small to fit a car
-    errorGUI_sec13_team18('Error! Road must be at least the width of one lane'); %Open error menu
+    error('Error! Road must be at least the width of one lane'); %Open error menu
 elseif length <= 0 %If length is negative
-    errorGUI_sec13_team18('Error! Length input must be positive!'); %Open error menu
+    error('Error! Length input must be positive!'); %Open error menu
 elseif width - 2 * margin <= 0 %If margins are larger than width
-    errorGUI_sec13_team18('Error! Margins must be less than 1/2 of the road width!'); %Open error menu
+    error('Error! Margins must be less than 1/2 of the road width!'); %Open error menu
 elseif efficiency <= 0 | efficiency > 100
-    errorGUI_sec13_team18('Error! Efficiency must be less than or equal to 100% and greater than 0%');
+    error('Error! Efficiency must be less than or equal to 100% and greater than 0%');
 elseif traffic < 0 %If traffic is negative
-    errorGUI_sec13_team18('Error! Traffic must be nonnegative!'); %Open error menu
+    error('Error! Traffic must be nonnegative!'); %Open error menu
 elseif (speed == 0 & traffic ~= 0) %If speed is 0 but traffic is moving (logical contradiction)
-    errorGUI_sec13_team18('Speed must be greater than 0 if traffic is nonzero'); %Open error menu
+    error('Speed must be greater than 0 if traffic is nonzero'); %Open error menu
 elseif length * 200 * speed < traffic %If roads are completely covered at all times
-    errorGUI_sec13_team18('Error! Traffic cannot be so large that the roads are completely covered!'); %Open error menu
+    error('Error! Traffic cannot be so large that the roads are completely covered!'); %Open error menu
 elseif daysOfMonth(month) < day %If day doesn't exist (Ex: February 31st)
-    errorGUI_sec13_team18('Error! The day is not a day of the chosen month!'); %Open error menu
+    error('Error! The day is not a day of the chosen month!'); %Open error menu
 else %End Input validation
     
 % -------------- CALCULATIONS -----------    
@@ -470,7 +470,7 @@ function marginsHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to marginsHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('Please enter a positive road margin. The road margin is the length on each side of the road that does not contain any solar panels.');
+help('Please enter a positive road margin. The road margin is the length on each side of the road that does not contain any solar panels.');
 
 
 function trafficInput_et_Callback(hObject, eventdata, handles)
@@ -500,7 +500,7 @@ function trafficHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to trafficHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('Enter the average number of cars that pass over this road in one hour. About 50 cars pass over a medium sized two lane road in an hour.');
+help('Enter the average number of cars that pass over this road in one hour. About 50 cars pass over a medium sized two lane road in an hour.');
 
 
 
@@ -532,7 +532,7 @@ function speedHelp_pb_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-helpGUI_sec13_team18('Enter the expected average speed of cars on this road in the desired units. Units can be selected using the pop up menu to the right.');
+help('Enter the expected average speed of cars on this road in the desired units. Units can be selected using the pop up menu to the right.');
 
 
 
@@ -563,7 +563,7 @@ function effHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to effHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('Please enter the efficiency of the panels being used. A typical efficiency is 14%');
+help('Please enter the efficiency of the panels being used. A typical efficiency is 14%');
 
 % --- Executes on selection change in widthUnit_pm.
 function widthUnit_pm_Callback(hObject, eventdata, handles)
