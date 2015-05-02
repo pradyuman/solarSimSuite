@@ -1,4 +1,4 @@
-function varargout = citationGUI_sec13_team18(varargin)
+function varargout = citation(varargin)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 %  ENGR 13200 Spring 2015
 %  Programmer(s) and Purdue Email Address(es): 
@@ -25,28 +25,28 @@ function varargout = citationGUI_sec13_team18(varargin)
 %  refernces are in the form of an image.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% CITATIONGUI_SEC13_TEAM18 MATLAB code for citationGUI_sec13_team18.fig
-%      CITATIONGUI_SEC13_TEAM18, by itself, creates a new CITATIONGUI_SEC13_TEAM18 or raises the existing
+% CITATION MATLAB code for citation.fig
+%      CITATION, by itself, creates a new CITATION or raises the existing
 %      singleton*.
 %
-%      H = CITATIONGUI_SEC13_TEAM18 returns the handle to a new CITATIONGUI_SEC13_TEAM18 or the handle to
+%      H = CITATION returns the handle to a new CITATION or the handle to
 %      the existing singleton*.
 %
-%      CITATIONGUI_SEC13_TEAM18('CALLBACK',hObject,eventData,handles,...) calls the local
-%      function named CALLBACK in CITATIONGUI_SEC13_TEAM18.M with the given input arguments.
+%      CITATION('CALLBACK',hObject,eventData,handles,...) calls the local
+%      function named CALLBACK in CITATION.M with the given input arguments.
 %
-%      CITATIONGUI_SEC13_TEAM18('Property','Value',...) creates a new CITATIONGUI_SEC13_TEAM18 or raises the
+%      CITATION('Property','Value',...) creates a new CITATION or raises the
 %      existing singleton*.  Starting from the left, property value pairs are
-%      applied to the GUI before citationGUI_sec13_team18_OpeningFcn gets called.  An
+%      applied to the GUI before citation_OpeningFcn gets called.  An
 %      unrecognized property name or invalid value makes property application
-%      stop.  All inputs are passed to citationGUI_sec13_team18_OpeningFcn via varargin.
+%      stop.  All inputs are passed to citation_OpeningFcn via varargin.
 %
 %      *See GUI Options on GUIDE's Tools menu.  Choose "GUI allows only one
 %      instance to run (singleton)".
 %
 % See also: GUIDE, GUIDATA, GUIHANDLES
 
-% Edit the above text to modify the response to help citationGUI_sec13_team18
+% Edit the above text to modify the response to help citation
 
 % Last Modified by GUIDE v2.5 21-Apr-2015 00:41:15
 
@@ -54,8 +54,8 @@ function varargout = citationGUI_sec13_team18(varargin)
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
                    'gui_Singleton',  gui_Singleton, ...
-                   'gui_OpeningFcn', @citationGUI_sec13_team18_OpeningFcn, ...
-                   'gui_OutputFcn',  @citationGUI_sec13_team18_OutputFcn, ...
+                   'gui_OpeningFcn', @citation_OpeningFcn, ...
+                   'gui_OutputFcn',  @citation_OutputFcn, ...
                    'gui_LayoutFcn',  [] , ...
                    'gui_Callback',   []);
 if nargin && ischar(varargin{1})
@@ -70,21 +70,21 @@ end
 % End initialization code - DO NOT EDIT
 
 
-% --- Executes just before citationGUI_sec13_team18 is made visible.
-function citationGUI_sec13_team18_OpeningFcn(hObject, eventdata, handles, varargin)
+% --- Executes just before citation is made visible.
+function citation_OpeningFcn(hObject, eventdata, handles, varargin)
 % This function has no output args, see OutputFcn.
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-% varargin   command line arguments to citationGUI_sec13_team18 (see VARARGIN)
+% varargin   command line arguments to citation (see VARARGIN)
 
-% Choose default command line output for citationGUI_sec13_team18
+% Choose default command line output for citation
 handles.output = hObject;
 
 % Update handles structure
 guidata(hObject, handles);
 
-% UIWAIT makes citationGUI_sec13_team18 wait for user response (see UIRESUME)
+% UIWAIT makes citation wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
 
 axes(handles.refImg_ax); %Sets to current axes
@@ -92,7 +92,7 @@ imshow('citations.jpg');
 
 
 % --- Outputs from this function are returned to the command line.
-function varargout = citationGUI_sec13_team18_OutputFcn(hObject, eventdata, handles) 
+function varargout = citation_OutputFcn(hObject, eventdata, handles) 
 % varargout  cell array for returning output args (see VARARGOUT);
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -108,4 +108,4 @@ function exit_pb_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-close citationGUI_sec13_team18 %Close current window
+close citation %Close current window
