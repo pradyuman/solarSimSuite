@@ -1,32 +1,4 @@
 function varargout = help(varargin)
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-%  ENGR 13200 Spring 2015
-%  Programmer(s) and Purdue Email Address(es): 
-%  1. Ben Staniewicz bstaniew@purdue.edu
-%
-%  Other Contributor(s) and Purdue Email Address(es):
-%  1. Michael Keller keller77@purdue.edu
-%  2. Devashish Chopra chopra5@purdue.edu
-%  3. Pradyuman Vig pvig@purdue.edu
-%
-%  Section #: 13     Team #: 18
-%
-%  Assignment: nanoHUB Simulation Suite
-%
-%  Academic Integrity Statement:
-%       I/We have not used source code obtained from
-%       any other unauthorized source, either modified
-%       or unmodified.  Neither have I/we provided access
-%       to my/our code to another. The project I/we am/are 
-%       submitting is my/our own original work.
-%
-%  Program Description: This GUI displays particular messages to the user
-%  when the user clicks the help button for different components on the GUI. This is
-%  to guide the user and help them use our program and GUIs correctly and to full
-%  potential and functionality. From this they can better understand how
-%  each GUI and input functions. The message displayed changed based on the
-%  string that is the input argument. 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %HELP M-file for help.fig
 %      HELP, by itself, creates a new HELP or raises the existing
 %      singleton*.

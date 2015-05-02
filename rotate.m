@@ -1,25 +1,5 @@
 function varargout = rotateGUI_chopra5(varargin)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-%  ENGR 13200 Spring 2015
-%  Programmer(s) and Purdue Email Address(es): 
-%  1. Devashish Chopra chopra5@purdue.edu
-%
-%  Other Contributor(s) and Purdue Email Address(es):
-%  1. Michael Keller keller77@purdue.edu
-%  2. Ben Staniewicz bstaniew@purdue.edu
-%  3. Pradyuman Vig pvig@purdue.edu
-%
-%  Section #: 13     Team #: 18
-%
-%  Assignment: nanoHUB Simulation Suite
-%
-%  Academic Integrity Statement:
-%       I/We have not used source code obtained from
-%       any other unauthorized source, either modified
-%       or unmodified.  Neither have I/we provided access
-%       to my/our code to another. The project I/we am/are 
-%       submitting is my/our own original work.
-%
 %  Program Description: This GUI takes a solar panel's dimension, location
 %  (zip code) and day. It then graphs the energy generation throughout the 
 %  day for both a stationary and rotating solar panel. The rotating solar 

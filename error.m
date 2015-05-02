@@ -1,33 +1,4 @@
 function varargout = error(varargin)
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-%  ENGR 13200 Spring 2015
-%  Programmer(s) and Purdue Email Address(es): 
-%  1. Ben Staniewicz bstaniew@purdue.edu
-%  2. Pradyuman Vig pvig@purdue.edu
-%
-%  Other Contributor(s) and Purdue Email Address(es):
-%  1. Michael Keller keller77@purdue.edu
-%  2. Devashish Chopra chopra5@purdue.edu
-%
-%  Section #: 13     Team #: 18
-%
-%  Assignment: nanoHUB Simulation Suite
-%
-%  Academic Integrity Statement:
-%       I/We have not used source code obtained from
-%       any other unauthorized source, either modified
-%       or unmodified.  Neither have I/we provided access
-%       to my/our code to another. The project I/we am/are 
-%       submitting is my/our own original work.
-%
-%  Program Description:  This GUI displays particular error messages to the user
-%  when the enters invalid inputs or leaves certain imporant fields blank.
-%  These error message prompts are necessary to ensure the proper
-%  functionality of our program and rest of the GUIs. This GUI works for
-%  all possible error messages. It does this by displaying the string of
-%  text that is the input argument sent from an individual GUI.
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %ERROR M-file for error.fig
 %      ERROR, by itself, creates a new ERROR or raises the existing
 %      singleton*.
