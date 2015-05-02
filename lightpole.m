@@ -1,4 +1,4 @@
-function varargout = lightpoleGUI_keller77(varargin)
+function varargout = lightpole(varargin)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 %  ENGR 13200 Spring 2015
 %  Programmer(s) and Purdue Email Address(es): 
@@ -25,20 +25,20 @@ function varargout = lightpoleGUI_keller77(varargin)
 %  course of a full year
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%LIGHTPOLEGUI_KELLER77 M-file for lightpoleGUI_keller77.fig
-%      LIGHTPOLEGUI_KELLER77, by itself, creates a new LIGHTPOLEGUI_KELLER77 or raises the existing
+%LIGHTPOLE M-file for lightpole.fig
+%      LIGHTPOLE, by itself, creates a new LIGHTPOLE or raises the existing
 %      singleton*.
 %
-%      H = LIGHTPOLEGUI_KELLER77 returns the handle to a new LIGHTPOLEGUI_KELLER77 or the handle to
+%      H = LIGHTPOLE returns the handle to a new LIGHTPOLE or the handle to
 %      the existing singleton*.
 %
-%      LIGHTPOLEGUI_KELLER77('Property','Value',...) creates a new LIGHTPOLEGUI_KELLER77 using the
+%      LIGHTPOLE('Property','Value',...) creates a new LIGHTPOLE using the
 %      given property value pairs. Unrecognized properties are passed via
-%      varargin to lightpoleGUI_keller77_OpeningFcn.  This calling syntax produces a
+%      varargin to lightpole_OpeningFcn.  This calling syntax produces a
 %      warning when there is an existing singleton*.
 %
-%      LIGHTPOLEGUI_KELLER77('CALLBACK') and LIGHTPOLEGUI_KELLER77('CALLBACK',hObject,...) call the
-%      local function named CALLBACK in LIGHTPOLEGUI_KELLER77.M with the given input
+%      LIGHTPOLE('CALLBACK') and LIGHTPOLE('CALLBACK',hObject,...) call the
+%      local function named CALLBACK in LIGHTPOLE.M with the given input
 %      arguments.
 %
 %      *See GUI Options on GUIDE's Tools menu.  Choose "GUI allows only one
@@ -47,7 +47,7 @@ function varargout = lightpoleGUI_keller77(varargin)
 % See also: GUIDE, GUIDATA, GUIHANDLES
 
 
-% Edit the above text to modify the response to help lightpoleGUI_keller77
+% Edit the above text to modify the response to help lightpole
 
 % Last Modified by GUIDE v2.5 30-Apr-2015 00:41:08
 
@@ -55,8 +55,8 @@ function varargout = lightpoleGUI_keller77(varargin)
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
                    'gui_Singleton',  gui_Singleton, ...
-                   'gui_OpeningFcn', @lightpoleGUI_keller77_OpeningFcn, ...
-                   'gui_OutputFcn',  @lightpoleGUI_keller77_OutputFcn, ...
+                   'gui_OpeningFcn', @lightpole_OpeningFcn, ...
+                   'gui_OutputFcn',  @lightpole_OutputFcn, ...
                    'gui_LayoutFcn',  [], ...
                    'gui_Callback',   []);
 if nargin && ischar(varargin{1})
@@ -71,8 +71,8 @@ end
 % End initialization code - DO NOT EDIT
 
 
-% --- Executes just before lightpoleGUI_keller77 is made visible.
-function lightpoleGUI_keller77_OpeningFcn(hObject, eventdata, handles, varargin)
+% --- Executes just before lightpole is made visible.
+function lightpole_OpeningFcn(hObject, eventdata, handles, varargin)
 % This function has no output args, see OutputFcn.
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -80,13 +80,13 @@ function lightpoleGUI_keller77_OpeningFcn(hObject, eventdata, handles, varargin)
 % varargin   unrecognized PropertyName/PropertyValue pairs from the
 %            command line (see VARARGIN)
 
-% Choose default command line output for lightpoleGUI_keller77
+% Choose default command line output for lightpole
 handles.output = hObject;
 
 % Update handles structure
 guidata(hObject, handles);
 
-% UIWAIT makes lightpoleGUI_keller77 wait for user response (see UIRESUME)
+% UIWAIT makes lightpole wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
 if(~isempty(varargin))
     data = varargin{1};
@@ -104,7 +104,7 @@ set(handles.numPoles_et, 'String', '1');
 set(handles.panelEff_et,'String','14');
 
 % --- Outputs from this function are returned to the command line.
-function varargout = lightpoleGUI_keller77_OutputFcn(hObject, eventdata, handles)
+function varargout = lightpole_OutputFcn(hObject, eventdata, handles)
 % varargout  cell array for returning output args (see VARARGOUT);
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -122,7 +122,7 @@ descMessage = 'This simulation is designed to test the effectiveness of lightpol
 inputMessage = 'Inputs: Location (zip code), number of poles, pole height and diameter, day to be graphed/tested';
 outputMessage = 'Outputs: Graph of energy generation throughout the sample day, graph of energy generation throughout the year, and the total annual energy generation ';
 mathMessage = 'The light pole is treated similarly to a solar panel that is oriented perpendicular to the ground instead of parallel. The solar insolation is calculated with these inputs for a given day solarInsolation(latitude, 90, hour, day). See the main menu GUI for more info on this function';
-appHelpGUI_sec13_team18(descMessage, inputMessage, outputMessage, mathMessage);
+appHelp(descMessage, inputMessage, outputMessage, mathMessage);
 
 % --- Executes on button press in mainMenu_pb.
 function mainMenu_pb_Callback(hObject, eventdata, handles)
@@ -135,15 +135,15 @@ if(isempty(zipcode))
 end
 day = get(handles.day_pm, 'Value');
 month = get(handles.month_pm, 'Value');
-nanohubGUI_sec13_team18([zipcode day month]);
-close lightpoleGUI_keller77
+main([zipcode day month]);
+close lightpole
 
 % --- Executes on button press in closeGUI_pb.
 function closeGUI_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to closeGUI_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-close lightpoleGUI_keller77
+close lightpole
 
 % --- Executes on selection change in day_pm.
 function day_pm_Callback(hObject, eventdata, handles)
@@ -264,28 +264,28 @@ function dateHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to dateHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('Select a valid day and month using the drop down menu.');
+help('Select a valid day and month using the drop down menu.');
 
 % --- Executes on button press in zipCodeHelp_pb.
 function zipCodeHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to zipCodeHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('Enter a valid 5 digit postal US zip code. If the error still persists, try using the zipcode of your nearest big city.'); 
+help('Enter a valid 5 digit postal US zip code. If the error still persists, try using the zipcode of your nearest big city.'); 
 
 % --- Executes on button press in poleDiameterHelp_pb.
 function poleDiameterHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to poleDiameterHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('Enter the diameter of your light pole. You may choose the units via the popup menu to the right of the input. A typical pole has a diameter of about 20cm.')
+help('Enter the diameter of your light pole. You may choose the units via the popup menu to the right of the input. A typical pole has a diameter of about 20cm.')
 
 % --- Executes on button press in poleHeightHelp_pb.
 function poleHeightHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to poleHeightHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('Enter the height of your light pole.(An average light pole height is about 8.07 meters). You can change the units by the popup menu to the right of the input.')
+help('Enter the height of your light pole.(An average light pole height is about 8.07 meters). You can change the units by the popup menu to the right of the input.')
 
 % --- Executes on button press in compute_pb.
 function compute_pb_Callback(hObject, eventdata, handles)
@@ -325,21 +325,21 @@ if(~isempty(zip))
 end
 %Input validation
 if isempty(zip)
-    errorGUI_sec13_team18('Error! All fields must have entries!');
+    error('Error! All fields must have entries!');
 elseif isempty(diameter) | isempty(height) | ~day | ~month | isempty(efficiency) | isempty(num)
-    errorGUI_sec13_team18('Error! All fields must have entries!');
+    error('Error! All fields must have entries!');
 elseif isempty(row) | isempty(col)
-    errorGUI_sec13_team18('Error! Zip code is invalid. If zip code is valid, please enter a zip code of a nearby major city.');
+    error('Error! Zip code is invalid. If zip code is valid, please enter a zip code of a nearby major city.');
 elseif ~isscalar(zip) | ~isscalar(height) | ~isscalar(diameter) | ~isscalar(efficiency) | ~isscalar(num)
-    errorGUI_sec13_team18('Error! All inputs must be scalar.');
+    error('Error! All inputs must be scalar.');
 elseif diameter <= 0 
-    errorGUI_sec13_team18('Error! Diameter is invalid. Please enter a valid diameter')
+    error('Error! Diameter is invalid. Please enter a valid diameter')
 elseif height <=0 
-    errorGUI_sec13_team18('Error! Height is invalid. Please enter a valid height')
+    error('Error! Height is invalid. Please enter a valid height')
 elseif efficiency <= 0 | efficiency > 1
-    errorGUI_sec13_team18('Error! Efficiency must be less than or equal to 100% and greater than 0');
+    error('Error! Efficiency must be less than or equal to 100% and greater than 0');
 elseif num <= 0
-    errorGUI_sec13_team18('Error! The number of poles must be a positive integer!');
+    error('Error! The number of poles must be a positive integer!');
 else
 
 %Calculating area of sun x pole cross-section
@@ -476,7 +476,7 @@ function effHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to effHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-helpGUI_sec13_team18('Enter the efficiency of the solar panels used. An estimated efficiency of a typical panel is 14%');
+help('Enter the efficiency of the solar panels used. An estimated efficiency of a typical panel is 14%');
 
 % --- Executes on selection change in diameterUnit_pm.
 function diameterUnit_pm_Callback(hObject, eventdata, handles)
