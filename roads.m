@@ -37,7 +37,7 @@ function varargout = roads(varargin)
 
 % Edit the above text to modify the response to help roads
 
-% Last Modified by GUIDE v2.5 29-Apr-2015 22:38:36
+% Last Modified by GUIDE v2.5 06-May-2015 00:14:28
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -71,9 +71,6 @@ function roads_OpeningFcn(hObject, eventdata, handles, varargin)
 % Choose default command line output for roads
 handles.output = hObject;
 
-% Update handles structure
-guidata(hObject, handles);
-
 % UIWAIT makes roads wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
 
@@ -93,6 +90,9 @@ set(handles.lengthInput_et, 'String', '2');
 set(handles.trafficInput_et, 'String', '100');
 set(handles.carSpeed_et, 'String', '45');
 set(handles.panelEff_et, 'String', '14');
+
+% Update handles structure
+guidata(hObject, handles);
 
 % --- Outputs from this function are returned to the command line.
 function varargout = roads_OutputFcn(hObject, eventdata, handles)
@@ -635,3 +635,12 @@ function lengthUnit_pm_CreateFcn(hObject, eventdata, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
+
+
+% --- Executes when user attempts to close figure1.
+function figure1_CloseRequestFcn(hObject, eventdata, handles)
+% hObject    handle to figure1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+% Hint: delete(hObject) closes the figure
+delete(hObject);

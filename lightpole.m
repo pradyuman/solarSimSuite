@@ -23,7 +23,7 @@ function varargout = lightpole(varargin)
 
 % Edit the above text to modify the response to help lightpole
 
-% Last Modified by GUIDE v2.5 30-Apr-2015 00:41:08
+% Last Modified by GUIDE v2.5 06-May-2015 00:15:40
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -57,9 +57,6 @@ function lightpole_OpeningFcn(hObject, eventdata, handles, varargin)
 % Choose default command line output for lightpole
 handles.output = hObject;
 
-% Update handles structure
-guidata(hObject, handles);
-
 % UIWAIT makes lightpole wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
 if(~isempty(varargin))
@@ -76,6 +73,9 @@ set(handles.poleDiameter_et, 'String', '20');
 set(handles.poleHeight_et, 'String', '8.07');
 set(handles.numPoles_et, 'String', '1');
 set(handles.panelEff_et,'String','14');
+
+% Update handles structure
+guidata(hObject, handles);
 
 % --- Outputs from this function are returned to the command line.
 function varargout = lightpole_OutputFcn(hObject, eventdata, handles)
@@ -496,3 +496,12 @@ function heightUnit_pm_CreateFcn(hObject, eventdata, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
+
+
+% --- Executes when user attempts to close figure1.
+function figure1_CloseRequestFcn(hObject, eventdata, handles)
+% hObject    handle to figure1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+% Hint: delete(hObject) closes the figure
+delete(hObject);

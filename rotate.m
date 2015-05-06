@@ -67,8 +67,6 @@ handles.output = hObject;
 % UIWAIT makes rotate wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
 
-handles.oldpath = addpath(genpath('support'), '-begin');
-
 % Set previously entered values on to the GUI
 if(~isempty(varargin)) %Activate if there is an input argument
     data = varargin{1}; %Makes input data vector
@@ -558,6 +556,5 @@ function figure1_CloseRequestFcn(hObject, eventdata, handles)
 % hObject    handle to figure1 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-path(handles.oldpath);
 % Hint: delete(hObject) closes the figure
 delete(hObject);

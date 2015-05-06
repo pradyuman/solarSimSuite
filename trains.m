@@ -58,7 +58,6 @@ handles.output = hObject;
 
 % UIWAIT makes trains wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
-handles.oldpath = addpath(genpath('../../support'), '-begin');
 
 if(~isempty(varargin))
     data = varargin{1};
@@ -524,6 +523,5 @@ function figure1_CloseRequestFcn(hObject, eventdata, handles)
 % hObject    handle to figure1 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-path(handles.oldpath);
 % Hint: delete(hObject) closes the figure
 delete(hObject);

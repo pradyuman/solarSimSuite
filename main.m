@@ -56,8 +56,6 @@ function main_OpeningFcn(hObject, eventdata, handles, varargin)
 % Choose default command line output for main
 handles.output = hObject;
 
-handles.oldpath = addpath(genpath('support'), '-begin');
-
 if(~isempty(varargin)) %Activates only if there is an input argument
     data = varargin{1}; %Saves input argument
     if(length(data) == 3) %Activates if input is not empty
@@ -153,14 +151,12 @@ function references_pb_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 citation; %Opens a window with the references used
 
-
 % --- Executes on button press in close_pb.
 function close_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to close_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 close all; %Closes any open GUIs
-
 
 % --- Executes on button press in mathMod_pb.
 function mathMod_pb_Callback(hObject, eventdata, handles)
@@ -179,6 +175,5 @@ function figure1_CloseRequestFcn(hObject, eventdata, handles)
 % hObject    handle to figure1 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-path(handles.oldpath);
 % Hint: delete(hObject) closes the figure
 delete(hObject);
