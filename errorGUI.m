@@ -1,4 +1,4 @@
-function varargout = error(varargin)
+function varargout = errorGUI(varargin)
 %ERROR M-file for error.fig
 %      ERROR, by itself, creates a new ERROR or raises the existing
 %      singleton*.
@@ -87,4 +87,4 @@ function close_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to close_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-close error %Close error GUI
+close errorGUI %Close error GUI

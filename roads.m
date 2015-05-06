@@ -328,29 +328,29 @@ end %Ends if statement
 
 % ------------ INPUT VALIDATION ---------------
 if isempty(zip) | ~isscalar(zip) %If zip is not a scalar
-    errorGUI('errorGUI! Please enter a valid zipcode'); %Open errorGUI menu
+    errorGUI('ERROR! Please enter a valid zipcode'); %Open errorGUI menu
 elseif isempty(width) | isempty(length) | isempty(margin) | isempty(traffic) | ~day | ~month | isempty(speed) |isempty(efficiency)
-    errorGUI('errorGUI! All fields must have entries!'); %Open errorGUI menu
+    errorGUI('ERROR! All fields must have entries!'); %Open errorGUI menu
 elseif ~isscalar(width) | ~isscalar(length) | ~isscalar(margin) | ~isscalar(traffic) | ~isscalar(speed) | ~isscalar(efficiency)
-    errorGUI('errorGUI! All edit text fields must have scalar inputs!'); %Open errorGUI menu
+    errorGUI('ERROR! All edit text fields must have scalar inputs!'); %Open errorGUI menu
 elseif isempty(row) | isempty(col) %If zip code is not found
-    errorGUI('errorGUI! Zip code is invalid. If zip code is valid, please enter a 5 digit zip code of a nearby major city.'); %Open errorGUI menu
+    errorGUI('ERROR! Zip code is invalid. If zip code is valid, please enter a 5 digit zip code of a nearby major city.'); %Open errorGUI menu
 elseif width < 3 %If width is too small to fit a car
-    errorGUI('errorGUI! Road must be at least the width of one lane'); %Open errorGUI menu
+    errorGUI('ERROR! Road must be at least the width of one lane'); %Open errorGUI menu
 elseif length <= 0 %If length is negative
-    errorGUI('errorGUI! Length input must be positive!'); %Open errorGUI menu
+    errorGUI('ERROR! Length input must be positive!'); %Open errorGUI menu
 elseif width - 2 * margin <= 0 %If margins are larger than width
-    errorGUI('errorGUI! Margins must be less than 1/2 of the road width!'); %Open errorGUI menu
+    errorGUI('ERROR! Margins must be less than 1/2 of the road width!'); %Open errorGUI menu
 elseif efficiency <= 0 | efficiency > 100
-    errorGUI('errorGUI! Efficiency must be less than or equal to 100% and greater than 0%');
+    errorGUI('ERROR! Efficiency must be less than or equal to 100% and greater than 0%');
 elseif traffic < 0 %If traffic is negative
-    errorGUI('errorGUI! Traffic must be nonnegative!'); %Open errorGUI menu
+    errorGUI('ERROR! Traffic must be nonnegative!'); %Open errorGUI menu
 elseif (speed == 0 & traffic ~= 0) %If speed is 0 but traffic is moving (logical contradiction)
-    errorGUI('Speed must be greater than 0 if traffic is nonzero'); %Open errorGUI menu
+    errorGUI('ERROR! Speed must be greater than 0 if traffic is nonzero'); %Open errorGUI menu
 elseif length * 200 * speed < traffic %If roads are completely covered at all times
-    errorGUI('errorGUI! Traffic cannot be so large that the roads are completely covered!'); %Open errorGUI menu
+    errorGUI('ERROR! Traffic cannot be so large that the roads are completely covered!'); %Open errorGUI menu
 elseif daysOfMonth(month) < day %If day doesn't exist (Ex: February 31st)
-    errorGUI('errorGUI! The day is not a day of the chosen month!'); %Open errorGUI menu
+    errorGUI('ERROR! The day is not a day of the chosen month!'); %Open errorGUI menu
 else %End Input validation
     
 % -------------- CALCULATIONS -----------    
