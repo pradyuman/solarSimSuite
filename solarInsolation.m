@@ -1,4 +1,4 @@
-function energy = solarInsolation(lat, tilt, hr, day)
+function energy = solarInsolation(lat, tilt, hr, day, rotate)
 Re = 6371 * 10 ^3; %Radius of the earth(m)
 Ra = 100 * 10 ^ 3; %Max. Altitude in the atmosphere (Kármán line) (m)
 Rt = Re + Ra; %Total earth-atmospher radius
