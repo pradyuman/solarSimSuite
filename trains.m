@@ -207,14 +207,14 @@ function dateHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to dateHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-help('Enter the current date through the drop down menus (12 | January)')
+guiHelp('Enter the current date through the drop down menus (12 | January)')
 
 % --- Executes on button press in startZipHelp_pb.
 function startZipHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to startZipHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-help('Enter the 5 digit zip code of the origin (XXXXX | 47906)')
+guiHelp('Enter the 5 digit zip code of the origin (XXXXX | 47906)')
 
 % --- Executes on button press in compute_pb.
 function compute_pb_Callback(hObject, eventdata, handles)
@@ -267,31 +267,31 @@ daysOfMonth = [31 28 31 30 31 30 31 31 30 31 30 31];
 
 %%%%%%%%%%%%%%%%INPUT VALIDATION%%%%%%%%%%%%%%%%%%%%%%%%%%
 if isempty(start_zip) | isempty(end_zip)
-    errorGUI('errorGUI! All fields must have valid entries!');
+    errorGUI('ERROR! All fields must have valid entries!');
 elseif isempty(start_time) | isempty(end_time) | ~day | ~month | isempty(numCars) | isempty(efficiency)
-    errorGUI('errorGUI! All fields must have valid entries!');
+    errorGUI('ERROR! All fields must have valid entries!');
 elseif ~isscalar(start_zip) | ~isscalar(end_zip) | ~isscalar(numCars) | ~isscalar(efficiency)
-    errorGUI('errorGUI! All inputs must be scalar!');
+    errorGUI('ERROR! All inputs must be scalar!');
 elseif isempty(rowStart) | isempty(colStart)
-    errorGUI('errorGUI! Starting zip code is invalid. If zip code is valid, please enter a 5 digit zip code of a nearby major city.');
+    errorGUI('ERROR! Starting zip code is invalid. If zip code is valid, please enter a 5 digit zip code of a nearby major city.');
 elseif isempty(rowEnd) | isempty(colEnd) | ~isscalar(rowEnd) | ~isscalar(colEnd)
-    errorGUI('errorGUI! Ending zip code is invalid. If zip code is valid, please enter a 5 digit zip code of a nearby major city.');
+    errorGUI('ERROR! Ending zip code is invalid. If zip code is valid, please enter a 5 digit zip code of a nearby major city.');
 elseif length(strfind(get(handles.startTime_et,'String'), ':')) > 1
-    errorGUI('errorGUI! Make sure your start time is in the correct format (XX:XX)');
+    errorGUI('ERROR! Make sure your start time is in the correct format (XX:XX)');
 elseif length(strfind(get(handles.endTime_et,'String'), ':')) > 1
-    errorGUI('errorGUI! Make sure your end time is in the correct format (XX:XX)');
+    errorGUI('ERROR! Make sure your end time is in the correct format (XX:XX)');
 elseif efficiency <= 0 | efficiency > 1
-    errorGUI('errorGUI! Efficiency must be between 0 and 100%');
+    errorGUI('ERROR! Efficiency must be between 0 and 100%');
 elseif start_time > 24 | end_time > 24 | end_time < 0 | start_time < 0
-    errorGUI('errorGUI! Please enter times in 24 hour format (XX:XX)');
+    errorGUI('ERROR! Please enter times in 24 hour format (XX:XX)');
 elseif start_time == end_time
-    errorGUI('errorGUI! Starting and ending zip codes are the same. Enter in different zipcodes for start and end.');
+    errorGUI('ERROR! Starting and ending zip codes are the same. Enter in different zipcodes for start and end.');
 elseif start_time > end_time
-    errorGUI('errorGUI! Please enter a start time that is smaller than the end time (in 24 hour format).');
+    errorGUI('ERROR! Please enter a start time that is smaller than the end time (in 24 hour format).');
 elseif numCars <= 0
-    errorGUI('errorGUI! There must be at least one train car!');
+    errorGUI('ERROR! There must be at least one train car!');
 elseif daysOfMonth(month) < day
-    errorGUI('errorGUI! The day is not a day of the chosen month!');
+    errorGUI('ERROR! The day is not a day of the chosen month!');
 else
 
 time = 0:23; %Time vector for hours
@@ -394,7 +394,7 @@ function endZipHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to endZipHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-help('Enter the 5 digit zip code of the destination (XXXXX | 47906)')
+guiHelp('Enter the 5 digit zip code of the destination (XXXXX | 47906)')
 
 
 function endTime_et_Callback(hObject, eventdata, handles)
@@ -424,7 +424,7 @@ function endTimeHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to endTimeHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-help('Enter the end time of your trip in 24 hour format (XX:XX | 18:00)')
+guiHelp('Enter the end time of your trip in 24 hour format (XX:XX | 18:00)')
 
 
 function startTime_et_Callback(hObject, eventdata, handles)
@@ -454,7 +454,7 @@ function startTimeHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to startTimeHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-help('Enter the time of day in 24 hour format (XX:XX | 14:00)')
+guiHelp('Enter the time of day in 24 hour format (XX:XX | 14:00)')
 
 
 
@@ -485,7 +485,7 @@ function carHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to carHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-help('Enter the number of train cars on the train being used');
+guiHelp('Enter the number of train cars on the train being used');
 
 
 function panelEff_et_Callback(hObject, eventdata, handles)
@@ -515,4 +515,4 @@ function effHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to effHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-help('Enter the efficiency of the solar panels being used on the train. A common efficiency factor is 14% but varies based on materials used.');
+guiHelp('Enter the efficiency of the solar panels being used on the train. A common efficiency factor is 14% but varies based on materials used.');

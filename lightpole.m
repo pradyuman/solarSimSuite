@@ -238,28 +238,28 @@ function dateHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to dateHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-help('Select a valid day and month using the drop down menu.');
+guiHelp('Select a valid day and month using the drop down menu.');
 
 % --- Executes on button press in zipCodeHelp_pb.
 function zipCodeHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to zipCodeHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-help('Enter a valid 5 digit postal US zip code. If the error still persists, try using the zipcode of your nearest big city.'); 
+guiHelp('Enter a valid 5 digit postal US zip code. If the error still persists, try using the zipcode of your nearest big city.'); 
 
 % --- Executes on button press in poleDiameterHelp_pb.
 function poleDiameterHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to poleDiameterHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-help('Enter the diameter of your light pole. You may choose the units via the popup menu to the right of the input. A typical pole has a diameter of about 20cm.')
+guiHelp('Enter the diameter of your light pole. You may choose the units via the popup menu to the right of the input. A typical pole has a diameter of about 20cm.')
 
 % --- Executes on button press in poleHeightHelp_pb.
 function poleHeightHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to poleHeightHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-help('Enter the height of your light pole.(An average light pole height is about 8.07 meters). You can change the units by the popup menu to the right of the input.')
+guiHelp('Enter the height of your light pole.(An average light pole height is about 8.07 meters). You can change the units by the popup menu to the right of the input.')
 
 % --- Executes on button press in compute_pb.
 function compute_pb_Callback(hObject, eventdata, handles)
@@ -450,7 +450,7 @@ function effHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to effHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-help('Enter the efficiency of the solar panels used. An estimated efficiency of a typical panel is 14%');
+guiHelp('Enter the efficiency of the solar panels used. An estimated efficiency of a typical panel is 14%');
 
 % --- Executes on selection change in diameterUnit_pm.
 function diameterUnit_pm_Callback(hObject, eventdata, handles)

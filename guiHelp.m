@@ -1,4 +1,4 @@
-function varargout = help(varargin)
+function varargout = guiHelp(varargin)
 %HELP M-file for help.fig
 %      HELP, by itself, creates a new HELP or raises the existing
 %      singleton*.
@@ -88,4 +88,4 @@ function close_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to close_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-close help %Close GUI
+close guiHelp %Close GUI

@@ -259,28 +259,28 @@ function dayMonthHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to dayMonthHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-help('Find the day and month of the year using the drop down menus. Make sure that the day exists for the given month. ie.: February 31st does not exist.'); %Sends string of help message
+guiHelp('Find the day and month of the year using the drop down menus. Make sure that the day exists for the given month. ie.: February 31st does not exist.'); %Sends string of help message
 
 % --- Executes on button press in zipHelp_pb.
 function zipHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to zipHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-help('Please enter your 5 digit US zipcode. ie.: West Lafayette, IN = 47906.'); %Sends string of help message
+guiHelp('Please enter your 5 digit US zipcode. ie.: West Lafayette, IN = 47906.'); %Sends string of help message
 
 % --- Executes on button press in widthHelp_pb.
 function widthHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to widthHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-help('Enter the width of the road width solar panels in meters. 1 lane is approximately 3.7 meters wide. The unit can be selected from the popup menu to the right.'); %Sends string of help message
+guiHelp('Enter the width of the road width solar panels in meters. 1 lane is approximately 3.7 meters wide. The unit can be selected from the popup menu to the right.'); %Sends string of help message
 
 % --- Executes on button press in lengthHelp_pb.
 function lengthHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to lengthHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-help('Enter the length of the road with solar panels. The unit can be selected from the popup menu to the right.'); %Sends string of help message
+guiHelp('Enter the length of the road with solar panels. The unit can be selected from the popup menu to the right.'); %Sends string of help message
 
 % --- Executes on button press in compute_pb.
 function compute_pb_Callback(hObject, eventdata, handles)
@@ -450,7 +450,7 @@ function marginsHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to marginsHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-help('Please enter a positive road margin. The road margin is the length on each side of the road that does not contain any solar panels.');
+guiHelp('Please enter a positive road margin. The road margin is the length on each side of the road that does not contain any solar panels.');
 
 
 function trafficInput_et_Callback(hObject, eventdata, handles)
@@ -480,7 +480,7 @@ function trafficHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to trafficHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-help('Enter the average number of cars that pass over this road in one hour. About 50 cars pass over a medium sized two lane road in an hour.');
+guiHelp('Enter the average number of cars that pass over this road in one hour. About 50 cars pass over a medium sized two lane road in an hour.');
 
 
 
@@ -512,7 +512,7 @@ function speedHelp_pb_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-help('Enter the expected average speed of cars on this road in the desired units. Units can be selected using the pop up menu to the right.');
+guiHelp('Enter the expected average speed of cars on this road in the desired units. Units can be selected using the pop up menu to the right.');
 
 
 
@@ -543,7 +543,7 @@ function effHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to effHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-help('Please enter the efficiency of the panels being used. A typical efficiency is 14%');
+guiHelp('Please enter the efficiency of the panels being used. A typical efficiency is 14%');
 
 % --- Executes on selection change in widthUnit_pm.
 function widthUnit_pm_Callback(hObject, eventdata, handles)

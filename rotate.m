@@ -236,7 +236,7 @@ function zipHelp_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to zipHelp_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-help('Type in your 5 digit US postal code (ex: 47906)'); %Open help menu
+guiHelp('Type in your 5 digit US postal code (ex: 47906)'); %Open help menu
 
 
 % --- Executes on button press in widthHelp_pb.
