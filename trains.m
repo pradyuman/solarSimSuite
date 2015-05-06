@@ -22,7 +22,7 @@ function varargout = trains(varargin)
 
 % Edit the above text to modify the response to help trains
 
-% Last Modified by GUIDE v2.5 30-Apr-2015 03:05:03
+% Last Modified by GUIDE v2.5 05-May-2015 23:27:49
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -56,11 +56,9 @@ function trains_OpeningFcn(hObject, eventdata, handles, varargin)
 % Choose default command line output for trains
 handles.output = hObject;
 
-% Update handles structure
-guidata(hObject, handles);
-
 % UIWAIT makes trains wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
+handles.oldpath = addpath(genpath('../../support'), '-begin');
 
 if(~isempty(varargin))
     data = varargin{1};
@@ -76,6 +74,9 @@ set(handles.startTime_et, 'String', '8:00');
 set(handles.endTime_et, 'String', '14:00');
 set(handles.cars_et, 'String', '10');
 set(handles.panelEff_et, 'String', '14');
+
+% Update handles structure
+guidata(hObject, handles);
 
 % --- Outputs from this function are returned to the command line.
 function varargout = trains_OutputFcn(hObject, eventdata, handles)
@@ -516,3 +517,13 @@ function effHelp_pb_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 guiHelp('Enter the efficiency of the solar panels being used on the train. A common efficiency factor is 14% but varies based on materials used.');
+
+
+% --- Executes when user attempts to close figure1.
+function figure1_CloseRequestFcn(hObject, eventdata, handles)
+% hObject    handle to figure1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+path(handles.oldpath);
+% Hint: delete(hObject) closes the figure
+delete(hObject);

@@ -22,7 +22,7 @@ function varargout = main(varargin)
 
 % Edit the above text to modify the response to help main
 
-% Last Modified by GUIDE v2.5 01-May-2015 22:17:50
+% Last Modified by GUIDE v2.5 05-May-2015 23:26:17
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -56,6 +56,8 @@ function main_OpeningFcn(hObject, eventdata, handles, varargin)
 % Choose default command line output for main
 handles.output = hObject;
 
+handles.oldpath = addpath(genpath('support'), '-begin');
+
 if(~isempty(varargin)) %Activates only if there is an input argument
     data = varargin{1}; %Saves input argument
     if(length(data) == 3) %Activates if input is not empty
@@ -87,7 +89,6 @@ function train_pb_Callback(hObject, eventdata, handles)
 % hObject    handle to train_pb (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
 if(handles.inputData) %If there is previous user data stored
     trains(handles.inputData); %Open sub GUI with user input data
 else %Activates if there is no input data
@@ -171,3 +172,13 @@ inputMessage = 'Latitude is used for all of the calculations. This is determined
 outputMessage = 'This is found by using a csv file with approximately 50,000 US zip codes. Matlab then searches this file for the zip code and finds the associated latitude.';
 mathMessage =  'solarInsolation: This function first calculates the length of the day, then the declination angle, and then accounts for atmospheric effects. dayLength = 2 / 15 * acosd(-1 *(sind(lat)*sind(declination))/(cosd(lat) * cosd(declination))); declination = 23.45 * sind(360 / 365 * (284 + day)); energy = 10.436 * sind(90 - lat + declination + tilt) * sind(180 / dayLength * (hr - 12 + (dayLength / 2))); These can all be derived from geometry and are experimentally verified.';
 appHelp(descMessage, inputMessage, outputMessage, mathMessage);
+
+
+% --- Executes when user attempts to close figure1.
+function figure1_CloseRequestFcn(hObject, eventdata, handles)
+% hObject    handle to figure1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+path(handles.oldpath);
+% Hint: delete(hObject) closes the figure
+delete(hObject);

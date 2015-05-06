@@ -30,7 +30,7 @@ function varargout = rotate(varargin)
 
 % Edit the above text to modify the response to help rotate
 
-% Last Modified by GUIDE v2.5 29-Apr-2015 22:26:26
+% Last Modified by GUIDE v2.5 05-May-2015 23:29:04
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -64,11 +64,10 @@ function rotate_OpeningFcn(hObject, eventdata, handles, varargin)
 % Choose default command line output for rotate
 handles.output = hObject;
 
-% Update handles structure
-guidata(hObject, handles);
-
 % UIWAIT makes rotate wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
+
+handles.oldpath = addpath(genpath('support'), '-begin');
 
 % Set previously entered values on to the GUI
 if(~isempty(varargin)) %Activate if there is an input argument
@@ -86,6 +85,9 @@ set(handles.lengthInput_et, 'String', '3');
 set(handles.angleUpDownInput_et, 'String', '30');
 set(handles.panelEff_et, 'String', '14');
 set(handles.numPanels_et, 'String', '1');
+
+% Update handles structure
+guidata(hObject, handles);
 
 % --- Outputs from this function are returned to the command line.
 function varargout = rotate_OutputFcn(hObject, eventdata, handles)
@@ -549,3 +551,13 @@ function widthUnit_pm_CreateFcn(hObject, eventdata, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
+
+
+% --- Executes when user attempts to close figure1.
+function figure1_CloseRequestFcn(hObject, eventdata, handles)
+% hObject    handle to figure1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+path(handles.oldpath);
+% Hint: delete(hObject) closes the figure
+delete(hObject);
