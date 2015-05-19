@@ -1,16 +1,16 @@
 function [ output_args ] = startSimSuite( input_args )
 %STARTSIMSUITE Summary of this function goes here
 %   Detailed explanation goes here
-addpath([cd,'/error']);
-addpath([cd,'/help']);
-addpath([cd,'/zipcodes']);
-addpath([cd,'/citations']);
-addpath([cd,'/trains']);
-addpath([cd,'/roads']);
-addpath([cd,'/main']);
-addpath([cd,'/lightpoles']);
-addpath([cd,'/rotate']);
-addpath([cd,'/functions']);
+addpath([cd,'/support/error']);
+addpath([cd,'/support/help']);
+addpath([cd,'/app/zipcode']);
+addpath([cd,'/support/citations']);
+addpath([cd,'/app/trains']);
+addpath([cd,'/app/roads']);
+addpath([cd,'/app/splash']);
+addpath([cd,'/app/lightpole']);
+addpath([cd,'/app/rotate']);
+addpath([cd,'/app/functions']);
 main
 end
 
