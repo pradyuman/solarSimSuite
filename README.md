@@ -2,8 +2,8 @@
 Solar Cell Simulation Suite that explores the efficiency of repurposing existing city infrastructure to generate electricity using solar panels.
 This program simulates four scenarios:
 
-* Putting solar panels on trains
-* Putting solar panels on roadways
+* Installing solar panels on trains
+* Installing solar panels on roadways
 * Wrapping flexible solar panels around a lightpole
 * Upgrading a stationary solar panel farm with panels that rotate
 
